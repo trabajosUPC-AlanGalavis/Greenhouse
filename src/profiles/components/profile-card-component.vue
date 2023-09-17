@@ -85,7 +85,7 @@ export default {
 .box{
   border-radius: 25px;
   background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   width: 80%;
   height: auto;
   flex-shrink: 0;

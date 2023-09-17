@@ -1,10 +1,10 @@
 <template>
   <div class="card">
-    <pv-steps :model="phases" aria-label="Phases" :active-index="currentStep" @update:activeIndex="updateStep">
+    <pv-steps class="stepper" :model="phases" aria-label="Phases" :active-index="currentStep" @update:activeIndex="updateStep">
       <template #item="{ label, item, index }">
-        <div class="step-item" :class="{ 'active-step': index === currentStep }" @click="handleStepClick(index)">
+        <div class="step-item" :class="{ 'active-step': index === currentStep, 'completed-step': index < currentStep }" @click="handleStepClick(index)">
           <span class="step-number">{{ label }}</span>
-          <div v-if="shouldDisplayMessage" class="step-message">
+          <div v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">
             <p>{{ item.message }}</p>
           </div>
         </div>
@@ -15,9 +15,9 @@
                     :buttonColor="'var(--red)'">
     </button-primary>
     <button-primary
-                    :text="' + Create new record'"
-                    :buttonColor="'var(--primary-white)'"
-                    :buttonTextColor="'var(--primary-green)'">
+        :text="' + Create new record'"
+        :buttonColor="'var(--primary-white)'"
+        :buttonTextColor="'var(--primary-green)'">
     </button-primary>
   </div>
 </template>
@@ -59,12 +59,20 @@ export default {
       if (this.currentStep < this.phases.length - 1) {
         this.currentStep++;
       }
-    },
+    }
   },
 };
 </script>
 
 <style scoped>
+
+.stepper {
+  background-color: #F4F5F9;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  padding: 5px 24px;
+  margin-bottom: 20px;
+}
+
 .step-item {
   display: flex;
   align-items: center;
@@ -73,27 +81,27 @@ export default {
 .step-number {
   width: 30px;
   height: 30px;
-  color: var(--gray-3);
+  color: var(--gray-2);
   border-radius: 50%;
   border-style: solid;
-  border-color: var(--gray-3);
+  border-color: var(--gray-2);
   text-align: center;
-  line-height: 25px;
-  font-size: 16px;
+  line-height: 26px;
+  font-size: var(--small-text-regular-size);
   margin-right: 10px;
 }
 
 .step-message {
   flex: 1;
-  text-align: center;
-  color: var(--gray-3);
+  text-align: left;
+  color: var(--gray-2);
+  font-size: var(--medium-text-regular-size);
 }
 
 .active-step .step-number {
   background-color: var(--secondary-green-1);
-  color:var(--primary-white);
+  color: var(--primary-white);
   border-color: var(--secondary-green-1);
-  font-weight: bold;
 }
 
 .active-step .step-message {
@@ -101,7 +109,19 @@ export default {
   font-weight: bold;
 }
 
+.completed-step .step-number {
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.completed-message {
+  color: var(--black);
+}
+
 @media (max-width: 768px) {
+  .stepper {
+    padding: 5px 0;
+  }
   .step-message {
     display: none;
   }

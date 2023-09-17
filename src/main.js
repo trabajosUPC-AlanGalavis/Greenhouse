@@ -18,6 +18,7 @@ import Menubar from "primevue/menubar";
 import Toolbar from "primevue/toolbar";
 import DataTable from "primevue/datatable"
 import Column from 'primevue/column'
+import Steps from 'primevue/steps';
 
 createApp(App)
     .use(PrimeVue, { ripple: true })
@@ -31,4 +32,5 @@ createApp(App)
     .component('pv-toolbar', Toolbar)
     .component('pv-data-table', DataTable)
     .component('pv-column', Column)
+    .component('pv-steps', Steps)
     .mount('#app')

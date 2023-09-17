@@ -24,32 +24,32 @@ export default {
         <pv-avatar image="https://www.svgrepo.com/show/452030/avatar-default.svg" shape="circle"/>
       </div>
       <div class="col-12 md:col-8 md:mt-6 md:ml-6 mb-6">
-        <label for="title"  class="fields-text">Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+        <label for="title"  class="fields-text">Name: </label>
         <input id="title" type="text" class="w-full text-base surface-overlay p-2 border-1 border-round"
         :value="name" readonly>
         <br>
         <a class="change" href="#">Change name</a>
         <hr class="division">
-        <label for="email" class="fields-text">Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-        <input id="email" type="email" class="w-full col-12 md:col-10 text-base  surface-overlay p-2 border-1 border-round"
+        <label for="email" class="fields-text">Email: </label>
+        <input id="email" type="email" class="w-full text-base  surface-overlay p-2 border-1 border-round"
         :value="email" readonly>
         <br>
         <a class="change" href="#">Change email</a>
         <hr class="division">
-        <label for="organization" class="fields-text">Organization: &nbsp&nbsp&nbsp&nbsp&nbsp</label>
-        <input id="organization" type="text" class="w-full col-12 md:col-9 text-base surface-overlay p-2 border-1 border-round"
+        <label for="organization" class="fields-text">Organization: </label>
+        <input id="organization" type="text" class="w-full text-base surface-overlay p-2 border-1 border-round"
         :value="organization" readonly>
         <br>
         <a class="change" href="#">View organization</a>
         <hr class="division">
-        <label for="role" class="fields-text">Role within the company: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-        <input id="role" type="text" class="w-full col-12 md:col-7 text-base text-color surface-overlay p-2 border-1 border-round"
+        <label for="role" class="fields-text">Role within the company: </label>
+        <input id="role" type="text" class="w-full text-base text-color surface-overlay p-2 border-1 border-round"
         :value="role" readonly>
         <br>
         <a class="change" href="#">Change role</a>
         <hr class="division">
-        <label for="password" class="fields-text">Password: &nbsp</label>
-        <input id="password" type="password" class="w-full col-12 md:col-10 text-base text-color surface-overlay p-2 border-1 border-round"
+        <label for="password" class="fields-text">Password: </label>
+        <input id="password" type="password" class="w-full text-base text-color surface-overlay p-2 border-1 border-round"
         :value="password" readonly>
         <br>
         <a class="change" href="#">Change password</a>
@@ -83,12 +83,12 @@ export default {
 .p-avatar-image{
   width: 60%;
   height: auto;
-  border: #4D6443 5px solid;
+  border: var(--primary-green) 5px solid;
 }
 
 .box{
   border-radius: 25px;
-  background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);
+  background-color: var(--white);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   width: 80%;
   height: auto;
@@ -105,7 +105,7 @@ h1{
 }
 
 .division{
-  border-top: 1px solid #4D6443;
+  border-top: 1px solid var(--primary-green);
 }
 
 a{
@@ -115,11 +115,11 @@ a{
   font-weight: 400;
 }
 .delete{
-  color: #FF3439;
+  color: var(--red);
 }
 
 .change{
-  color: #4A845B;
+  color:var(--secondary-green-1);
 }
 
 </style>

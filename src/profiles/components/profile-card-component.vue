@@ -23,37 +23,41 @@ export default {
         <h1>My profile</h1>
         <pv-avatar image="https://www.svgrepo.com/show/452030/avatar-default.svg" shape="circle"/>
       </div>
-      <div class="col-12 md:col-8 md:mt-6 md:ml-6">
+      <div class="col-12 md:col-8 md:mt-6 md:ml-6 md:mb-6">
         <label for="title"  class="fields-text">Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
         <input id="title" type="text" class="col-12 md:col-10 text-base surface-overlay p-2 border-1 border-round"
         :value="name" readonly>
+        <br>
         <a class="change" href="#">Change name</a>
         <hr class="division">
         <label for="email" class="fields-text">Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
         <input id="email" type="email" class="col-12 md:col-10 text-base  surface-overlay p-2 border-1 border-round"
         :value="email" readonly>
+        <br>
         <a class="change" href="#">Change email</a>
         <hr class="division">
         <label for="organization" class="fields-text">Organization: &nbsp&nbsp&nbsp&nbsp&nbsp</label>
         <input id="organization" type="text" class="col-12 md:col-9 text-base surface-overlay p-2 border-1 border-round"
         :value="organization" readonly>
+        <br>
         <a class="change" href="#">View organization</a>
         <hr class="division">
         <label for="role" class="fields-text">Role within the company: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
         <input id="role" type="text" class="col-12 md:col-7 text-base text-color surface-overlay p-2 border-1 border-round"
         :value="role" readonly>
+        <br>
         <a class="change" href="#">Change role</a>
         <hr class="division">
         <label for="password" class="fields-text">Password: &nbsp</label>
         <input id="password" type="password" class="col-12 md:col-10 text-base text-color surface-overlay p-2 border-1 border-round"
         :value="password" readonly>
+        <br>
         <a class="change" href="#">Change password</a>
         <hr class="division">
         <span class="fields-text"> Account</span>
         <br>
         <a class="delete" href="#">Delete account</a>
       </div>
-
     </div>
   </div>
 

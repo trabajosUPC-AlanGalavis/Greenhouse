@@ -18,11 +18,11 @@ export default {
 
 <template>
 <profile-box>
-  <div class="col-12 md:col-3 md:mb-5">
+  <div class="col-12 md:col-3 md:mb-5 overflow-auto">
     <h1>My profile</h1>
     <profile-avatar :image="image" :name="name"></profile-avatar>
   </div>
-  <profile-information></profile-information>
+  <profile-information class="overflow-auto"></profile-information>
 </profile-box>
 </template>
 

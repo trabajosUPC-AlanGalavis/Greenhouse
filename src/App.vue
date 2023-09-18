@@ -25,6 +25,9 @@ export default {
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
 :root {
   --primary-green: #4D6443;
   --primary-white:#E1E8EC;
@@ -51,5 +54,9 @@ export default {
   --normal-text-regular-size: 16px;
   --small-text-bold-size: 14px;
   --small-text-regular-size: 14px;
+}
+
+body {
+  font-family: var(--font-primary);
 }
 </style>

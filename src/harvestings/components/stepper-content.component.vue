@@ -71,7 +71,9 @@ export default {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   padding: 5px 24px;
   margin-bottom: 20px;
+  font-family: var(--font-primary);
 }
+
 
 .step-item {
   display: flex;

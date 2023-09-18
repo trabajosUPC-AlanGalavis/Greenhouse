@@ -4,22 +4,19 @@ export default {
   props: {
     value: null,
     parameter: null,
+    type: null,
   },
 };
 </script>
 
 <template>
-  <label for="title"  class="fields-text">Name: </label>
-  <input id="title" type="text" class="w-full text-base surface-overlay p-2 border-1 border-round"
-         :value="value" readonly>
+  <label for="title" class="fields-text">{{parameter}}: </label>
+  <input id="title" class="w-full mb-2 text-base surface-overlay p-1 border-1 border-round outline-none"
+         :value="value" :type="type" readonly>
   <br>
-  <a class="change" href="#">Change {{parameter}}</a>
 </template>
 
 <style scoped>
-.change{
-  color:var(--secondary-green-1);
-}
 
 .fields-text{
   font-size: 24px;

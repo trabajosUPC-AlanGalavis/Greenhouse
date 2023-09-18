@@ -10,11 +10,11 @@ export default {
   },
   data(){
     return{
-      name: "Winston Smith",
-      email: "winstonsmith@peruagro.com",
-      organization: "Peru Agro J&V S.A.C",
-      role: "Administrador",
-      password: "********"
+      Name: "Winston Smith",
+      Email: "winstonsmith@peruagro.com",
+      Organization: "Peru Agro J&V S.A.C",
+      Role: "Administrador",
+      Password: "sgtews"
     }
   }
 }
@@ -22,19 +22,24 @@ export default {
 
 <template>
   <div class="col-12 md:col-8 md:mt-6 md:ml-6 mb-6">
-    <information :value="name" :parameter="'name'"></information>
+    <information :value="Name" :type="'text'" :action="'Change'" :parameter="'Name'"></information>
+    <a class="link-color" href=""> Change name</a>
     <hr class="division">
 
-    <information :value="email" :parameter="'email'"></information>
+    <information :value="Email" :type="'email'" :parameter="'Email'"></information>
+    <a class="link-color" href=""> Change email</a>
     <hr class="division">
 
-    <information :value="organization" :parameter="'organization'"></information>
+    <information :value="Organization" :type="'text'" :parameter="'Organization'"></information>
+    <a class="link-color" href=""> View organization</a>
     <hr class="division">
 
-    <information :value="role" :parameter="'role'"></information>
+    <information :value="Role" :type="'text'" :parameter="'Role'"></information>
+    <a class="link-color" href=""> Change role</a>
     <hr class="division">
 
-    <information :value="password" :parameter="'password'"></information>
+    <information :value="Password" :type="'password'" :parameter="'Password'"></information>
+    <a class="link-color" href=""> Change password</a>
     <hr class="division">
 
     <delete-account></delete-account>
@@ -44,5 +49,8 @@ export default {
 <style scoped>
 .division{
   border-top: 1px solid var(--primary-green);
+}
+.link-color{
+  color:var(--secondary-green-1);
 }
 </style>

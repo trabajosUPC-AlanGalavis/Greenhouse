@@ -1,26 +1,16 @@
 <template>
   <div>
-    <stepper-content @step-clicked="updateStep"></stepper-content>
+    <records-content></records-content>
   </div>
 </template>
 
 <script>
-import StepperContent from "@/harvestings/components/stepper-content.component.vue";
-import ButtonPrimary from "@/harvestings/components/button-primary.component.vue";
+import RecordsContent from "@/harvestings/components/records-content.component.vue";
 
 export default {
   name: 'App',
-  components: {ButtonPrimary, StepperContent},
-  data() {
-    return {
-      currentStep: 0,
-    };
-  },
-  methods: {
-    updateStep(newStep) {
-      this.currentStep = newStep;
-    },
-  },
+  components: {RecordsContent},
+
 }
 </script>
 

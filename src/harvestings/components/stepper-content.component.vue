@@ -10,15 +10,19 @@
         </div>
       </template>
     </pv-steps>
-    <button-primary @click="nextStep"
-                    :text="'End phase'"
-                    :buttonColor="'var(--red)'">
-    </button-primary>
-    <button-primary
-        :text="' + Create new record'"
-        :buttonColor="'var(--primary-white)'"
-        :buttonTextColor="'var(--primary-green)'">
-    </button-primary>
+      <h2 class="padding">Registros del cultivo {{""}}, iniciado el {{""}}</h2>
+      <span class="padding">
+        <button-primary class="margin"
+                        @click="nextStep"
+                        :text="'End phase'"
+                        :buttonColor="'var(--red)'">
+        </button-primary>
+        <button-primary class="margin"
+                        :text="' + Create new record'"
+                        :buttonColor="'var(--primary-white)'"
+                        :buttonTextColor="'var(--primary-green)'">
+        </button-primary>
+      </span>
   </div>
 </template>
 
@@ -118,6 +122,20 @@ export default {
 
 .completed-message {
   color: var(--black);
+}
+
+h2 {
+  color: var(--primary-green);
+  font-size: var(--medium-text-regular-size);
+}
+
+.padding {
+  padding: 0 24px;
+}
+
+.margin {
+  margin-right: 12px;
+  margin-bottom: 12px;
 }
 
 @media (max-width: 768px) {

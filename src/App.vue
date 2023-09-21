@@ -1,18 +1,24 @@
 <template>
   <div>
-    <records-content></records-content>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import RecordsContent from "@/harvestings/components/records-content.component.vue";
+import ButtonPrimary from "@/shared/components/button-primary.component.vue";
+import HarvestList from "@/process_log/components/harvest-list.component.vue";
 
 export default {
-  name: 'App',
-  components: {RecordsContent},
-
-}
+  name: "App",
+  components: {HarvestList, ButtonPrimary },
+  data() {
+    return {
+      currentSection: "process-log",
+    };
+  },
+};
 </script>
+
 
 <style>
 

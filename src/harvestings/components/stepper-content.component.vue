@@ -15,7 +15,8 @@
         <button-primary class="margin"
                         @click="nextStep"
                         :text="'End phase'"
-                        :buttonColor="'var(--red)'">
+                        :buttonColor="'var(--red)'"
+                        :buttonTextColor="'var(--white)'">
         </button-primary>
         <button-primary class="margin"
                         :text="' + Create new record'"
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import ButtonPrimary from './button-primary.component.vue';
+import ButtonPrimary from '../../shared/components/button-primary.component.vue';
 export default {
   name: 'stepper-content',
   components: { ButtonPrimary },

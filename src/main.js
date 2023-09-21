@@ -19,6 +19,8 @@ import Toolbar from "primevue/toolbar";
 import DataTable from "primevue/datatable"
 import Column from 'primevue/column'
 import Steps from 'primevue/steps';
+//Router
+import router from "@/router";
 
 createApp(App)
     .use(PrimeVue, { ripple: true })
@@ -33,4 +35,5 @@ createApp(App)
     .component('pv-data-table', DataTable)
     .component('pv-column', Column)
     .component('pv-steps', Steps)
+    .use(router)
     .mount('#app')

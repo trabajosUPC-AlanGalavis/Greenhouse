@@ -1,41 +1,80 @@
 <template>
-  <pv-toolbar class="sticky" :style="{ backgroundColor: 'var(--primary-green)', borderRadius: '0' }">
-    <template #start>
-      <a href="">
-        <img src="public/logo-white.png" alt="logo" width="30" height="30">
-        Greenhouse</a>
-      <a href="">
-        Panel de control</a>
-      <a href="">
-        Cultivos</a>
-    </template>
-    <template #end>
-      <a href="">
-        <img src="public/logo-white.png" alt="logo" width="30" height="30">
-        Empresa</a>
-      <a href="">
-        <img src="public/logo-white.png" alt="logo" width="30" height="30">
-        Usuario</a>
-    </template>
-  </pv-toolbar>
+  <nav class="header relative flex flex-wrap items-center justify-between pt-3 mb-3">
+    <div class="container mx-auto flex flex-wrap items-center justify-between">
+      <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
+        <router-link to="/">
+          <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap">
+            <img src="@/assets/logo-white.png" alt="logo" width="40" height="40">
+            <p>Greenhouse</p>
+          </div>
+        </router-link>
+        <button class="cursor-pointer leading-none rounded block lg:hidden outline-none focus:outline-none" type="button" @click="toggleNavbar">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+      <div :class="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
+        <ul class="flex flex-col lg:flex-row list-none ml-auto">
+          <li class="nav-item">
+            <a class="px-3 py-2 flex items-center leading-snug cursor-pointer">
+              <span class="ml-2 flex"><p>ES</p><i class="fa fa-angle-down"></i></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <router-link to="/organization">
+              <div class="px-3 py-2 flex items-center font-bold leading-snug">
+                <span class="ml-2 flex">
+                  <img class="w-7 h-7 rounded-full border-2 border-b-white mr-2" src="" alt="Organization avatar">
+                  <p>Organization</p>
+                </span>
+              </div>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile">
+              <div class="px-3 py-2 flex items-center font-bold leading-snug">
+                <span class="ml-2 flex">
+                  <img class="w-7 h-7 rounded-full border-2 border-b-white mr-2" src="" alt="Profile avatar">
+                  <p>Profile</p>
+                </span>
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      showMenu: false
+    };
+  },
+  methods: {
+    toggleNavbar() {
+      this.showMenu = !this.showMenu;
+    }
+  }
+};
 </script>
 
 <style>
-  body {
-    margin: 0 !important;
-  }
-  a{
-    text-decoration: none;
-    color: var(--primary-white);
-    display: flex;
-    align-items: center;
-    margin-right: 40px;
-  }
+.header {
+  background: inherit;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--primary-green);
+  color: var(--white);
+  font-family: var(--font-primary);
+  font-size: var(--medium-text-regular-size);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
 
-  .link-text {
-    margin-left: 8px;
-  }
+p {
+  font-size: var(--medium-text-regular-size);
+  color: var(--white);
+}
 </style>

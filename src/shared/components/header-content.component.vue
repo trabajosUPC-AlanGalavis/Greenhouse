@@ -16,7 +16,7 @@
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
           <li class="nav-item">
             <a class="px-3 py-2 flex items-center leading-snug cursor-pointer">
-              <span class="ml-2 flex"><p>ES</p><i class="fa fa-angle-down"></i></span>
+              <span class="ml-2 flex"><p>EN</p><i class="fa fa-angle-down"></i></span>
             </a>
           </li>
           <li class="nav-item">

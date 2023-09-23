@@ -1,10 +1,10 @@
 <template>
-  <nav class="header relative flex flex-wrap items-center justify-between pt-3 mb-3">
+  <nav class="header relative flex flex-wrap items-center justify-between pt-3 pb-2 mb-3">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
         <router-link to="/">
-          <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap">
-            <img src="@/assets/logo-white.png" alt="logo" width="40" height="40">
+          <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap items-center">
+            <img src="public/logo-white.png" alt="logo" width="20" height="20">
             <p>Greenhouse</p>
           </div>
         </router-link>
@@ -21,9 +21,9 @@
           </li>
           <li class="nav-item">
             <router-link to="/organization">
-              <div class="px-3 py-2 flex items-center font-bold leading-snug">
+              <div class="px-3 py-2 items-center font-bold">
                 <span class="ml-2 flex">
-                  <img class="w-7 h-7 rounded-full border-2 border-b-white mr-2" src="" alt="Organization avatar">
+                  <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>Organization</p>
                 </span>
               </div>
@@ -33,7 +33,7 @@
             <router-link to="/profile">
               <div class="px-3 py-2 flex items-center font-bold leading-snug">
                 <span class="ml-2 flex">
-                  <img class="w-7 h-7 rounded-full border-2 border-b-white mr-2" src="" alt="Profile avatar">
+                  <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>Profile</p>
                 </span>
               </div>

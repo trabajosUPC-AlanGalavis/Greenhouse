@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import RecordsContent from "@/harvestings/components/records-content.component.vue";
 import HarvestList from "@/process_log/components/harvest-list.component.vue";
+import StepperContent from "@/harvestings/components/stepper-content.component.vue";
 
 
 const router = createRouter({
@@ -8,15 +8,19 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            redirect: "/process-log",
+            redirect: "/dashboard",
         },
         {
-            path: "/process-log",
+            path: "/dashboard",
             component: HarvestList,
         },
         {
+            path: "/process-log",
+            component: StepperContent,
+        },
+        {
             path: "/stepper",
-            component: RecordsContent,
+            component: StepperContent,
         },
     ],
 });

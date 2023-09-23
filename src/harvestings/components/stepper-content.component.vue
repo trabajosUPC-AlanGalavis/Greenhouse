@@ -1,27 +1,29 @@
 <template>
-  <div class="card">
+  <div class="card m-5">
     <pv-steps class="stepper" :model="phases" aria-label="Phases" :active-index="currentStep" @update:activeIndex="updateStep">
       <template #item="{ label, item, index }">
         <div class="step-item" :class="{ 'active-step': index === currentStep, 'completed-step': index < currentStep }" @click="handleStepClick(index)">
           <span class="step-number">{{ label }}</span>
-          <div v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">
-            <p>{{ item.message }}</p>
-          </div>
+          <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">{{ item.message }}</p>
         </div>
       </template>
     </pv-steps>
-      <h2 class="p-3 pl-5 font-bold">Registros del cultivo {{""}}, iniciado el {{""}}</h2>
-        <button-primary class="ml-5 mb-3"
-                        @click="nextStep"
-                        :text="'End phase'"
-                        :buttonColor="'var(--red)'"
-                        :buttonTextColor="'var(--white)'">
-        </button-primary>
-        <button-primary class="ml-5 mb-3"
-                        :text="' + Create new record'"
-                        :buttonColor="'var(--primary-white)'"
-                        :buttonTextColor="'var(--primary-green)'">
-        </button-primary>
+    <h2 class="p-3 pl-5 font-bold">Records of harvest {{""}}, started on {{""}}</h2>
+    <div class="button-group flex-shrink">
+      <button-primary class="mb-3"
+                      @click="nextStep"
+                      :text="'End phase'"
+                      :buttonColor="'var(--red)'"
+                      :buttonTextColor="'var(--white)'"
+                      :buttonBorderColor="'var(--red)'">
+      </button-primary>
+      <button-primary class="mb-3"
+                      :text="' + Create new record'"
+                      :buttonColor="'var(--primary-white)'"
+                      :buttonTextColor="'var(--primary-green)'"
+                      :buttonBorderColor="'var(--primary-green)'">
+      </button-primary>
+    </div>
   </div>
 </template>
 
@@ -68,13 +70,18 @@ export default {
 </script>
 
 <style scoped>
+.card {
+background-color: var(--white);
+box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
+border-radius: 4px;
+}
 
 .stepper {
-  background-color: #F4F5F9;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  padding: 5px 24px;
-  margin-bottom: 20px;
-  font-family: var(--font-primary);
+background-color: #F4F5F9;
+box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+padding: 2rem 24px;
+margin-bottom: 20px;
+font-family: var(--font-primary);
 }
 
 .step-item {
@@ -86,12 +93,14 @@ export default {
   width: 30px;
   height: 30px;
   color: var(--gray-2);
-  border-radius: 50%;
-  border: 2px solid var(--gray-2);
-  text-align: center;
-  line-height: 26px;
   font-size: var(--small-text-regular-size);
-  margin: 0 10px;
+  text-align: center;
+  border: 2px solid var(--gray-2);
+  border-radius: 50%;
+  margin-right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .step-message {
@@ -99,36 +108,44 @@ export default {
   text-align: left;
   color: var(--gray-2);
   font-size: var(--medium-text-regular-size);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+
 .active-step .step-number {
-  background-color: var(--secondary-green-1);
-  color: var(--primary-white);
-  border-color: var(--secondary-green-1);
+background-color: var(--secondary-green-1);
+color: var(--primary-white);
+border-color: var(--secondary-green-1);
 }
 
 .active-step .step-message {
-  color: var(--secondary-green-1);
-  font-weight: bold;
+color: var(--secondary-green-1);
+font-weight: bold;
 }
 
 .completed-step .step-number {
-  border-color: var(--black);
-  color: var(--black);
+border-color: var(--black);
+color: var(--black);
 }
 
 .completed-message {
-  color: var(--black);
+color: var(--black);
 }
 
 h2 {
-  color: var(--primary-green);
-  font-size: var(--medium-text-regular-size);
-  font-family: var(--font-primary);
+color: var(--primary-green);
+font-size: var(--medium-text-regular-size);
+font-family: var(--font-primary);
 }
 
 .step-message {
-  display: contents;
+display: contents;
+}
+
+.button-group {
+  padding-left: 2rem;
 }
 
 @media (max-width: 768px) {
@@ -136,7 +153,12 @@ h2 {
     padding: 5px 0;
   }
   .step-message {
-    display: none;
+  display: none;
+  }
+  .button-group {
+    padding: 0;
+    flex-shrink: 1;
+    text-align: center;
   }
 }
 </style>

@@ -8,7 +8,7 @@
 <script>
 import ButtonPrimary from "@/shared/components/button-primary.component.vue";
 import HarvestList from "@/process_log/components/harvest-list.component.vue";
-import HeaderContent from "@/header/components/header-content.component.vue";
+import HeaderContent from "@/shared/components/header-content.component.vue";
 
 export default {
   name: "App",
@@ -59,5 +59,6 @@ export default {
 
 body {
   font-family: var(--font-primary);
+  background-color: var(--primary-white);
 }
 </style>

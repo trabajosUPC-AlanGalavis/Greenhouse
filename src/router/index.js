@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HarvestList from "@/process_log/components/harvest-list.component.vue";
 import StepperContent from "@/harvestings/components/stepper-content.component.vue";
+import dashboardContent from "@/dashboard/components/dashboard-content.component.vue";
 
 
 const router = createRouter({
@@ -12,7 +13,7 @@ const router = createRouter({
         },
         {
             path: "/dashboard",
-            component: HarvestList,
+            component: dashboardContent,
         },
         {
             path: "/process-log",

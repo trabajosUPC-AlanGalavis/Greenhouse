@@ -21,8 +21,11 @@ export default {
 
 
 <style>
-
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --primary-green: #4D6443;

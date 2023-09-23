@@ -10,20 +10,18 @@
         </div>
       </template>
     </pv-steps>
-      <h2 class="padding">Registros del cultivo {{""}}, iniciado el {{""}}</h2>
-      <span class="padding">
-        <button-primary class="margin"
+      <h2 class="p-3 pl-5 font-bold">Registros del cultivo {{""}}, iniciado el {{""}}</h2>
+        <button-primary class="ml-5 mb-3"
                         @click="nextStep"
                         :text="'End phase'"
                         :buttonColor="'var(--red)'"
                         :buttonTextColor="'var(--white)'">
         </button-primary>
-        <button-primary class="margin"
+        <button-primary class="ml-5 mb-3"
                         :text="' + Create new record'"
                         :buttonColor="'var(--primary-white)'"
                         :buttonTextColor="'var(--primary-green)'">
         </button-primary>
-      </span>
   </div>
 </template>
 
@@ -79,7 +77,6 @@ export default {
   font-family: var(--font-primary);
 }
 
-
 .step-item {
   display: flex;
   align-items: center;
@@ -90,12 +87,11 @@ export default {
   height: 30px;
   color: var(--gray-2);
   border-radius: 50%;
-  border-style: solid;
-  border-color: var(--gray-2);
+  border: 2px solid var(--gray-2);
   text-align: center;
   line-height: 26px;
   font-size: var(--small-text-regular-size);
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 .step-message {
@@ -128,15 +124,11 @@ export default {
 h2 {
   color: var(--primary-green);
   font-size: var(--medium-text-regular-size);
+  font-family: var(--font-primary);
 }
 
-.padding {
-  padding: 0 24px;
-}
-
-.margin {
-  margin-right: 12px;
-  margin-bottom: 12px;
+.step-message {
+  display: contents;
 }
 
 @media (max-width: 768px) {

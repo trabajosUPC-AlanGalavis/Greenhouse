@@ -17,8 +17,6 @@ export default {
 
 <style scoped>
 .button-primary {
-  display: inline-flex;
-  padding: 0 25px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;

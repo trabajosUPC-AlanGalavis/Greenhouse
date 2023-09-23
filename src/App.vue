@@ -1,5 +1,6 @@
 <template>
   <div>
+    <header-content></header-content>
     <router-view></router-view>
   </div>
 </template>
@@ -7,10 +8,11 @@
 <script>
 import ButtonPrimary from "@/shared/components/button-primary.component.vue";
 import HarvestList from "@/process_log/components/harvest-list.component.vue";
+import HeaderContent from "@/header/components/header-content.component.vue";
 
 export default {
   name: "App",
-  components: {HarvestList, ButtonPrimary },
+  components: {HeaderContent, HarvestList, ButtonPrimary },
   data() {
     return {
       currentSection: "process-log",

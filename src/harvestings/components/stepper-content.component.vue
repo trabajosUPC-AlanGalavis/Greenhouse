@@ -17,23 +17,34 @@
                       :buttonTextColor="'var(--white)'"
                       :buttonBorderColor="'var(--red)'">
       </button-primary>
-      <button-primary class="mb-3"
-                      :text="' + Create new record'"
-                      :buttonColor="'var(--white)'"
-                      :buttonTextColor="'var(--primary-green)'"
-                      :buttonBorderColor="'var(--primary-green)'">
-      </button-primary>
+      <button-primary
+          class="mb-3"
+          :text="' + Create new record'"
+          :buttonColor="'var(--white)'"
+          :buttonTextColor="'var(--primary-green)'"
+          :buttonBorderColor="'var(--primary-green)'"
+          @click="openInputDialog">
+        </button-primary>
     </div>
+    <div class="mb-3">
+      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
+    </div>
+
+    <process-input-dialog
+        ref="processInputDialog"
+        @save-record="updateRecord"
+    ></process-input-dialog>
   </div>
 </template>
 
 <script>
 import ButtonPrimary from '../../shared/components/button-primary.component.vue';
 import ProcessTable from "../../harvestings/components/process-table.component.vue";
+import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
 
 export default {
   name: 'stepper-content',
-  components: {ProcessTable, ButtonPrimary },
+  components: {ProcessTable, ButtonPrimary, ProcessInputDialog },
   data() {
     return {
       currentStep: 0,
@@ -47,6 +58,7 @@ export default {
         { label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction' },
         { label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest' },
       ],
+      record: "",
     };
   },
   computed: {
@@ -68,7 +80,13 @@ export default {
         console.log(this.currentStep);
         console.log(this.phases[this.currentStep].endpoint)
       }
-    }
+    },
+    openInputDialog() {
+      this.$refs.processInputDialog.showDialog();
+    },
+    updateRecord(newRecord) {
+      this.record = newRecord;
+    },
   },
 };
 </script>

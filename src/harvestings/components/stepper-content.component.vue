@@ -9,7 +9,6 @@
       </template>
     </pv-steps>
     <process-table :endpoint="phases[currentStep].endpoint"></process-table>
-    <h2 class="p-3 pl-5 font-bold">Records of harvest {{""}}, started on {{""}}</h2>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3"
                       @click="nextStep"
@@ -20,7 +19,7 @@
       </button-primary>
       <button-primary class="mb-3"
                       :text="' + Create new record'"
-                      :buttonColor="'var(--primary-white)'"
+                      :buttonColor="'var(--white)'"
                       :buttonTextColor="'var(--primary-green)'"
                       :buttonBorderColor="'var(--primary-green)'">
       </button-primary>
@@ -137,12 +136,6 @@ color: var(--black);
 
 .completed-message {
 color: var(--black);
-}
-
-h2 {
-color: var(--primary-green);
-font-size: var(--medium-text-regular-size);
-font-family: var(--font-primary);
 }
 
 .step-message {

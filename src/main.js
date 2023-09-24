@@ -22,11 +22,14 @@ import Steps from 'primevue/steps';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
-import InputText from "primevue/inputtext";
+
+import InputText from 'primevue/inputtext';
+//Router
+import router from "@/router";
+
 
 createApp(App)
     .use(PrimeVue, { ripple: true })
-    .use(router)
     .use(ToastService)
     .component('pv-card', Card)
     .component('pv-button', Button)
@@ -41,4 +44,5 @@ createApp(App)
     .component('pv-data-table', DataTable)
     .component('pv-dialog', Dialog)
     .component('pv-input-text', InputText)
+    .use(router)
     .mount('#app')

@@ -1,32 +1,33 @@
 <template>
   <div>
-    <stepper-content @step-clicked="updateStep"></stepper-content>
+    <header-content></header-content>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import StepperContent from "@/harvestings/components/stepper-content.component.vue";
-import ButtonPrimary from "@/harvestings/components/button-primary.component.vue";
+import ButtonPrimary from "@/shared/components/button-primary.component.vue";
+import HarvestList from "@/process_log/components/harvest-list.component.vue";
+import HeaderContent from "@/shared/components/header-content.component.vue";
 
 export default {
-  name: 'App',
-  components: {ButtonPrimary, StepperContent},
+  name: "App",
+  components: {HeaderContent, HarvestList, ButtonPrimary },
   data() {
     return {
-      currentStep: 0,
+      currentSection: "process-log",
     };
   },
-  methods: {
-    updateStep(newStep) {
-      this.currentStep = newStep;
-    },
-  },
-}
+};
 </script>
 
-<style>
 
+<style>
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --primary-green: #4D6443;
@@ -58,5 +59,6 @@ export default {
 
 body {
   font-family: var(--font-primary);
+  background-color: var(--primary-white);
 }
 </style>

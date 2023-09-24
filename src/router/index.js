@@ -3,6 +3,7 @@ import HarvestList from "@/process_log/components/harvest-list.component.vue";
 import StepperContent from "@/harvestings/components/stepper-content.component.vue";
 import PopupWarningComponent from "@/shared/components/popup-warning.component.vue";
 import PopupNewCropComponent from "@/shared/components/popup-new-crop.component.vue";
+import PopupCropFinishedComponent from "@/shared/components/popup-crop-finished.component.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,10 @@ const router = createRouter({
         {
             path:"/popup-new-crop",
             component:PopupNewCropComponent,
+        },
+        {
+            path:"/popup-crop-finished",
+            component:PopupCropFinishedComponent,
         }
     ],
 });

@@ -55,7 +55,7 @@ h4 {
   background-color: var(--white);
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
   border-radius: 20px;
-  margin: 2.7rem 9rem;
+  margin: 2.7rem 2rem;
 }
 
 .card-small {
@@ -64,10 +64,15 @@ h4 {
   border-radius: 5px;
   margin: 2.7rem 1rem;
 }
+
 .searchbar {
   background-color: var(--secondary-green-2);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+::v-deep .card-small .p-card-body {
+  padding: 0 !important;
 }
 
 @media(max-width: 768px) {

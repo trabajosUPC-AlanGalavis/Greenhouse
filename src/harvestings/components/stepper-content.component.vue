@@ -66,6 +66,8 @@ export default {
     nextStep() {
       if (this.currentStep < this.phases.length - 1) {
         this.currentStep++;
+        console.log(this.currentStep);
+        console.log(this.phases[this.currentStep].endpoint)
       }
     }
   },

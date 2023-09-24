@@ -43,7 +43,7 @@ import {FilterMatchMode} from "primevue/api";
 export default {
     name: "process-table",
     props: {
-        processType: null,
+        endpoint: null,
     },
 
     data(){
@@ -57,20 +57,45 @@ export default {
     created() {
       this.initFilters();
     },
-    mounted() {
-      this.greenhouseApi.getAllData(this.processType).then(
-          (response) => {
-            this.processData = response.data;
-          }
-      )
+  mounted() {
+    // Fetch initial data and columns
+    this.fetchDataAndColumns(this.endpoint);
+  },
+  watch: {
+    endpoint(newEndpoint, oldEndpoint) {
+      if (newEndpoint !== oldEndpoint) {
+        this.fetchDataAndColumns(newEndpoint);
+      }
     },
+  },
 
-    methods:{
+
+  methods:{
       initFilters() {
         this.filters = {
           global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         };
       },
+      addColumn(){
+        this.columns = Object.keys(this.processData[0])
+            .filter((key) => key !== "processType")
+            .map((key) => {
+              const formattedHeader = key
+                  .split(/(?=[A-Z])/)
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ');
+          return {
+            field: key,
+            header: formattedHeader,
+          };
+        });
+      },
+    fetchDataAndColumns(endpoint) {
+      this.greenhouseApi.getAllData(endpoint).then((response) => {
+        this.processData = response.data;
+        this.addColumn();
+      });
+    },
     }
 }
 

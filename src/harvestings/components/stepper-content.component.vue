@@ -8,6 +8,7 @@
         </div>
       </template>
     </pv-steps>
+    <process-table></process-table>
     <h2 class="p-3 pl-5 font-bold">Records of harvest {{""}}, started on {{""}}</h2>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3"
@@ -29,9 +30,11 @@
 
 <script>
 import ButtonPrimary from '../../shared/components/button-primary.component.vue';
+import ProcessTable from "../../harvestings/components/process-table.component.vue";
+
 export default {
   name: 'stepper-content',
-  components: { ButtonPrimary },
+  components: {ProcessTable, ButtonPrimary },
   data() {
     return {
       currentStep: 0,

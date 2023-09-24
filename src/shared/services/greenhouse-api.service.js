@@ -1,12 +1,13 @@
-import http from '../../shared/services/http-common';
+
+import http from '../services/http-common';
 
 export class GreenhouseApiService {
-    getAllStock() {
-        return http.get('/stock');
+    getAllData(type) {
+        return http.get(`/${type}`);
     }
 
-    createStock(data) {
-        return http.post('/stock', data);
+    create(type, data) {
+        return http.post(`/${type}`, data);
     }
 
     updateStock(id, data){
@@ -17,14 +18,6 @@ export class GreenhouseApiService {
         return http.delete(`/stock/${id}`);
     }
 
-    getAllPreparationArea() {
-        return http.get('/preparation-area');
-    }
-
-    createPreparationArea(data) {
-        return http.post('/preparation-area', data);
-    }
-
     updatePreparationArea(id, data){
         return http.put(`/preparation-area/${id}`, data);
     }
@@ -33,28 +26,12 @@ export class GreenhouseApiService {
         return http.delete(`/preparation-area/${id}`);
     }
 
-    getAllBunker(){
-        return http.get('/bunker');
-    }
-
-    createBunker(data) {
-        return http.post('/bunker', data);
-    }
-
     updateBunker(id, data){
         return http.put(`/bunker/${id}`, data);
     }
 
     deleteBunker(id){
         return http.delete(`/bunker/${id}`);
-    }
-
-    getAllTunnel(){
-        return http.get('/tunnel');
-    }
-
-    createTunnel(data) {
-        return http.post('/tunnel', data);
     }
 
     updateTunnel(id, data){

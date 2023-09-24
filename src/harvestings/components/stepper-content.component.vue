@@ -8,7 +8,7 @@
         </div>
       </template>
     </pv-steps>
-    <process-table></process-table>
+    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
     <h2 class="p-3 pl-5 font-bold">Records of harvest {{""}}, started on {{""}}</h2>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3"
@@ -39,14 +39,14 @@ export default {
     return {
       currentStep: 0,
       phases: [
-        { label: '0', message: 'Stock' },
-        { label: '1', message: 'Preparation area' },
-        { label: '2', message: 'Bunker' },
-        { label: '3', message: 'Tunnel' },
-        { label: '4.1', message: 'Incubation' },
-        { label: '4.2', message: 'Casing' },
-        { label: '4.3', message: 'Induction' },
-        { label: '4.4', message: 'Harvest' },
+        { label: '0', message: 'Stock', endpoint: 'stock' },
+        { label: '1', message: 'Preparation area', endpoint: 'preparation_area' },
+        { label: '2', message: 'Bunker', endpoint: 'bunker' },
+        { label: '3', message: 'Tunnel', endpoint: 'tunnel' },
+        { label: '4.1', message: 'Incubation', endpoint: 'grow_room_record?processType=Incubation' },
+        { label: '4.2', message: 'Casing', endpoint: 'grow_room_record?processType=Casing' },
+        { label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction' },
+        { label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest' },
       ],
     };
   },

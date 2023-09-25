@@ -22,18 +22,6 @@
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Date:</h1>
-          <input id="date" v-model="date" class="p-inputtext" placeholder="Register Date"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Time:</h1>
-          <input id="time" v-model="time" class="p-inputtext" placeholder="Register Time"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
           <h1>Register Hay:</h1>
           <input id="hay" v-model="hay" class="p-inputtext" placeholder="Register Hay"/>
         </div>
@@ -118,11 +106,15 @@ export default {
       this.displayDialog = false;
     },
     saveDialog() {
+      const currentDateTime = new Date();
+
+      const currentDate = currentDateTime.toISOString().split('T')[0];
+      const currentTime = currentDateTime.toTimeString().split(' ')[0];
       const dataToSend = {
         author: this.author,
         day: this.day,
-        date: this.date,
-        time: this.time,
+        date: currentDate,
+        time: currentTime,
         hay: this.hay,
         corn: this.corn,
         guano: this.guano,

@@ -6,10 +6,10 @@
     <template #content>
       <div class="text-center">
         <div class="grid gap-4">
-          <dashboard-card class="col-span-3 mx-auto" :image="'public/dashboard/process-state.png'" :buttonText="'Harvesting in progress'" :link="'/process-log'"></dashboard-card>
-          <dashboard-card  class="col-span-3 mx-auto" :image="'public/dashboard/enterprise.png'" :buttonText="'My organization'" :link="'/organization'"></dashboard-card>
-          <dashboard-card  class="col-span-3 mx-auto" :image="'public/dashboard/reports.png'" :buttonText="'Statistical reports'" :link="'/'"></dashboard-card>
-          <dashboard-card  class="col-span-3 mx-auto" :image="'public/dashboard/history.png'" :buttonText="'Harvest archive'" :link="'/'"></dashboard-card>
+          <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/process-state.png'" :buttonText="'Harvesting in progress'" :link="'/process-log'"></dashboard-card>
+          <dashboard-card  class="col-span-3 mx-auto" :image="'dashboard/enterprise.png'" :buttonText="'My organization'" :link="'/organization'"></dashboard-card>
+          <dashboard-card  class="col-span-3 mx-auto" :image="'dashboard/reports.png'" :buttonText="'Statistical reports'" :link="'/'"></dashboard-card>
+          <dashboard-card  class="col-span-3 mx-auto" :image="'dashboard/history.png'" :buttonText="'Harvest archive'" :link="'/'"></dashboard-card>
         </div>
       </div>
     </template>

@@ -22,18 +22,6 @@
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Date:</h1>
-          <input id="date" v-model="date" class="p-inputtext" placeholder="Register Date"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Time:</h1>
-          <input id="time" v-model="time" class="p-inputtext" placeholder="Register Time"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
           <h1>Register Thermocuple One:</h1>
           <input id="thermocoupleOne" v-model="thermocoupleOne" class="p-inputtext" placeholder="Register Thermocuple One"/>
         </div>
@@ -77,10 +65,13 @@
 </template>
 
 <script>
+import {GreenhouseApiService} from "@/shared/services/greenhouse-api.service";
+
 export default {
   name: "process-input-dialog-bunker",
   data() {
     return {
+      apiService: new GreenhouseApiService(),
       displayDialog: false,
       author: "",
       day: 0,
@@ -102,7 +93,29 @@ export default {
       this.displayDialog = false;
     },
     saveDialog() {
-      this.$emit("save-record", this.author);
+      const currentDateTime = new Date();
+
+      const currentDate = currentDateTime.toISOString().split('T')[0];
+      const currentTime = currentDateTime.toTimeString().split(' ')[0];
+      const dataToSend = {
+        author: this.author,
+        day: this.day,
+        date: currentDate,
+        time: currentTime,
+        thermocoupleOne: this.thermocoupleOne,
+        thermocoupleTwo: this.thermocoupleTwo,
+        thermocoupleThree: this.thermocoupleThree,
+        average: this.average,
+        frequency: this.frequency,
+        comment: this.comment,
+      };
+      this.apiService.create('bunker', dataToSend)
+          .then(response => {
+            console.log('Data saved successfully:', response.data);
+          })
+          .catch(error => {
+            console.error('Error saving data:', error);
+          });
       this.displayDialog = false;
     },
   },

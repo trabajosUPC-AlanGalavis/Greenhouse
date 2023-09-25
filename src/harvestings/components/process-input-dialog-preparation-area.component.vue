@@ -22,18 +22,6 @@
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Date:</h1>
-          <input id="date" v-model="date" class="p-inputtext" placeholder="Register Date"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Time:</h1>
-          <input id="time" v-model="time" class="p-inputtext" placeholder="Register Time"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
           <h1>Register Activities:</h1>
           <input id="activities" v-model="activities" class="p-inputtext" placeholder="Register Activities"/>
         </div>
@@ -59,15 +47,16 @@
 </template>
 
 <script>
+import {GreenhouseApiService} from "@/shared/services/greenhouse-api.service";
+
 export default {
   name: "process-input-dialog-preparation-area",
   data() {
     return {
+      apiService: new GreenhouseApiService(),
       displayDialog: false,
       author: "",
       day: 0,
-      date: "",
-      time: "",
       activities: "",
       temperature: 0,
       comment: "",
@@ -81,7 +70,27 @@ export default {
       this.displayDialog = false;
     },
     saveDialog() {
-      this.$emit("save-record", this.author);
+      const currentDateTime = new Date();
+
+      const currentDate = currentDateTime.toISOString().split('T')[0];
+      const currentTime = currentDateTime.toTimeString().split(' ')[0];
+
+      const dataToSend = {
+        author: this.author,
+        day: this.day,
+        date: currentDate,
+        time: currentTime,
+        activities: this.activities,
+        temperature: this.temperature,
+        comment: this.comment
+      }
+      this.apiService.create('preparation_area', dataToSend)
+          .then(response => {
+            console.log('Data saved successfully:', response.data);
+          })
+          .catch(error => {
+            console.error('Error saving data:', error);
+          });
       this.displayDialog = false;
     },
   },

@@ -34,38 +34,14 @@
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Grow Room:</h1>
-          <input id="growRoom" v-model="growRoom" class="p-inputtext" placeholder="Register Grow Room"/>
+          <h1>Register Activities:</h1>
+          <input id="activities" v-model="activities" class="p-inputtext" placeholder="Register Activities"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Air Temperature:</h1>
-          <input id="airTemperature" v-model="airTemperature" class="p-inputtext" placeholder="Register Air Temperature"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Compost Temperature:</h1>
-          <input id="compostTemperature" v-model="compostTemperature" class="p-inputtext" placeholder="Register Compost Temperature"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Carbon Dioxide:</h1>
-          <input id="carbonDioxide" v-model="carbonDioxide" class="p-inputtext" placeholder="Register Carbon Dioxide"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Air Hydrogen:</h1>
-          <input id="airHydrogen" v-model="airHydrogen" class="p-inputtext" placeholder="Register Air Hydrogen"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Setting:</h1>
-          <input id="setting" v-model="setting" class="p-inputtext" placeholder="Register Setting"/>
+          <h1>Register Temperature:</h1>
+          <input id="temperature" v-model="temperature" class="p-inputtext" placeholder="Register Temperature"/>
         </div>
       </div>
       <div class="p-fluid p-2">
@@ -84,7 +60,7 @@
 
 <script>
 export default {
-  name: "process-input-dialog",
+  name: "process-input-dialog-preparation-area",
   data() {
     return {
       displayDialog: false,
@@ -92,12 +68,8 @@ export default {
       day: 0,
       date: "",
       time: "",
-      growRoom: 0,
-      airTemperature: 0,
-      compostTemperature: 0,
-      carbonDioxide: 0,
-      airHydrogen: 0,
-      setting: 0,
+      activities: "",
+      temperature: 0,
       comment: "",
     };
   },

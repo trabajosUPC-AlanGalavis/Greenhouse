@@ -34,44 +34,50 @@
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Grow Room:</h1>
-          <input id="growRoom" v-model="growRoom" class="p-inputtext" placeholder="Register Grow Room"/>
+          <h1>Register Hay:</h1>
+          <input id="hay" v-model="hay" class="p-inputtext" placeholder="Register Hay"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Air Temperature:</h1>
-          <input id="airTemperature" v-model="airTemperature" class="p-inputtext" placeholder="Register Air Temperature"/>
+          <h1>Register Corn:</h1>
+          <input id="corn" v-model="corn" class="p-inputtext" placeholder="Register Corn"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Compost Temperature:</h1>
-          <input id="compostTemperature" v-model="compostTemperature" class="p-inputtext" placeholder="Register Compost Temperature"/>
+          <h1>Register Guano:</h1>
+          <input id="guano" v-model="guano" class="p-inputtext" placeholder="Register Guano"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Carbon Dioxide:</h1>
-          <input id="carbonDioxide" v-model="carbonDioxide" class="p-inputtext" placeholder="Register Carbon Dioxide"/>
+          <h1>Register Cotton Seed Cake:</h1>
+          <input id="cottonSeedCake" v-model="cottonSeedCake" class="p-inputtext" placeholder="Register Cotton Seed Cake"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Air Hydrogen:</h1>
-          <input id="airHydrogen" v-model="airHydrogen" class="p-inputtext" placeholder="Register Air Hydrogen"/>
+          <h1>Register Soybean Meal:</h1>
+          <input id="soyBeanMeal" v-model="soyBeanMeal" class="p-inputtext" placeholder="Register Soybean Meal"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Setting:</h1>
-          <input id="setting" v-model="setting" class="p-inputtext" placeholder="Register Setting"/>
+          <h1>Register Gypsum:</h1>
+          <input id="gypsum" v-model="gypsum" class="p-inputtext" placeholder="Register Gypsum"/>
         </div>
       </div>
       <div class="p-fluid p-2">
         <div class="p-field">
-          <h1>Register Comment:</h1>
-          <input id="comment" v-model="comment" class="p-inputtext" placeholder="Register Comment"/>
+          <h1>Register Urea:</h1>
+          <input id="urea" v-model="urea" class="p-inputtext" placeholder="Register Urea"/>
+        </div>
+      </div>
+      <div class="p-fluid p-2">
+        <div class="p-field">
+          <h1>Register Ammonium Sulphate:</h1>
+          <input id="ammoniumSulphate" v-model="ammoniumSulphate" class="p-inputtext" placeholder="Register Ammonium Sulphate"/>
         </div>
       </div>
       <div class="p-dialog-footer flex">
@@ -84,7 +90,7 @@
 
 <script>
 export default {
-  name: "process-input-dialog",
+  name: "process-input-dialog-stock",
   data() {
     return {
       displayDialog: false,
@@ -92,13 +98,14 @@ export default {
       day: 0,
       date: "",
       time: "",
-      growRoom: 0,
-      airTemperature: 0,
-      compostTemperature: 0,
-      carbonDioxide: 0,
-      airHydrogen: 0,
-      setting: 0,
-      comment: "",
+      hay: 0,
+      corn: 0,
+      guano: 0,
+      cottonSeedCake: 0,
+      soyBeanMeal: 0,
+      gypsum: 0,
+      urea: 0,
+      ammoniumSulphate: 0,
     };
   },
   methods: {

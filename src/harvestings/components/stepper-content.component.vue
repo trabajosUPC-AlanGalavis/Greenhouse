@@ -30,6 +30,22 @@
       <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
     </div>
 
+    <process-input-dialog-stock
+        ref="processInputDialogStock"
+        @save-record="updateRecord"
+    ></process-input-dialog-stock>
+    <process-input-dialog-preparation-area
+        ref="processInputDialogPreparationArea"
+        @save-record="updateRecord"
+    ></process-input-dialog-preparation-area>
+    <process-input-dialog-bunker
+        ref="processInputDialogBunker"
+        @save-record="updateRecord"
+    ></process-input-dialog-bunker>
+    <process-input-dialog-tunel
+        ref="processInputDialogTunel"
+        @save-record="updateRecord"
+    ></process-input-dialog-tunel>
     <process-input-dialog
         ref="processInputDialog"
         @save-record="updateRecord"
@@ -41,10 +57,16 @@
 import ButtonPrimary from '../../shared/components/button-primary.component.vue';
 import ProcessTable from "../../harvestings/components/process-table.component.vue";
 import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
+import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
+import ProcessInputDialogPreparationArea from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
+import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
+import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
+
+
 
 export default {
   name: 'stepper-content',
-  components: {ProcessTable, ButtonPrimary, ProcessInputDialog },
+  components: {ProcessTable, ButtonPrimary, ProcessInputDialog, ProcessInputDialogStock, ProcessInputDialogPreparationArea, ProcessInputDialogBunker, ProcessInputDialogTunel },
   data() {
     return {
       currentStep: 0,
@@ -82,7 +104,17 @@ export default {
       }
     },
     openInputDialog() {
-      this.$refs.processInputDialog.showDialog();
+      if(this.currentStep === 0){
+        this.$refs.processInputDialogStock.showDialog();
+      }else if(this.currentStep === 1){
+        this.$refs.processInputDialogPreparationArea.showDialog();
+      }else if(this.currentStep === 2){
+        this.$refs.processInputDialogBunker.showDialog();
+      }else if(this.currentStep === 3){
+        this.$refs.processInputDialogTunel.showDialog();
+      }else{
+        this.$refs.processInputDialog.showDialog();
+      }
     },
     updateRecord(newRecord) {
       this.record = newRecord;

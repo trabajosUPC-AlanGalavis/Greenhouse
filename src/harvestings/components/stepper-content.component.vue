@@ -10,14 +10,44 @@
     </pv-steps>
     <process-table :endpoint="phases[currentStep].endpoint"></process-table>
     <div class="button-group flex-shrink">
-      <button-primary class="mb-3"
-                      @click="nextStep"
+      <button-primary class="mb-3 mr-3"
+                      @click="openPopup"
                       :text="'End phase'"
                       :buttonColor="'var(--red)'"
                       :buttonTextColor="'var(--white)'"
                       :buttonBorderColor="'var(--red)'">
       </button-primary>
+      <div class="popup-container" v-if="showPopup">
+        <div class="popup-content">
+          <div class="popup-header">
+            <h2>WARNING</h2>
+          </div>
+          <div class="popup-body">
+            <br>
+            <p style="text-align: center;">{{"This phase is completed, you will not be able to make any more records at this stage. " +
+            "Are you sure you want to continue?"}}</p>
+            <h5>This operation is irreversible</h5>
+          </div>
+          <div class="popup-footer">
+            <button-primary class="mb-2 mr-3 mt-4"
+                            @click="nextStep"
+                            :text="'Yes, finish it'"
+                            :buttonColor="'var(--red)'"
+                            :buttonTextColor="'var(--white)'"
+                            :buttonBorderColor="'var(--red)'">
+            </button-primary>
+            <button-primary class="mb-2 mr-3 mt-4"
+                            @click="closePopup"
+                            :text="'Cancel'"
+                            :buttonColor="'var(--gray-2)'"
+                            :buttonTextColor="'var(--white)'"
+                            :buttonBorderColor="'var(--gray-2)'">
+            </button-primary>
+          </div>
+        </div>
+      </div>
       <button-primary
+          :disabled="isButtonDisabled"
           class="mb-3"
           :text="' + Create new record'"
           :buttonColor="'var(--white)'"
@@ -26,6 +56,35 @@
           @click="openInputDialog">
         </button-primary>
     </div>
+
+    <div class="popup-container" v-if="isLastPhase">
+      <div class="popup-content">
+        <div class="popup-header-2">
+          <h2>CROP COMPLETED</h2>
+        </div>
+        <div class="popup-body-2">
+          <br>
+          <p style="text-align: center;">The cultivation started on {{date_start}} has successfully completed all
+            stages, the records were filled in the section  <strong>"Control Panel", Crop History"</strong></p>
+        </div>
+
+        <div class="popup-footer">
+          <router-link to="/dashboard">
+            <button-primary
+                class="text-center mt-3 mx-auto"
+                :text="' Accept and return to the main Menu'"
+                :buttonColor="'var(--primary-green)'"
+                :buttonTextColor="'var(--primary-white)'"
+                :buttonBorderColor="'var(--primary-green)'"
+                @click="closeNotification()"
+            >
+            </button-primary>
+          </router-link>
+
+        </div>
+      </div>
+    </div>
+
     <div class="mb-3">
       <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
     </div>
@@ -60,12 +119,18 @@ import ProcessInputDialogTunel from "../../harvestings/components/process-input-
 
 
 
+
 export default {
   name: 'stepper-content',
-  components: {ProcessTable, ButtonPrimary, ProcessInputDialog, ProcessInputDialogStock, ProcessInputDialogPreparationArea, ProcessInputDialogBunker, ProcessInputDialogTunel },
+  components: {
+    ProcessTable, ButtonPrimary, ProcessInputDialog, ProcessInputDialogStock, ProcessInputDialogPreparationArea, ProcessInputDialogBunker, ProcessInputDialogTunel },
   data() {
     return {
       currentStep: 0,
+      date_start: "18/09/23 ",
+      isButtonDisabled: false,
+      showPopup: false,
+      isLastPhase: false,
       phases: [
         { label: '0', message: 'Stock', endpoint: 'stock' },
         { label: '1', message: 'Preparation area', endpoint: 'preparation_area' },
@@ -88,17 +153,37 @@ export default {
     updateStep(newStep) {
       this.currentStep = newStep;
     },
+    openPopup() {
+      this.showPopup = true;
+      this.isButtonDisabled=true;
+    },
+
+    closePopup() {
+      this.showPopup = false;
+      this.isButtonDisabled = false;
+    },
+
+    closeNotification() {
+      this.isLastPhase = false;
+    },
+
     handleStepClick(index) {
       console.log('Click on step:', index);
       this.$emit('step-clicked', index);
     },
     nextStep() {
-      if (this.currentStep < this.phases.length - 1) {
+      this.showPopup = false;
+      this.isButtonDisabled = false;
+      if (this.currentStep === 7){
+        this.isLastPhase = true;
+      }
+      else if (this.currentStep < this.phases.length - 1) {
         this.currentStep++;
         console.log(this.currentStep);
         console.log(this.phases[this.currentStep].endpoint)
       }
     },
+
     openInputDialog() {
       if(this.currentStep === 0){
         this.$refs.processInputDialogStock.showDialog();
@@ -202,4 +287,98 @@ display: contents;
     text-align: center;
   }
 }
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding:100px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.popup-body h5 {
+  color: #626262;
+}
+.popup-body p {
+  color: #626262;
+  font-size: 16px;
+  white-space: pre-wrap;
+  padding:10px;
+}
+
+.popup-content {
+  position: relative;
+  background-color: #fff;
+
+  border-radius: 25px;
+  text-align: center;
+  padding-bottom:40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.popup-content img {
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.close-button img {
+  width: 24px;
+  height: 24px;
+  border: none;
+}
+
+.popup-body-2 p {
+  color: #626262;
+  font-size: 16px;
+  white-space: pre-wrap;
+  padding:10px;
+}
+
+
+.popup-header {
+  background-color: #FF3439;
+  text-align: center;
+  padding:15px;
+  border-radius: 20px;
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+
+}
+
+.popup-header h2 {
+  color: white;
+  margin: 0;
+}
+
+.popup-footer .btn {
+  margin-right: 50px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.popup-footer .btn.yes-finish {
+  background-color: #FF3439;
+  color: white;
+}
+
+
+.popup-footer .btn.close {
+  background-color: #D9D9D9 ;
+  color: black;
+}
+
+.popup-header-2 {
+  background-color: #4A845B;
+  text-align: center;
+  padding:15px;
+  border-radius: 20px;
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+
+}
+
 </style>

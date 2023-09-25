@@ -1,11 +1,15 @@
 
 <script>
+import ButtonPrimary from "@/shared/components/button-primary.component.vue";
+
 export default {
+  name: 'popup-new',
+  components: {ButtonPrimary},
   data() {
     return {
       showPopup: false,
       popupText :'Do you want to start a new crop? It will be recorded as start date ',
-      date: "18/09/23"
+      date: "25/09/2023"
     };
   },
   methods: {
@@ -20,7 +24,15 @@ export default {
 </script>
 
 <template>
-  <button class="btn" @click="openPopup" mat-button color="black">Confirm</button>
+  <button-primary
+      class="text-center mx-auto"
+      :text="' + Start new harvest'"
+      :buttonColor="'var(--primary-green)'"
+      :buttonTextColor="'var(--primary-white)'"
+      :buttonBorderColor="'var(--primary-green)'"
+      @click="openPopup()"
+  >
+  </button-primary>
 
   <div class="popup-container" v-if="showPopup">
     <div class="popup-content">
@@ -32,8 +44,26 @@ export default {
         <p style="text-align: center;">{{ popupText + date }}</p>
       </div>
       <div class="popup-footer">
-        <button class="btn yes-finish" @click="closePopup()">Yes, start</button>
-        <button class="btn close" @click="closePopup()">Cancel</button>
+        <router-link to="/stepper">
+          <button-primary
+              class="text-center mx-auto"
+              :text="' Yes, Start'"
+              :buttonColor="'var(--primary-green)'"
+              :buttonTextColor="'var(--primary-white)'"
+              :buttonBorderColor="'var(--primary-green)'"
+              @click="openPopup()"
+          >
+          </button-primary>
+        </router-link>
+        <button-primary
+            class="text-center mx-9"
+            :text="' Cancel'"
+            :buttonColor="'var(--gray-2)'"
+            :buttonTextColor="'var(--primary-white)'"
+            :buttonBorderColor="'var(--gray-2)'"
+            @click="openPopup()"
+        >
+        </button-primary>
       </div>
     </div>
   </div>

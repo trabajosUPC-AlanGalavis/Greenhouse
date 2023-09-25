@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: 'popup-finished',
   data() {
     return {
       showPopup: false,
@@ -21,45 +22,16 @@ export default {
 </script>
 
 <template>
-  <button class="btn" @click="openPopup" mat-button color="black">Confirm</button>
 
-  <div class="popup-container" v-if="showPopup">
-    <div class="popup-content">
-      <div class="popup-header">
-        <h2>CROP COMPLETED</h2>
-      </div>
-      <div class="popup-body">
-        <br>
-        <p style="text-align: center;">{{popupText}} {{date_start}} {{popupText2}} <span style="font-weight: bold;">{{ popupText3 }}</span></p>
-      </div>
-      <div class="popup-footer">
-        <button class="btn yes-finish" @click="closePopup()">Accept and return to the main Menu</button>
-      </div>
-    </div>
-  </div>
 </template>
 
 <style scoped>
-.popup-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  padding:100px;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.popup-body h5 {
-  color: #626262; /* Cambiar el color del texto */
-  /* Cambiar el tamaño de fuente del texto */
-}
-.popup-body p {
-  color: #626262; /* Cambiar el color del texto */
-  font-size: 16px; /* Cambiar el tamaño de fuente del texto */
-  white-space: pre-wrap; /* Permite ajustar el texto en varias líneas */
+
+
+.popup-body-2 p {
+  color: #626262;
+  font-size: 16px;
+  white-space: pre-wrap;
   padding:10px;
 }
 

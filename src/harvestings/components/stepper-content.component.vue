@@ -32,23 +32,18 @@
 
     <process-input-dialog-stock
         ref="processInputDialogStock"
-        @save-record="updateRecord"
     ></process-input-dialog-stock>
     <process-input-dialog-preparation-area
         ref="processInputDialogPreparationArea"
-        @save-record="updateRecord"
     ></process-input-dialog-preparation-area>
     <process-input-dialog-bunker
         ref="processInputDialogBunker"
-        @save-record="updateRecord"
     ></process-input-dialog-bunker>
     <process-input-dialog-tunel
         ref="processInputDialogTunel"
-        @save-record="updateRecord"
     ></process-input-dialog-tunel>
     <process-input-dialog
         ref="processInputDialog"
-        @save-record="updateRecord"
     ></process-input-dialog>
   </div>
 </template>
@@ -115,10 +110,7 @@ export default {
       }else{
         this.$refs.processInputDialog.showDialog();
       }
-    },
-    updateRecord(newRecord) {
-      this.record = newRecord;
-    },
+    }
   },
 };
 </script>

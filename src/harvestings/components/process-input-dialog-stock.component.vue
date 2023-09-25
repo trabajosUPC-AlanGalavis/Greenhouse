@@ -89,10 +89,12 @@
 </template>
 
 <script>
+import {GreenhouseApiService} from "@/shared/services/greenhouse-api.service";
 export default {
   name: "process-input-dialog-stock",
   data() {
     return {
+      apiService: new GreenhouseApiService(),
       displayDialog: false,
       author: "",
       day: 0,
@@ -116,10 +118,30 @@ export default {
       this.displayDialog = false;
     },
     saveDialog() {
-      this.$emit("save-record", this.author);
+      const dataToSend = {
+        author: this.author,
+        day: this.day,
+        date: this.date,
+        time: this.time,
+        hay: this.hay,
+        corn: this.corn,
+        guano: this.guano,
+        cottonSeedCake: this.cottonSeedCake,
+        soyBeanMeal: this.soyBeanMeal,
+        gypsum: this.gypsum,
+        urea: this.urea,
+        ammoniumSulphate: this.ammoniumSulphate,
+      };
+      this.apiService.create('stock', dataToSend)
+          .then(response => {
+            console.log('Data saved successfully:', response.data);
+          })
+          .catch(error => {
+            console.error('Error saving data:', error);
+          });
       this.displayDialog = false;
-    },
-  },
+    }
+  }
 };
 </script>
 

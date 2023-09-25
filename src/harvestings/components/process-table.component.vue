@@ -72,7 +72,7 @@ export default {
     },
     addColumn() {
       this.columns = Object.keys(this.processData[0])
-          .filter((key) => key !== "processType")
+          .filter((key) => key !== "processType"  && key !== "id" && key !== "apiId")
           .map((key) => {
             const formattedHeader = key
                 .split(/(?=[A-Z])/)

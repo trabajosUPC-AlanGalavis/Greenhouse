@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'http://localhost:3000/api/v1',
+    baseURL: 'https://my-json-server.typicode.com/upc-pre-202302-si730-sw51-integradis/Greenhouse',
     headers: { 'Content-type': 'application/json'}
 });

@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HarvestList from "@/process_log/components/harvest-list.component.vue";
 import StepperContent from "@/harvestings/components/stepper-content.component.vue";
 import PopupWarningComponent from "@/shared/components/popup-warning.component.vue";
 import PopupNewCropComponent from "@/shared/components/popup-new-crop.component.vue";
 import PopupCropFinishedComponent from "@/shared/components/popup-crop-finished.component.vue";
+import dashboardContent from "@/dashboard/components/dashboard-content.component.vue";
+import ProcessLog from "@/process_log/components/process-log.component.vue";
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,11 +16,11 @@ const router = createRouter({
         },
         {
             path: "/dashboard",
-            component: HarvestList,
+            component: dashboardContent,
         },
         {
             path: "/process-log",
-            component: StepperContent,
+            component: ProcessLog,
         },
         {
             path: "/stepper",

@@ -8,7 +8,7 @@
         </div>
       </template>
     </pv-steps>
-    <h2 class="p-3 pl-5 font-bold">Records of harvest {{""}}, started on {{""}}</h2>
+    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3"
                       @click="nextStep"
@@ -17,34 +17,66 @@
                       :buttonTextColor="'var(--white)'"
                       :buttonBorderColor="'var(--red)'">
       </button-primary>
-      <button-primary class="mb-3"
-                      :text="' + Create new record'"
-                      :buttonColor="'var(--primary-white)'"
-                      :buttonTextColor="'var(--primary-green)'"
-                      :buttonBorderColor="'var(--primary-green)'">
-      </button-primary>
+      <button-primary
+          class="mb-3"
+          :text="' + Create new record'"
+          :buttonColor="'var(--white)'"
+          :buttonTextColor="'var(--primary-green)'"
+          :buttonBorderColor="'var(--primary-green)'"
+          @click="openInputDialog">
+        </button-primary>
     </div>
+    <div class="mb-3">
+      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
+    </div>
+
+    <process-input-dialog-stock
+        ref="processInputDialogStock"
+    ></process-input-dialog-stock>
+    <process-input-dialog-preparation-area
+        ref="processInputDialogPreparationArea"
+    ></process-input-dialog-preparation-area>
+    <process-input-dialog-bunker
+        ref="processInputDialogBunker"
+    ></process-input-dialog-bunker>
+    <process-input-dialog-tunel
+        ref="processInputDialogTunel"
+    ></process-input-dialog-tunel>
+    <process-input-dialog :process-type="phases[currentStep].message"
+                          :endpoint="phases[currentStep].endpoint"
+        ref="processInputDialog"
+    ></process-input-dialog>
   </div>
 </template>
 
 <script>
 import ButtonPrimary from '../../shared/components/button-primary.component.vue';
+import ProcessTable from "../../harvestings/components/process-table.component.vue";
+import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
+import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
+import ProcessInputDialogPreparationArea from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
+import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
+import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
+
+
+
 export default {
   name: 'stepper-content',
-  components: { ButtonPrimary },
+  components: {ProcessTable, ButtonPrimary, ProcessInputDialog, ProcessInputDialogStock, ProcessInputDialogPreparationArea, ProcessInputDialogBunker, ProcessInputDialogTunel },
   data() {
     return {
       currentStep: 0,
       phases: [
-        { label: '0', message: 'Stock' },
-        { label: '1', message: 'Preparation area' },
-        { label: '2', message: 'Bunker' },
-        { label: '3', message: 'Tunnel' },
-        { label: '4.1', message: 'Incubation' },
-        { label: '4.2', message: 'Casing' },
-        { label: '4.3', message: 'Induction' },
-        { label: '4.4', message: 'Harvest' },
+        { label: '0', message: 'Stock', endpoint: 'stock' },
+        { label: '1', message: 'Preparation area', endpoint: 'preparation_area' },
+        { label: '2', message: 'Bunker', endpoint: 'bunker' },
+        { label: '3', message: 'Tunnel', endpoint: 'tunnel' },
+        { label: '4.1', message: 'Incubation', endpoint: 'grow_room_record?processType=Incubation' },
+        { label: '4.2', message: 'Casing', endpoint: 'grow_room_record?processType=Casing' },
+        { label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction' },
+        { label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest' },
       ],
+      record: "",
     };
   },
   computed: {
@@ -63,6 +95,21 @@ export default {
     nextStep() {
       if (this.currentStep < this.phases.length - 1) {
         this.currentStep++;
+        console.log(this.currentStep);
+        console.log(this.phases[this.currentStep].endpoint)
+      }
+    },
+    openInputDialog() {
+      if(this.currentStep === 0){
+        this.$refs.processInputDialogStock.showDialog();
+      }else if(this.currentStep === 1){
+        this.$refs.processInputDialogPreparationArea.showDialog();
+      }else if(this.currentStep === 2){
+        this.$refs.processInputDialogBunker.showDialog();
+      }else if(this.currentStep === 3){
+        this.$refs.processInputDialogTunel.showDialog();
+      }else{
+        this.$refs.processInputDialog.showDialog();
       }
     }
   },
@@ -132,12 +179,6 @@ color: var(--black);
 
 .completed-message {
 color: var(--black);
-}
-
-h2 {
-color: var(--primary-green);
-font-size: var(--medium-text-regular-size);
-font-family: var(--font-primary);
 }
 
 .step-message {

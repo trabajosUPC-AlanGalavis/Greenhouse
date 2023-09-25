@@ -42,7 +42,8 @@
     <process-input-dialog-tunel
         ref="processInputDialogTunel"
     ></process-input-dialog-tunel>
-    <process-input-dialog
+    <process-input-dialog :process-type="phases[currentStep].message"
+                          :endpoint="phases[currentStep].endpoint"
         ref="processInputDialog"
     ></process-input-dialog>
   </div>

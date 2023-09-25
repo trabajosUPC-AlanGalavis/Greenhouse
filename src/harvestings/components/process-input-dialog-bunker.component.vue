@@ -75,8 +75,6 @@ export default {
       displayDialog: false,
       author: "",
       day: 0,
-      date: "",
-      time: "",
       thermocoupleOne: 0,
       thermocoupleTwo: 0,
       thermocoupleThree: 0,

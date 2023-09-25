@@ -86,8 +86,6 @@ export default {
       displayDialog: false,
       author: "",
       day: 0,
-      date: "",
-      time: "",
       hay: 0,
       corn: 0,
       guano: 0,

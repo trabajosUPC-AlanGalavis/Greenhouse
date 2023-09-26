@@ -12,15 +12,7 @@
         </template>
         <template #content class="text-center">
           <div class="text-center">
-            <router-link to="/stepper">
-              <button-primary
-                  class="text-center mx-auto"
-                  :text="' + Start new harvest'"
-                  :buttonColor="'var(--primary-green)'"
-                  :buttonTextColor="'var(--primary-white)'"
-                  :buttonBorderColor="'var(--primary-green)'">
-              </button-primary>
-            </router-link>
+            <popup-new></popup-new>
           </div>
         </template>
       </pv-card>
@@ -30,10 +22,11 @@
 
 <script>
 import ButtonPrimary from "../../shared/components/button-primary.component.vue";
+import PopupNew from "@/shared/components/popup-new-crop.component.vue";
 
 export default {
   name: "process-log",
-  components: { ButtonPrimary },
+  components: {PopupNew, ButtonPrimary },
 };
 </script>
 

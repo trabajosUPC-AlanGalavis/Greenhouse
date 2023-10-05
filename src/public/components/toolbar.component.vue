@@ -1,3 +1,19 @@
+<script>
+export default {
+  name: "toolbar",
+  data() {
+    return {
+      showMenu: false
+    };
+  },
+  methods: {
+    toggleNavbar() {
+      this.showMenu = !this.showMenu;
+    }
+  }
+};
+</script>
+
 <template>
   <nav class="header relative flex flex-wrap items-center justify-between pt-3 pb-2 mb-3">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
@@ -44,21 +60,6 @@
     </div>
   </nav>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      showMenu: false
-    };
-  },
-  methods: {
-    toggleNavbar() {
-      this.showMenu = !this.showMenu;
-    }
-  }
-};
-</script>
 
 <style>
 .header {

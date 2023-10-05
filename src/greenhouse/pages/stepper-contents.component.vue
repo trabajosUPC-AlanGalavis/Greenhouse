@@ -1,127 +1,14 @@
-<template>
-  <div class="card m-5">
-    <pv-steps class="stepper" :model="phases" aria-label="Phases" :active-index="currentStep" @update:activeIndex="updateStep">
-      <template #item="{ label, item, index }">
-        <div class="step-item" :class="{ 'active-step': index === currentStep, 'completed-step': index < currentStep }" @click="handleStepClick(index)">
-          <span class="step-number">{{ label }}</span>
-          <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">{{ item.message }}</p>
-        </div>
-      </template>
-    </pv-steps>
-    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
-    <div class="button-group flex-shrink">
-      <button-primary class="mb-3 mr-3"
-                      @click="openPopup"
-                      :text="'End phase'"
-                      :buttonColor="'var(--red)'"
-                      :buttonTextColor="'var(--white)'"
-                      :buttonBorderColor="'var(--red)'">
-      </button-primary>
-      <div class="popup-container" v-if="showPopup">
-        <div class="popup-content">
-          <div class="popup-header">
-            <h2>WARNING</h2>
-          </div>
-          <div class="popup-body">
-            <br>
-            <p style="text-align: center;">{{"This phase is completed, you will not be able to make any more records at this stage. " +
-            "Are you sure you want to continue?"}}</p>
-            <h5>This operation is irreversible</h5>
-          </div>
-          <div class="popup-footer">
-            <button-primary class="mb-2 mr-3 mt-4"
-                            @click="nextStep"
-                            :text="'Yes, finish it'"
-                            :buttonColor="'var(--red)'"
-                            :buttonTextColor="'var(--white)'"
-                            :buttonBorderColor="'var(--red)'">
-            </button-primary>
-            <button-primary class="mb-2 mr-3 mt-4"
-                            @click="closePopup"
-                            :text="'Cancel'"
-                            :buttonColor="'var(--gray-2)'"
-                            :buttonTextColor="'var(--white)'"
-                            :buttonBorderColor="'var(--gray-2)'">
-            </button-primary>
-          </div>
-        </div>
-      </div>
-      <button-primary
-          :disabled="isButtonDisabled"
-          class="mb-3"
-          :text="' + Create new record'"
-          :buttonColor="'var(--white)'"
-          :buttonTextColor="'var(--primary-green)'"
-          :buttonBorderColor="'var(--primary-green)'"
-          @click="openInputDialog">
-        </button-primary>
-    </div>
-
-    <div class="popup-container" v-if="isLastPhase">
-      <div class="popup-content">
-        <div class="popup-header-2">
-          <h2>CROP COMPLETED</h2>
-        </div>
-        <div class="popup-body-2">
-          <br>
-          <p style="text-align: center;">The cultivation started on {{date_start}} has successfully completed all
-            stages, the records were filled in the section  <strong>"Control Panel", Crop History"</strong></p>
-        </div>
-
-        <div class="popup-footer">
-          <router-link to="/dashboard">
-            <button-primary
-                class="text-center mt-3 mx-auto"
-                :text="' Accept and return to the main Menu'"
-                :buttonColor="'var(--primary-green)'"
-                :buttonTextColor="'var(--primary-white)'"
-                :buttonBorderColor="'var(--primary-green)'"
-                @click="closeNotification()"
-            >
-            </button-primary>
-          </router-link>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
-    </div>
-
-    <process-input-dialog-stock
-        ref="processInputDialogStock"
-    ></process-input-dialog-stock>
-    <process-input-dialog-preparation-area
-        ref="processInputDialogPreparationArea"
-    ></process-input-dialog-preparation-area>
-    <process-input-dialog-bunker
-        ref="processInputDialogBunker"
-    ></process-input-dialog-bunker>
-    <process-input-dialog-tunel
-        ref="processInputDialogTunel"
-    ></process-input-dialog-tunel>
-    <process-input-dialog :process-type="phases[currentStep].message"
-                          :endpoint="phases[currentStep].endpoint"
-        ref="processInputDialog"
-    ></process-input-dialog>
-  </div>
-</template>
-
 <script>
-import ButtonPrimary from '../../shared/components/button-primary.component.vue';
-import ProcessTable from "../../harvestings/components/process-table.component.vue";
-import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
+import ButtonPrimary from '../components/button-primary.component.vue';
+import ProcessTable from "../components/process-table.component.vue";
+import ProcessInputDialog from "../components/process-input-dialog.component.vue";
 import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
 import ProcessInputDialogPreparationArea from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
 import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
 import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
 
-
-
-
 export default {
-  name: 'stepper-content',
+  name: 'stepper-contents',
   components: {
     ProcessTable, ButtonPrimary, ProcessInputDialog, ProcessInputDialogStock, ProcessInputDialogPreparationArea, ProcessInputDialogBunker, ProcessInputDialogTunel },
   data() {
@@ -200,6 +87,116 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="card m-5">
+    <pv-steps class="stepper" :model="phases" aria-label="Phases" :active-index="currentStep" @update:activeIndex="updateStep">
+      <template #item="{ label, item, index }">
+        <div class="step-item" :class="{ 'active-step': index === currentStep, 'completed-step': index < currentStep }" @click="handleStepClick(index)">
+          <span class="step-number">{{ label }}</span>
+          <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">{{ item.message }}</p>
+        </div>
+      </template>
+    </pv-steps>
+    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
+    <div class="button-group flex-shrink">
+      <button-primary class="mb-3 mr-3"
+                      @click="openPopup"
+                      :text="'End phase'"
+                      :buttonColor="'var(--red)'"
+                      :buttonTextColor="'var(--white)'"
+                      :buttonBorderColor="'var(--red)'">
+      </button-primary>
+      <div class="popup-container" v-if="showPopup">
+        <div class="popup-content">
+          <div class="popup-header">
+            <h2>WARNING</h2>
+          </div>
+          <div class="popup-body">
+            <br>
+            <p style="text-align: center;">{{"This phase is completed, you will not be able to make any more records at this stage. " +
+            "Are you sure you want to continue?"}}</p>
+            <h5>This operation is irreversible</h5>
+          </div>
+          <div class="popup-footer">
+            <button-primary class="mb-2 mr-3 mt-4"
+                            @click="nextStep"
+                            :text="'Yes, finish it'"
+                            :buttonColor="'var(--red)'"
+                            :buttonTextColor="'var(--white)'"
+                            :buttonBorderColor="'var(--red)'">
+            </button-primary>
+            <button-primary class="mb-2 mr-3 mt-4"
+                            @click="closePopup"
+                            :text="'Cancel'"
+                            :buttonColor="'var(--gray-2)'"
+                            :buttonTextColor="'var(--white)'"
+                            :buttonBorderColor="'var(--gray-2)'">
+            </button-primary>
+          </div>
+        </div>
+      </div>
+      <button-primary
+          :disabled="isButtonDisabled"
+          class="mb-3"
+          :text="' + Create new record'"
+          :buttonColor="'var(--white)'"
+          :buttonTextColor="'var(--primary-green)'"
+          :buttonBorderColor="'var(--primary-green)'"
+          @click="openInputDialog">
+      </button-primary>
+    </div>
+
+    <div class="popup-container" v-if="isLastPhase">
+      <div class="popup-content">
+        <div class="popup-header-2">
+          <h2>CROP COMPLETED</h2>
+        </div>
+        <div class="popup-body-2">
+          <br>
+          <p style="text-align: center;">The cultivation started on {{date_start}} has successfully completed all
+            stages, the records were filled in the section  <strong>"Control Panel", Crop History"</strong></p>
+        </div>
+
+        <div class="popup-footer">
+          <router-link to="/dashboard">
+            <button-primary
+                class="text-center mt-3 mx-auto"
+                :text="' Accept and return to the main Menu'"
+                :buttonColor="'var(--primary-green)'"
+                :buttonTextColor="'var(--primary-white)'"
+                :buttonBorderColor="'var(--primary-green)'"
+                @click="closeNotification()"
+            >
+            </button-primary>
+          </router-link>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
+    </div>
+
+    <process-input-dialog-stock
+        ref="processInputDialogStock"
+    ></process-input-dialog-stock>
+    <process-input-dialog-preparation-area
+        ref="processInputDialogPreparationArea"
+    ></process-input-dialog-preparation-area>
+    <process-input-dialog-bunker
+        ref="processInputDialogBunker"
+    ></process-input-dialog-bunker>
+    <process-input-dialog-tunel
+        ref="processInputDialogTunel"
+    ></process-input-dialog-tunel>
+    <process-input-dialog :process-type="phases[currentStep].message"
+                          :endpoint="phases[currentStep].endpoint"
+                          ref="processInputDialog"
+    ></process-input-dialog>
+  </div>
+</template>
 
 <style scoped>
 .card {

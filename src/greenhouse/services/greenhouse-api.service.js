@@ -1,5 +1,5 @@
 
-import http from '../services/http-common';
+import http from '../../shared/services/http-common';
 
 export class GreenhouseApiService {
     getAllData(type) {

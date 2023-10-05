@@ -1,32 +1,37 @@
 import { createRouter, createWebHistory } from "vue-router";
-import StepperContent from "@/harvestings/components/stepper-content.component.vue";
-import PopupNewCropComponent from "@/shared/components/popup-new-crop.component.vue";
-import dashboardContent from "@/dashboard/components/dashboard-content.component.vue";
-import ProcessLog from "@/process_log/components/process-log.component.vue";
-
+import PopupNewCrop from "@/greenhouse/components/popup-new-crop.component.vue";
+import ProcessLogContents from "@/greenhouse/pages/process-log-contents.component.vue";
+import login from "@/public/pages/login.vue";
+import Dashboard from "@/public/pages/dashboard.component.vue";
+import pageNotFound from "@/public/pages/page-not-found.component.vue";
+import harvesting from "@/public/pages/harvesting.component.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
+            path: "/:notFound",
+            component: pageNotFound,
+        },
+        {
             path: "/",
-            redirect: "/dashboard",
+            redirect: "/login",
+        },
+        {
+            path: "/login",
+            component: login,
         },
         {
             path: "/dashboard",
-            component: dashboardContent,
+            component: Dashboard,
         },
         {
             path: "/process-log",
-            component: ProcessLog,
+            component: ProcessLogContents,
         },
         {
-            path: "/stepper",
-            component: StepperContent,
-        },
-        {
-            path:"/popup-new-crop",
-            component:PopupNewCropComponent,
+            path: "/harvesting",
+            component: harvesting,
         },
     ],
 });

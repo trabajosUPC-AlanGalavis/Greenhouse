@@ -1,3 +1,13 @@
+<script>
+import ButtonPrimary from "../components/button-primary.component.vue";
+import PopupNew from "@/greenhouse/components/popup-new-crop.component.vue";
+
+export default {
+  name: "process-log-contents",
+  components: {PopupNew, ButtonPrimary },
+};
+</script>
+
 <template>
   <pv-card class="card">
     <template #title>
@@ -19,16 +29,6 @@
     </template>
   </pv-card>
 </template>
-
-<script>
-import ButtonPrimary from "../../shared/components/button-primary.component.vue";
-import PopupNew from "@/shared/components/popup-new-crop.component.vue";
-
-export default {
-  name: "process-log",
-  components: {PopupNew, ButtonPrimary },
-};
-</script>
 
 <style scoped>
 * {

@@ -1,28 +1,19 @@
-<template>
-  <div>
-    <header-content></header-content>
-    <router-view></router-view>
-  </div>
-</template>
-
 <script>
-import HeaderContent from "@/shared/components/header-content.component.vue";
+import Toolbar from "@/public/components/toolbar.component.vue";
 
 export default {
   name: "App",
-  components: {HeaderContent},
-  data() {
-    return {
-      currentSection: "process-log",
-    };
-  },
+  components: {Toolbar},
 };
 </script>
 
+<template>
+  <toolbar></toolbar>
+  <router-view></router-view>
+</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

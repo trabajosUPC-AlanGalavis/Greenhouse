@@ -31,7 +31,7 @@
 
 <script>
 
-import {GreenhouseApiService} from "@/shared/services/greenhouse-api.service";
+import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
 import {FilterMatchMode} from "primevue/api";
 
 export default {

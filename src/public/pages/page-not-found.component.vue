@@ -9,6 +9,7 @@ export default {
 }
 </script>
 
+
 <template>
   <div class="center">
     <h1>Page Not Found</h1>
@@ -20,6 +21,7 @@ export default {
     </router-link>
   </div>
 </template>
+
 
 <style scoped>
 .center {

@@ -4,7 +4,7 @@
       <template #content>
         <img :src="image" width="220" height="220" alt="dashboard-icon">
       </template>
-      <template #footer class="footer w-full">
+      <template #footer class="footer">
         <div class="footer w-full p-3">
           <router-link :to="link">
             <button>

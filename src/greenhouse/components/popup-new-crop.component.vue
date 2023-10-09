@@ -43,7 +43,7 @@ export default {
         <p style="text-align: center;">{{ popupText + date }}</p>
       </div>
       <div class="popup-footer">
-        <router-link to="/harvesting">
+        <router-link to="/stepper">
           <button-primary
               class="text-center mx-auto"
               :text="' Yes, Start'"
@@ -76,7 +76,7 @@ export default {
   bottom: 0;
   right: 0;
   display: flex;
-  padding:100px;
+  padding: 5%;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);

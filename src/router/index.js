@@ -1,17 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
-import PopupNewCrop from "@/greenhouse/components/popup-new-crop.component.vue";
-import ProcessLogContents from "@/greenhouse/pages/process-log-contents.component.vue";
-import login from "@/public/pages/login.vue";
+import StepperContent from "@/greenhouse/pages/stepper-contents.component.vue";
+import Login from "@/public/pages/login.component.vue";
 import Dashboard from "@/public/pages/dashboard.component.vue";
-import pageNotFound from "@/public/pages/page-not-found.component.vue";
-import harvesting from "@/public/pages/harvesting.component.vue";
+import PageNotFound from "@/public/pages/page-not-found.component.vue";
+import HarvestingInProgress from "@/public/pages/harvesting-in-progress.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: "/:notFound",
-            component: pageNotFound,
+            component: PageNotFound,
         },
         {
             path: "/",
@@ -19,7 +18,7 @@ const router = createRouter({
         },
         {
             path: "/login",
-            component: login,
+            component: Login,
         },
         {
             path: "/dashboard",
@@ -27,11 +26,11 @@ const router = createRouter({
         },
         {
             path: "/process-log",
-            component: ProcessLogContents,
+            component: HarvestingInProgress,
         },
         {
-            path: "/harvesting",
-            component: harvesting,
+            path: "/stepper",
+            component: StepperContent,
         },
     ],
 });

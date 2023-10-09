@@ -1,36 +1,4 @@
-<template>
-  <pv-data-table
-      class="overflow-hidden ml-4 mr-4 mb-4"
-      :value="processData"
-      ref="dt"
-      dataKey="id"
-      :paginator="true"
-      :rows="10"
-      paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport
-        RowsPerPageDropdown"
-      :filters="filters"
-      :rowsPerPageOptions="[5, 10, 25]"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      responsiveLayout="scroll">
-    <template #header>
-      <div class="table-header flex flex-column md:justify-content-between">
-        <h2 class="mb-2 md:m-0 p-as-md-center text-xl font-bold">Records of harvest {{ "" }}, started on {{ "" }}</h2>
-        <pv-input-text class="bg-transparent border-transparent text-black" v-model="filters['global'].value"
-                       placeholder="Filter records..."/>
-      </div>
-    </template>
-    <pv-column
-        v-for="col of columns"
-        :key="col.field"
-        :field="col.field"
-        :header="col.header">
-    </pv-column>
-  </pv-data-table>
-
-</template>
-
 <script>
-
 import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
 import {FilterMatchMode} from "primevue/api";
 
@@ -94,6 +62,38 @@ export default {
 }
 
 </script>
+
+<template>
+  <pv-data-table
+      class="overflow-hidden ml-4 mr-4 mb-4"
+      :value="processData"
+      ref="dt"
+      dataKey="id"
+      :paginator="true"
+      :rows="10"
+      paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport
+        RowsPerPageDropdown"
+      :filters="filters"
+      :rowsPerPageOptions="[5, 10, 25]"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      responsiveLayout="scroll">
+    <template #header>
+      <div class="table-header flex flex-column md:justify-content-between">
+        <h2 class="mb-2 md:m-0 p-as-md-center text-xl font-bold">Records of harvest {{ "" }}, started on {{ "" }}</h2>
+        <pv-input-text class="bg-transparent border-transparent text-black"
+                       v-model="filters['global'].value"
+                       placeholder="Filter records..."/>
+      </div>
+    </template>
+    <pv-column
+        v-for="col of columns"
+        :key="col.field"
+        :field="col.field"
+        :header="col.header">
+    </pv-column>
+  </pv-data-table>
+
+</template>
 
 <style scoped>
 h2 {

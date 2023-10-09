@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import StepperContent from "@/greenhouse/pages/stepper-contents.component.vue";
-import PopupNewCropComponent from "@/greenhouse/components/popup-new-crop.component.vue";
 import Login from "@/public/pages/login.component.vue";
 import Dashboard from "@/public/pages/dashboard.component.vue";
 import PageNotFound from "@/public/pages/page-not-found.component.vue";
@@ -32,10 +31,6 @@ const router = createRouter({
         {
             path: "/stepper",
             component: StepperContent,
-        },
-        {
-            path:"/popup-new-crop",
-            component:PopupNewCropComponent,
         },
     ],
 });

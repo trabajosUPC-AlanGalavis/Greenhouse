@@ -43,7 +43,7 @@ export default {
         <p style="text-align: center;">{{ popupText + date }}</p>
       </div>
       <div class="popup-footer">
-        <router-link to="/harvesting">
+        <router-link to="/stepper">
           <button-primary
               class="text-center mx-auto"
               :text="' Yes, Start'"

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {GreenhouseApiService} from "@/shared/services/greenhouse-api.service";
+import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
 
 export default {
   name: "process-input-dialog-preparation-area",

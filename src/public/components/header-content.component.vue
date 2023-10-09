@@ -8,7 +8,8 @@
             <p>Greenhouse</p>
           </div>
         </router-link>
-        <button class="cursor-pointer leading-none rounded block lg:hidden outline-none focus:outline-none" type="button" @click="toggleNavbar">
+        <button class="cursor-pointer leading-none rounded block lg:hidden outline-none focus:outline-none"
+                type="button" @click="toggleNavbar">
           <i class="fa fa-bars"></i>
         </button>
       </div>
@@ -16,7 +17,7 @@
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
           <li class="nav-item">
             <a class="px-3 py-2 flex items-center leading-snug cursor-pointer">
-              <span class="ml-2 flex"><p>EN</p><i class="fa fa-angle-down"></i></span>
+              <span class="ml-2 flex">EN<i class="fa fa-angle-down"></i></span>
             </a>
           </li>
           <li class="nav-item">
@@ -24,7 +25,7 @@
               <div class="px-3 py-2 items-center font-bold">
                 <span class="ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  <p>Organization</p>
+                  Organization
                 </span>
               </div>
             </router-link>
@@ -34,7 +35,7 @@
               <div class="px-3 py-2 flex items-center font-bold leading-snug">
                 <span class="ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  <p>Profile</p>
+                  Profile
                 </span>
               </div>
             </router-link>

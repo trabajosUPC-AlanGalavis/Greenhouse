@@ -1,3 +1,13 @@
+<script>
+import ButtonPrimary from "../components/button-primary.component.vue";
+import PopupNew from "@/greenhouse/components/popup-new-crop.component.vue";
+
+export default {
+  name: "harvesting-in-progress-contents",
+  components: {PopupNew, ButtonPrimary },
+};
+</script>
+
 <template>
   <pv-card class="card">
     <template #title>
@@ -20,19 +30,13 @@
   </pv-card>
 </template>
 
-<script>
-import ButtonPrimary from "../../shared/components/button-primary.component.vue";
-import PopupNew from "@/shared/components/popup-new-crop.component.vue";
-
-export default {
-  name: "process-log",
-  components: {PopupNew, ButtonPrimary },
-};
-</script>
-
 <style scoped>
 * {
   font-family: var(--font-primary);
+}
+
+.card {
+  border-radius: 20px;
 }
 
 h2 {
@@ -44,18 +48,11 @@ h4 {
   font-size: var(--heading-4-size);
 }
 
-.card {
-  background-color: var(--white);
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
-  border-radius: 20px;
-  margin: 2.7rem 2rem;
-}
-
 .card-small {
   background-color: var(--white);
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
   border-radius: 5px;
-  margin: 2.7rem 1rem;
+  margin: 5%;
 }
 
 .searchbar {

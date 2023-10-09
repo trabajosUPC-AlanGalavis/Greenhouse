@@ -1,6 +1,6 @@
 
 <script>
-import ButtonPrimary from "@/shared/components/button-primary.component.vue";
+import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 
 export default {
   name: 'popup-new',
@@ -77,7 +77,7 @@ export default {
   bottom: 0;
   right: 0;
   display: flex;
-  padding:100px;
+  padding: 5%;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);

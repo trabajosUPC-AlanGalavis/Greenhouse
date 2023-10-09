@@ -1,10 +1,109 @@
+<script>
+import ButtonPrimary from '../components/button-primary.component.vue';
+import ProcessTable from "../components/process-table.component.vue";
+import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
+import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
+import ProcessInputDialogPreparationArea
+  from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
+import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
+import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
+
+export default {
+  name: 'stepper-contents',
+  components: {
+    ProcessTable,
+    ButtonPrimary,
+    ProcessInputDialog,
+    ProcessInputDialogStock,
+    ProcessInputDialogPreparationArea,
+    ProcessInputDialogBunker,
+    ProcessInputDialogTunel
+  },
+  data() {
+    return {
+      currentStep: 0,
+      date_start: "18/09/23 ",
+      isButtonDisabled: false,
+      showPopup: false,
+      isLastPhase: false,
+      phases: [
+        {label: '0', message: 'Stock', endpoint: 'stock'},
+        {label: '1', message: 'Preparation area', endpoint: 'preparation_area'},
+        {label: '2', message: 'Bunker', endpoint: 'bunker'},
+        {label: '3', message: 'Tunnel', endpoint: 'tunnel'},
+        {label: '4.1', message: 'Incubation', endpoint: 'grow_room_record?processType=Incubation'},
+        {label: '4.2', message: 'Casing', endpoint: 'grow_room_record?processType=Casing'},
+        {label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction'},
+        {label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest'},
+      ],
+      record: "",
+    };
+  },
+  computed: {
+    shouldDisplayMessage() {
+      return window.innerWidth > 768;
+    },
+  },
+  methods: {
+    updateStep(newStep) {
+      this.currentStep = newStep;
+    },
+    openPopup() {
+      this.showPopup = true;
+      this.isButtonDisabled = true;
+    },
+
+    closePopup() {
+      this.showPopup = false;
+      this.isButtonDisabled = false;
+    },
+
+    closeNotification() {
+      this.isLastPhase = false;
+    },
+
+    handleStepClick(index) {
+      console.log('Click on step:', index);
+      this.$emit('step-clicked', index);
+    },
+    nextStep() {
+      this.showPopup = false;
+      this.isButtonDisabled = false;
+      if (this.currentStep === 7) {
+        this.isLastPhase = true;
+      } else if (this.currentStep < this.phases.length - 1) {
+        this.currentStep++;
+        console.log(this.currentStep);
+        console.log(this.phases[this.currentStep].endpoint)
+      }
+    },
+    openInputDialog() {
+      if (this.currentStep === 0) {
+        this.$refs.processInputDialogStock.showDialog();
+      } else if (this.currentStep === 1) {
+        this.$refs.processInputDialogPreparationArea.showDialog();
+      } else if (this.currentStep === 2) {
+        this.$refs.processInputDialogBunker.showDialog();
+      } else if (this.currentStep === 3) {
+        this.$refs.processInputDialogTunel.showDialog();
+      } else {
+        this.$refs.processInputDialog.showDialog();
+      }
+    }
+  },
+};
+</script>
+
 <template>
-  <div class="card m-5">
-    <pv-steps class="stepper" :model="phases" aria-label="Phases" :active-index="currentStep" @update:activeIndex="updateStep">
+  <div class="card">
+    <pv-steps class="stepper" :model="phases" aria-label="Phases" :active-index="currentStep"
+              @update:activeIndex="updateStep">
       <template #item="{ label, item, index }">
-        <div class="step-item" :class="{ 'active-step': index === currentStep, 'completed-step': index < currentStep }" @click="handleStepClick(index)">
+        <div class="step-item" :class="{ 'active-step': index === currentStep, 'completed-step': index < currentStep }"
+             @click="handleStepClick(index)">
           <span class="step-number">{{ label }}</span>
-          <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">{{ item.message }}</p>
+          <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">
+            {{ item.message }}</p>
         </div>
       </template>
     </pv-steps>
@@ -24,8 +123,10 @@
           </div>
           <div class="popup-body">
             <br>
-            <p style="text-align: center;">{{"This phase is completed, you will not be able to make any more records at this stage. " +
-            "Are you sure you want to continue?"}}</p>
+            <p style="text-align: center;">{{
+                "This phase is completed, you will not be able to make any more records at this stage. " +
+                "Are you sure you want to continue?"
+              }}</p>
             <h5>This operation is irreversible</h5>
           </div>
           <div class="popup-footer">
@@ -54,7 +155,7 @@
           :buttonTextColor="'var(--primary-green)'"
           :buttonBorderColor="'var(--primary-green)'"
           @click="openInputDialog">
-        </button-primary>
+      </button-primary>
     </div>
 
     <div class="popup-container" v-if="isLastPhase">
@@ -64,8 +165,8 @@
         </div>
         <div class="popup-body-2">
           <br>
-          <p style="text-align: center;">The cultivation started on {{date_start}} has successfully completed all
-            stages, the records were filled in the section  <strong>"Control Panel", Crop History"</strong></p>
+          <p style="text-align: center;">The cultivation started on {{ date_start }} has successfully completed all
+            stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
         </div>
 
         <div class="popup-footer">
@@ -103,117 +204,25 @@
     ></process-input-dialog-tunel>
     <process-input-dialog :process-type="phases[currentStep].message"
                           :endpoint="phases[currentStep].endpoint"
-        ref="processInputDialog"
+                          ref="processInputDialog"
     ></process-input-dialog>
   </div>
 </template>
 
-<script>
-import ButtonPrimary from '../../shared/components/button-primary.component.vue';
-import ProcessTable from "../../harvestings/components/process-table.component.vue";
-import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
-import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
-import ProcessInputDialogPreparationArea from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
-import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
-import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
-
-
-
-
-export default {
-  name: 'stepper-content',
-  components: {
-    ProcessTable, ButtonPrimary, ProcessInputDialog, ProcessInputDialogStock, ProcessInputDialogPreparationArea, ProcessInputDialogBunker, ProcessInputDialogTunel },
-  data() {
-    return {
-      currentStep: 0,
-      date_start: "18/09/23 ",
-      isButtonDisabled: false,
-      showPopup: false,
-      isLastPhase: false,
-      phases: [
-        { label: '0', message: 'Stock', endpoint: 'stock' },
-        { label: '1', message: 'Preparation area', endpoint: 'preparation_area' },
-        { label: '2', message: 'Bunker', endpoint: 'bunker' },
-        { label: '3', message: 'Tunnel', endpoint: 'tunnel' },
-        { label: '4.1', message: 'Incubation', endpoint: 'grow_room_record?processType=Incubation' },
-        { label: '4.2', message: 'Casing', endpoint: 'grow_room_record?processType=Casing' },
-        { label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction' },
-        { label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest' },
-      ],
-      record: "",
-    };
-  },
-  computed: {
-    shouldDisplayMessage() {
-      return window.innerWidth > 768;
-    },
-  },
-  methods: {
-    updateStep(newStep) {
-      this.currentStep = newStep;
-    },
-    openPopup() {
-      this.showPopup = true;
-      this.isButtonDisabled=true;
-    },
-
-    closePopup() {
-      this.showPopup = false;
-      this.isButtonDisabled = false;
-    },
-
-    closeNotification() {
-      this.isLastPhase = false;
-    },
-
-    handleStepClick(index) {
-      console.log('Click on step:', index);
-      this.$emit('step-clicked', index);
-    },
-    nextStep() {
-      this.showPopup = false;
-      this.isButtonDisabled = false;
-      if (this.currentStep === 7){
-        this.isLastPhase = true;
-      }
-      else if (this.currentStep < this.phases.length - 1) {
-        this.currentStep++;
-        console.log(this.currentStep);
-        console.log(this.phases[this.currentStep].endpoint)
-      }
-    },
-
-    openInputDialog() {
-      if(this.currentStep === 0){
-        this.$refs.processInputDialogStock.showDialog();
-      }else if(this.currentStep === 1){
-        this.$refs.processInputDialogPreparationArea.showDialog();
-      }else if(this.currentStep === 2){
-        this.$refs.processInputDialogBunker.showDialog();
-      }else if(this.currentStep === 3){
-        this.$refs.processInputDialogTunel.showDialog();
-      }else{
-        this.$refs.processInputDialog.showDialog();
-      }
-    }
-  },
-};
-</script>
-
 <style scoped>
+
 .card {
-background-color: var(--white);
-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
-border-radius: 4px;
+  border-radius: 20px;
 }
 
 .stepper {
-background-color: #F4F5F9;
-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-padding: 2rem 24px;
-margin-bottom: 20px;
-font-family: var(--font-primary);
+  background-color: #F4F5F9;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  padding: 2rem 24px;
+  margin-bottom: 20px;
+  font-family: var(--font-primary);
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
 .step-item {
@@ -247,27 +256,27 @@ font-family: var(--font-primary);
 
 
 .active-step .step-number {
-background-color: var(--secondary-green-1);
-color: var(--primary-white);
-border-color: var(--secondary-green-1);
+  background-color: var(--secondary-green-1);
+  color: var(--primary-white);
+  border-color: var(--secondary-green-1);
 }
 
 .active-step .step-message {
-color: var(--secondary-green-1);
-font-weight: bold;
+  color: var(--secondary-green-1);
+  font-weight: bold;
 }
 
 .completed-step .step-number {
-border-color: var(--black);
-color: var(--black);
+  border-color: var(--black);
+  color: var(--black);
 }
 
 .completed-message {
-color: var(--black);
+  color: var(--black);
 }
 
 .step-message {
-display: contents;
+  display: contents;
 }
 
 .button-group {
@@ -278,9 +287,11 @@ display: contents;
   .stepper {
     padding: 5px 0;
   }
+
   .step-message {
-  display: none;
+    display: none;
   }
+
   .button-group {
     padding: 0;
     flex-shrink: 1;
@@ -295,19 +306,21 @@ display: contents;
   bottom: 0;
   right: 0;
   display: flex;
-  padding:100px;
+  padding: 100px;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .popup-body h5 {
   color: #626262;
 }
+
 .popup-body p {
   color: #626262;
   font-size: 16px;
   white-space: pre-wrap;
-  padding:10px;
+  padding: 10px;
 }
 
 .popup-content {
@@ -316,7 +329,7 @@ display: contents;
 
   border-radius: 25px;
   text-align: center;
-  padding-bottom:40px;
+  padding-bottom: 40px;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -336,17 +349,17 @@ display: contents;
   color: #626262;
   font-size: 16px;
   white-space: pre-wrap;
-  padding:10px;
+  padding: 10px;
 }
 
 
 .popup-header {
   background-color: #FF3439;
   text-align: center;
-  padding:15px;
+  padding: 15px;
   border-radius: 20px;
-  border-bottom-left-radius:0px;
-  border-bottom-right-radius:0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 
 }
 
@@ -367,18 +380,17 @@ display: contents;
 
 
 .popup-footer .btn.close {
-  background-color: #D9D9D9 ;
+  background-color: #D9D9D9;
   color: black;
 }
 
 .popup-header-2 {
   background-color: #4A845B;
   text-align: center;
-  padding:15px;
+  padding: 15px;
   border-radius: 20px;
-  border-bottom-left-radius:0px;
-  border-bottom-right-radius:0px;
-
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 </style>

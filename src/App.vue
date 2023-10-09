@@ -1,28 +1,19 @@
-<template>
-  <div>
-    <header-content></header-content>
-    <router-view></router-view>
-  </div>
-</template>
-
 <script>
-import HeaderContent from "@/public/components/header-content.component.vue";
+import Toolbar from "@/public/components/toolbar.component.vue";
 
 export default {
   name: "App",
-  components: {HeaderContent},
-  data() {
-    return {
-      currentSection: "process-log",
-    };
-  },
+  components: {Toolbar},
 };
 </script>
 
+<template>
+  <toolbar></toolbar>
+  <router-view></router-view>
+</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -59,12 +50,4 @@ body {
   font-family: var(--font-primary);
   background-color: var(--primary-white);
 }
-
-.card {
-  background-color: var(--white);
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
-  border-radius: 20px;
-  margin: 5%;
-}
-
 </style>

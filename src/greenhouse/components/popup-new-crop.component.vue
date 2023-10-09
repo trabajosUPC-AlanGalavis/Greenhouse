@@ -1,4 +1,3 @@
-
 <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 
@@ -44,7 +43,7 @@ export default {
         <p style="text-align: center;">{{ popupText + date }}</p>
       </div>
       <div class="popup-footer">
-        <router-link to="/stepper">
+        <router-link to="/harvesting">
           <button-primary
               class="text-center mx-auto"
               :text="' Yes, Start'"
@@ -83,13 +82,12 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .popup-body h5 {
-  color: #626262; /* Cambiar el color del texto */
-  /* Cambiar el tamaño de fuente del texto */
+  color: #626262;
 }
 .popup-body p {
-  color: #626262; /* Cambiar el color del texto */
-  font-size: 16px; /* Cambiar el tamaño de fuente del texto */
-  white-space: pre-wrap; /* Permite ajustar el texto en varias líneas */
+  color: #626262;
+  font-size: 16px;
+  white-space: pre-wrap;
   padding:10px;
 }
 
@@ -100,8 +98,8 @@ export default {
   border-radius: 25px;
   text-align: center;
   padding-bottom:40px;
-  max-width: 600px; /* Ajusta el ancho máximo según tus preferencias */
-  margin: 0 auto; /* Centra horizontalmente el cuadro */
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .popup-content img {

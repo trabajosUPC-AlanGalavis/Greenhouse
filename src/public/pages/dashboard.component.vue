@@ -1,9 +1,11 @@
 <script>
 import DashboardContents from "@/greenhouse/pages/dashboard-contents.component.vue";
+
 export default {
   name: "dashboard",
   components: {DashboardContents}
 }
+
 </script>
 
 <template>
@@ -11,4 +13,5 @@ export default {
 </template>
 
 <style scoped>
+
 </style>

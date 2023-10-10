@@ -1,32 +1,23 @@
-<template>
-  <stepper-content></stepper-content>
-  <main-content></main-content>
-</template>
-
 <script>
-import StepperContent from "@/harvestings/components/stepper-content.component.vue";
-import ButtonPrimary from "@/harvestings/components/button-primary.component.vue";
-import ProfileCardComponent from "@/profiles/components/profile-box.component.vue";
-import MainContent from "@/profiles/components/main-content.component.vue";
+import Toolbar from "@/public/components/toolbar.component.vue";
 
 export default {
-  name: 'App',
-  components: {MainContent, ProfileCardComponent, ButtonPrimary, StepperContent},
-  data() {
-    return {
-      currentStep: 0,
-    };
-  },
-  methods: {
-    updateStep(newStep) {
-      this.currentStep = newStep;
-    },
-  },
-}
+  name: "App",
+  components: {Toolbar},
+};
 </script>
+
+<template>
+  <toolbar></toolbar>
+  <router-view></router-view>
+</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --primary-green: #4D6443;
   --primary-white:#E1E8EC;
@@ -55,8 +46,8 @@ export default {
   --small-text-regular-size: 14px;
 }
 
-body{
-  background-color: var(--primary-white);
+body {
   font-family: var(--font-primary);
+  background-color: var(--primary-white);
 }
 </style>

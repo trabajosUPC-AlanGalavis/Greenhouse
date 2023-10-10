@@ -31,7 +31,7 @@ export default {
   --secondary-green-2:#5B7051;
   --secondary-beige:#CBB99D;
   --red: #FF3439;
-  --font-primary: nunito;
+  --font-primary: Nunito;
   --heading-1-size: 52px;
   --heading-2-size: 36px;
   --heading-3-size: 24px;

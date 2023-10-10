@@ -1,7 +1,7 @@
 <script>
 import dashboardCard from "@/greenhouse/components/dashboard-card.component.vue";
 export default {
-  name: "dashboard-contents",
+  name: "dashboard",
   components: {
     dashboardCard,
   },

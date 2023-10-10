@@ -1,10 +1,10 @@
 <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
-import LoginForm from "@/public/components/login-form.component.vue";
+import SignupForm from "@/public/components/signup-form.component.vue";
 
 export default {
-  name: "login",
-  components: {LoginForm, ButtonPrimary },
+  name: "signup",
+  components: {SignupForm, ButtonPrimary },
 }
 </script>
 
@@ -17,22 +17,22 @@ export default {
           <p>To use the application, please login or register a company</p>
         </div>
         <div class="flex mb-5 justify-content-center md:justify-content-start">
-          <div class="state-color active-label">
-            <input id="login" type="radio" name="login-signup">
-            <div class="mr-5">
-              <label class="cursor-pointer" for="login">Login</label>
+          <router-link to="/login">
+            <div class="state-color">
+              <input id="login" type="radio" name="login-signup">
+              <div class="mr-5">
+                <label class="cursor-pointer" for="login">Login</label>
+              </div>
             </div>
-          </div>
-          <div class="state-color">
-            <router-link to="/signup">
+          </router-link>
+          <div class="state-color active-label">
               <input id="signup" type="radio" name="login-signup">
               <div>
                 <label class="cursor-pointer" for="signup">Register a company</label>
               </div>
-            </router-link>
           </div>
         </div>
-        <login-form/>
+        <signup-form/>
       </template>
     </pv-card>
   </div>

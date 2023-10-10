@@ -3,7 +3,7 @@ import ButtonPrimary from "../components/button-primary.component.vue";
 import PopupNew from "@/greenhouse/components/popup-new-crop.component.vue";
 
 export default {
-  name: "harvesting-in-progress-contents",
+  name: "harvesting-in-progress",
   components: {PopupNew, ButtonPrimary },
 };
 </script>
@@ -61,7 +61,7 @@ h4 {
   border-top-right-radius: 5px;
 }
 
-::v-deep .card-small .p-card-body {
+::v-deep .card-small {
   padding: 0 !important;
 }
 

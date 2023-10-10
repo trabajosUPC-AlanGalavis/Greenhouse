@@ -11,17 +11,13 @@ export default {
     }
   },
   methods: {
-    handleSubmit(){
-      const data = {
+    async handleSubmit(){
+      const response = await axios.post('/login', {
         email: this.email,
         password: this.password
-      }
-      axios.post('/login', data).then((response) => {
-        console.log(response)
-        this.$router.push("/dashboard")
-      }).catch((error) => {
-        console.log(error)
-      })
+      });
+      console.log(response);
+      this.$router.push("/dashboard");
     }
   }
 }
@@ -64,7 +60,7 @@ export default {
     </div>
     <div class="text-center">
       <button-primary
-          class="px-8 mb-3"
+          class="px-7 mb-3"
           :text="'Login'"
           :buttonColor="'var(--primary-green)'"
           :buttonTextColor="'var(--primary-white)'"
@@ -79,5 +75,7 @@ export default {
 </template>
 
 <style scoped>
-
+* {
+  font-family: var(--font-primary);
+}
 </style>

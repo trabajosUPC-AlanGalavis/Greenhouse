@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import StepperContent from "@/greenhouse/pages/stepper-contents.component.vue";
 import Login from "@/public/pages/login.component.vue";
-import Dashboard from "@/public/pages/dashboard.component.vue";
 import PageNotFound from "@/public/pages/page-not-found.component.vue";
-import HarvestingInProgress from "@/public/pages/harvesting-in-progress.vue";
+import Dashboard from "@/greenhouse/pages/dashboard.component.vue";
+import HarvestingInProgress from "@/greenhouse/pages/harvesting-in-progress.component.vue";
+import Signup from "@/public/pages/signup.component.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,10 @@ const router = createRouter({
         {
             path: "/login",
             component: Login,
+        },
+        {
+            path: "/signup",
+            component: Signup,
         },
         {
             path: "/dashboard",

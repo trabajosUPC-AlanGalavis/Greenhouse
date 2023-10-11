@@ -6,6 +6,7 @@ import Dashboard from "@/greenhouse/pages/dashboard.component.vue";
 import HarvestingInProgress from "@/greenhouse/pages/harvesting-in-progress.component.vue";
 import Signup from "@/public/pages/signup.component.vue";
 import PasswordReset from "@/public/pages/password-reset.component.vue";
+import SitePolicy from "@/public/pages/site-policy.component.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,7 @@ const router = createRouter({
         },
         {
             path: "/site-policy",
+            component: SitePolicy,
         },
         {
             path: "/dashboard",

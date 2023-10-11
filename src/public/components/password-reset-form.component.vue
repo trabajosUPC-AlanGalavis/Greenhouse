@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      const response = await axios.post('/password-reset', {
+      await axios.post('/password-reset', {
         email: this.email,
       });
     }

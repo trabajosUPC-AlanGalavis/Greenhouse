@@ -52,7 +52,7 @@ export default {
     </div>
     <div class="flex items-center md:items-start mb-3">
       <div class="h-5">
-        <input id="remember" aria-describedby="remember" type="checkbox" class="rounded check-bg-color">
+        <input id="remember" aria-describedby="remember" type="checkbox" class="rounded cursor-pointer">
       </div>
       <div class="text-sm ml-3">
         <label for="remember" class="font-medium">Remember me</label>

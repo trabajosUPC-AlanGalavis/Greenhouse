@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <form id="login" @submit.prevent="handleSubmit">
+  <form id="signup" @submit.prevent="handleSubmit">
     <div class="mb-3 p-float-label">
       <pv-input-text
           id="company_name"
@@ -120,12 +120,12 @@ export default {
     </div>
     <div class="flex items-center md:items-start mb-3">
       <div class="h-5">
-        <input id="remember" aria-describedby="remember" type="checkbox" required class="rounded check-bg-color">
+        <input id="remember" aria-describedby="remember" type="checkbox" required class="rounded cursor-pointer">
       </div>
       <div class="text-sm ml-3">
         <label for="remember" class="font-medium">I've read and accept the <span
-            class="text-blue-500 underline">Terms And Conditions</span> and <span
-            class="text-blue-500 underline">Privacy policy</span></label>
+            class="text-blue-500 underline cursor-pointer">Terms And Conditions</span> and <span
+            class="text-blue-500 underline cursor-pointer">Privacy policy</span></label>
       </div>
     </div>
     <div class="text-center">

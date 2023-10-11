@@ -123,9 +123,9 @@ export default {
         <input id="remember" aria-describedby="remember" type="checkbox" required class="rounded cursor-pointer">
       </div>
       <div class="text-sm ml-3">
-        <label for="remember" class="font-medium">I've read and accept the <span
-            class="text-blue-500 underline cursor-pointer">Terms And Conditions</span> and <span
-            class="text-blue-500 underline cursor-pointer">Privacy policy</span></label>
+        <label for="remember" class="font-medium">I've read and accept the <router-link to="site-policy"
+            class="text-blue-500 underline cursor-pointer">Terms And Conditions</router-link> and <router-link to="site-policy"
+            class="text-blue-500 underline cursor-pointer">Privacy policy</router-link></label>
       </div>
     </div>
     <div class="text-center">

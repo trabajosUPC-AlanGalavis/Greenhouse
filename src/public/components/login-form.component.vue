@@ -12,11 +12,10 @@ export default {
   },
   methods: {
     async handleSubmit(){
-      const response = await axios.post('/login', {
+      await axios.post('/login', {
         email: this.email,
         password: this.password
       });
-      console.log(response);
       this.$router.push("/dashboard");
     }
   }
@@ -68,7 +67,7 @@ export default {
           type="submit">
       </button-primary>
       <p class="text-blue-500 text-sm underline">
-        <router-link to="/">Forgot my password</router-link>
+        <router-link to="/password-reset">Forgot my password</router-link>
       </p>
     </div>
   </form>

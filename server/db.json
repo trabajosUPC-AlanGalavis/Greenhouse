@@ -1,26 +1,34 @@
 {
-  "stock": [
+  "harvesting": [
     {
       "id": 1,
-      "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "hay": 128,
-      "corn": 300,
-      "guano": 100,
-      "cottonSeedCake": 500,
-      "soybeanMeal": 400,
-      "gypsum": 356,
-      "urea": 780,
-      "ammoniumSulphate": 125,
-      "apiId": "v1"
+      "organization_id": 1,
+      "start_date": "14/08/2023",
+      "end_date": "",
+      "phase": "4.2"
     },
     {
       "id": 2,
+      "organization_id": 1,
+      "start_date": "16/08/2023",
+      "end_date": "",
+      "phase": "2"
+    },
+    {
+      "id": 3,
+      "organization_id": 1,
+      "start_date": "17/08/2023",
+      "end_date": "",
+      "phase": "1"
+    }
+  ],
+  "stock": [
+    {
+      "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "3",
-      "date": "16/09/2023",
+      "day": "1",
+      "date": "14/08/2023",
       "time": "10:00",
       "hay": 128,
       "corn": 300,
@@ -29,139 +37,180 @@
       "soybeanMeal": 400,
       "gypsum": 356,
       "urea": 780,
-      "ammoniumSulphate": 125,
-      "apiId": "v1"
+      "ammoniumSulphate": 125
+    },
+    {
+      "id": 2,
+      "harvesting_id": 1,
+      "author": "Winston Smith",
+      "day": "2",
+      "date": "15/08/2023",
+      "time": "10:00",
+      "hay": 128,
+      "corn": 300,
+      "guano": 100,
+      "cottonSeedCake": 500,
+      "soybeanMeal": 400,
+      "gypsum": 356,
+      "urea": 780,
+      "ammoniumSulphate": 125
+    },
+    {
+      "id": 3,
+      "harvesting_id": 2,
+      "author": "Winston Smith",
+      "day": "1",
+      "date": "16/08/2023",
+      "time": "09:00",
+      "hay": 128,
+      "corn": 300,
+      "guano": 100,
+      "cottonSeedCake": 500,
+      "soybeanMeal": 400,
+      "gypsum": 356,
+      "urea": 780,
+      "ammoniumSulphate": 125
+    },
+    {
+      "id": 4,
+      "harvesting_id": 3,
+      "author": "Winston Smith",
+      "day": "1",
+      "date": "17/08/2023",
+      "time": "09:00",
+      "hay": 128,
+      "corn": 300,
+      "guano": 100,
+      "cottonSeedCake": 500,
+      "soybeanMeal": 400,
+      "gypsum": 356,
+      "urea": 780,
+      "ammoniumSulphate": 125
     }
   ],
   "preparation_area": [
     {
       "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
       "day": "2",
-      "date": "15/09/2023",
+      "date": "15/08/2023",
       "time": "10:00",
-      "activities": "Premixing",
+      "activities": "Premezcla de insumos",
       "temperature": 30,
-      "comment": "",
-      "apiId": "v1"
+      "comment": ""
+    },
+    {
+      "id": 2,
+      "harvesting_id": 1,
+      "author": "Winston Smith",
+      "day": "2",
+      "date": "17/08/2023",
+      "time": "09:00",
+      "activities": "Premezcla de insumos",
+      "temperature": 30,
+      "comment": ""
     }
   ],
   "bunker": [
     {
       "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "thermocoupleOne": 525,
-      "thermocoupleTwo": 481,
-      "thermocoupleThree": 490,
-      "averageThermocouple": 498.67,
-      "frequency": "50",
-      "comment": "",
-      "apiId": "v1"
+      "day": "3",
+      "date": "16/08/2023",
+      "time": "09:00",
+      "t1": 510,
+      "t2": 487,
+      "t3": 432,
+      "tp": 476,
+      "frequency": 50,
+      "comment": ""
     }
   ],
   "tunnel": [
     {
       "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "growRoom": 4,
-      "thermocoupleOne": 525,
-      "thermocoupleTwo": 481,
-      "thermocoupleThree": 490,
-      "averageThermocouple": 498.67,
-      "frequency": "50",
-      "roomTemperature": 20,
-      "freshAir": 30,
-      "recirculation": 50,
-      "comment": "",
-      "apiId": "v1"
+      "day": "4",
+      "date": "17/08/2023",
+      "time": "11:00",
+      "t1": 543,
+      "t2": 493,
+      "t3": 497,
+      "tp": 511,
+      "ta": 51.0,
+      "frequency": 50,
+      "comment": ""
     }
   ],
-  "grow_room_record": [
+  "incubation": [
     {
       "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "growRoom": 4,
-      "airTemperature": 22,
-      "compostTemperature": "23-24",
-      "carbonDioxide": 2319,
-      "airHydrogen": 92,
+      "day": "5",
+      "date": "18/08/2023",
+      "time": "09:00",
+      "grow_room": 4,
+      "temperature_air": 22,
+      "temperature_compost": "23-24",
+      "co2": 2192,
+      "hydrogen_percentage": 92,
       "setting": 20,
-      "comment": "",
-      "processType": "Incubation",
-      "apiId": "v1"
-    },
+      "comment": ""
+    }
+  ],
+  "casing": [
     {
-      "id": 2,
+      "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "growRoom": 4,
-      "airTemperature": 22,
-      "compostTemperature": "23-24",
-      "carbonDioxide": 2319,
-      "airHydrogen": 92,
+      "day": "6",
+      "date": "19/08/2023",
+      "time": "09:00",
+      "grow_room": 4,
+      "temperature_air": 22.0,
+      "temperature_compost": "23-24",
+      "co2": 2192,
+      "hydrogen_percentage": 92,
       "setting": 20,
-      "comment": "",
-      "processType": "Casing",
-      "apiId": "v1"
-    },
+      "comment": ""
+    }
+  ],
+  "induction": [
     {
-      "id": 3,
+      "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
+      "day": "7",
+      "date": "20/08/2023",
       "time": "10:00",
-      "growRoom": 4,
-      "airTemperature": 22,
-      "compostTemperature": "23-24",
-      "carbonDioxide": 2319,
-      "airHydrogen": 92,
+      "grow_room": 4,
+      "temperature_air": 22.0,
+      "temperature_compost": "23-24",
+      "co2": 2192,
+      "hydrogen_percentage": 92,
       "setting": 20,
-      "comment": "",
-      "processType": "Induction",
-      "apiId": "v1"
-    },
+      "comment": ""
+    }
+  ],
+  "harvest": [
     {
-      "id": 4,
+      "id": 1,
+      "harvesting_id": 1,
       "author": "Winston Smith",
-      "day": "2",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "growRoom": 4,
-      "airTemperature": 22,
-      "compostTemperature": "23-24",
-      "carbonDioxide": 2319,
-      "airHydrogen": 92,
+      "day": "8",
+      "date": "21/08/2023",
+      "time": "11:00",
+      "grow_room": 4,
+      "temperature_air": 22.0,
+      "temperature_compost": "23-24",
+      "co2": 2192,
+      "hydrogen_percentage": 92,
       "setting": 20,
-      "comment": "",
-      "processType": "Harvest",
-      "apiId": "v1"
-    },
-    {
-      "id": 5,
-      "author": "Winston Smith",
-      "day": "3",
-      "date": "15/09/2023",
-      "time": "10:00",
-      "growRoom": 4,
-      "airTemperature": 22,
-      "compostTemperature": "23-24",
-      "carbonDioxide": 2319,
-      "airHydrogen": 92,
-      "setting": 20,
-      "comment": "",
-      "processType": "Incubation",
-      "apiId": "v1"
+      "comment": ""
     }
   ]
 }

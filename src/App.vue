@@ -6,7 +6,7 @@ export default {
   components: {Toolbar},
   setup() {
     onMounted(() => {
-      document.cookie = 'locale=es';
+      document.cookie = 'locale=en';
     });
   }
 };

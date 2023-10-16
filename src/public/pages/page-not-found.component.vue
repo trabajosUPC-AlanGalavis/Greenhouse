@@ -12,11 +12,11 @@ export default {
 
 <template>
   <div class="center">
-    <h1>Page Not Found</h1>
-    <p style="color: var(--black)">The path <b>{{ invalidUrl }}</b> is not valid.</p>
+    <h1>{{ $t('page_not_found') }}</h1>
+    <p style="color: var(--black)">{{ $t('the_path') }} <b>{{ invalidUrl }}</b> {{ $t('is_not_valid') }}.</p>
     <router-link to="/">
       <pv-button class="p-button-text">
-        Return
+        {{ $t('return') }}
       </pv-button>
     </router-link>
   </div>

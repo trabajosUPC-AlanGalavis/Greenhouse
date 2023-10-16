@@ -15,5 +15,18 @@
   "agree_with_terms": "I've read and accept the ",
   "terms_and_conditions": "Terms and Conditions",
   "and": "and",
-  "privacy_policy": "Privacy Policy"
+  "privacy_policy": "Privacy Policy",
+  "page_not_found": "Page Not Found",
+  "the_path": "The path",
+  "is_not_valid": "is not valid",
+  "return":"Return",
+  "dashboard": "Dashboard",
+  "warning": "Warning",
+  "harvesting_in_progress": "Crops in progress",
+  "my_company": "My company",
+  "statistical_reports": "Statistical reports",
+  "harvesting_archive": "Harvesting archive",
+  "process_log": "Process log",
+  "start_new_crop": "Start new crop",
+  "search_crop": "Search crop"
 }

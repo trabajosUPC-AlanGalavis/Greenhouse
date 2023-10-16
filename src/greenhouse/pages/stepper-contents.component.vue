@@ -119,7 +119,7 @@ export default {
       <div class="popup-container" v-if="showPopup">
         <div class="popup-content">
           <div class="popup-header">
-            <h2>WARNING</h2>
+            <h2 class="uppercase">{{ $t('warning') }}</h2>
           </div>
           <div class="popup-body">
             <br>

@@ -15,5 +15,18 @@
   "agree_with_terms": "He leído y acepto los ",
   "terms_and_conditions": "Términos y Condiciones",
   "and": "y",
-  "privacy_policy": "Política de Privacidad"
+  "privacy_policy": "Política de Privacidad",
+  "page_not_found": "Página No Encontrada",
+  "the_path": "La ruta",
+  "is_not_valid": "no es válida",
+  "return":"Volver",
+  "dashboard": "Panel de control",
+  "warning": "Atención",
+  "harvesting_in_progress": "Cultivos en progreso",
+  "my_company": "Mi empresa",
+  "statistical_reports": "Reportes estadísticos",
+  "harvesting_archive": "Archivo de cultivos",
+  "process_log": "Registro de procesos",
+  "start_new_crop": "Comenzar nuevo cultivo",
+  "search_crop": "Buscar cultivo"
 }

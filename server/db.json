@@ -145,72 +145,91 @@
       "comment": ""
     }
   ],
-  "incubation": [
+  "grow_room_record": [
     {
       "id": 1,
       "harvesting_id": 1,
       "author": "Winston Smith",
       "day": "5",
       "date": "18/08/2023",
-      "time": "09:00",
-      "grow_room": 4,
-      "temperature_air": 22,
-      "temperature_compost": "23-24",
-      "co2": 2192,
-      "hydrogen_percentage": 92,
+      "time": "10:00",
+      "growRoom": 4,
+      "airTemperature": 22,
+      "compostTemperature": "23-24",
+      "carbonDioxide": 2319,
+      "airHydrogen": 92,
       "setting": 20,
-      "comment": ""
-    }
-  ],
-  "casing": [
+      "comment": "",
+      "processType": "Incubation",
+      "apiId": "v1"
+    },
     {
-      "id": 1,
+      "id": 2,
       "harvesting_id": 1,
       "author": "Winston Smith",
       "day": "6",
       "date": "19/08/2023",
-      "time": "09:00",
-      "grow_room": 4,
-      "temperature_air": 22.0,
-      "temperature_compost": "23-24",
-      "co2": 2192,
-      "hydrogen_percentage": 92,
+      "time": "10:00",
+      "growRoom": 4,
+      "airTemperature": 22,
+      "compostTemperature": "23-24",
+      "carbonDioxide": 2319,
+      "airHydrogen": 92,
       "setting": 20,
-      "comment": ""
-    }
-  ],
-  "induction": [
+      "comment": "",
+      "processType": "Casing",
+      "apiId": "v1"
+    },
     {
-      "id": 1,
+      "id": 3,
       "harvesting_id": 1,
       "author": "Winston Smith",
       "day": "7",
       "date": "20/08/2023",
       "time": "10:00",
-      "grow_room": 4,
-      "temperature_air": 22.0,
-      "temperature_compost": "23-24",
-      "co2": 2192,
-      "hydrogen_percentage": 92,
+      "growRoom": 4,
+      "airTemperature": 22,
+      "compostTemperature": "23-24",
+      "carbonDioxide": 2319,
+      "airHydrogen": 92,
       "setting": 20,
-      "comment": ""
-    }
-  ],
-  "harvest": [
+      "comment": "",
+      "processType": "Induction",
+      "apiId": "v1"
+    },
     {
-      "id": 1,
+      "id": 4,
       "harvesting_id": 1,
       "author": "Winston Smith",
       "day": "8",
       "date": "21/08/2023",
-      "time": "11:00",
-      "grow_room": 4,
-      "temperature_air": 22.0,
-      "temperature_compost": "23-24",
-      "co2": 2192,
-      "hydrogen_percentage": 92,
+      "time": "10:00",
+      "growRoom": 4,
+      "airTemperature": 22,
+      "compostTemperature": "23-24",
+      "carbonDioxide": 2319,
+      "airHydrogen": 92,
       "setting": 20,
-      "comment": ""
+      "comment": "",
+      "processType": "Harvest",
+      "apiId": "v1"
+    },
+    {
+      "id": 5,
+      "harvesting_id": 1,
+      "author": "Winston Smith",
+      "day": "9",
+      "date": "22/08/2023",
+      "time": "10:00",
+      "growRoom": 4,
+      "airTemperature": 22,
+      "compostTemperature": "23-24",
+      "carbonDioxide": 2319,
+      "airHydrogen": 92,
+      "setting": 20,
+      "comment": "",
+      "processType": "Harvest",
+      "apiId": "v1"
     }
   ]
 }

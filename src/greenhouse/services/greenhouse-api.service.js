@@ -2,8 +2,9 @@
 import http from '../../shared/services/http-common';
 
 export class GreenhouseApiService {
-    getAllData(type) {
-        return http.get(`/${type}`);
+    getAllData(type, id) {
+        //return http.get(`/${type}harvesting_id=${id}`);
+        return http.get(`/${type}harvesting_id=1`);
     }
 
     create(type, data) {
@@ -43,19 +44,19 @@ export class GreenhouseApiService {
     }
 
     getAllIncubation(){
-        return http.get('/grow_room_record?process_type=Incubation');
+        return http.get('/grow_room_record?processType=Incubation');
     }
 
     getAllCasing() {
-        return http.get('/grow_room_record?process_type=Casing');
+        return http.get('/grow_room_record?processType=Casing');
     }
 
     getAllInduction() {
-        return http.get('/grow_room_record?process_type=Induction');
+        return http.get('/grow_room_record?processType=Induction');
     }
 
     getAllHarvest() {
-        return http.get('/grow_room_record?process_type=Harvest');
+        return http.get('/grow_room_record?processType=Harvest');
     }
 
     createGrowRoomProcess(data) {
@@ -68,5 +69,9 @@ export class GreenhouseApiService {
 
     deleteGrowRoomProcess(id){
         return http.delete(`/grow_room_record/${id}`);
+    }
+
+    getHarvestingIdIncubation(id){
+        return http.get(`grow_room_record?processType=Incubation&&harvesting_id=${id}`);
     }
 }

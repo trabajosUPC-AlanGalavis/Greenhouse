@@ -46,7 +46,7 @@ export default {
       <div :class="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
           <li class="nav-item">
-            <div>
+            <div class="px-3 py-2 items-center font-bold ml-2">
               <pv-dropdown
                   :options="languageOptions"
                   option-label="label"
@@ -115,6 +115,7 @@ p {
 
 .p-dropdown .p-dropdown-label {
   padding: 0 !important;
+  font-size: var(--medium-text-regular-size);
 }
 
 path {

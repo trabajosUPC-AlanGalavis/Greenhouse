@@ -7,64 +7,21 @@
         :closable="false"
         :width="300"
         :resizable="false"
-        @onHide="closeDialog">
+        @onHide="closeDialog"
+    >
       <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Author:</h1>
-          <input id="author" v-model="author" class="p-inputtext" placeholder="Register Author"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Day:</h1>
-          <input id="day" v-model="day" class="p-inputtext" placeholder="Register Day"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Grow Room:</h1>
-          <input id="growRoom" v-model="growRoom" class="p-inputtext" placeholder="Register Grow Room"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Air Temperature:</h1>
-          <input id="airTemperature" v-model="airTemperature" class="p-inputtext" placeholder="Register Air Temperature"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Compost Temperature:</h1>
-          <input id="compostTemperature" v-model="compostTemperature" class="p-inputtext" placeholder="Register Compost Temperature"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Carbon Dioxide:</h1>
-          <input id="carbonDioxide" v-model="carbonDioxide" class="p-inputtext" placeholder="Register Carbon Dioxide"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Air Hydrogen:</h1>
-          <input id="airHydrogen" v-model="airHydrogen" class="p-inputtext" placeholder="Register Air Hydrogen"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Setting:</h1>
-          <input id="setting" v-model="setting" class="p-inputtext" placeholder="Register Setting"/>
-        </div>
-      </div>
-      <div class="p-fluid p-2">
-        <div class="p-field">
-          <h1>Register Comment:</h1>
-          <input id="comment" v-model="comment" class="p-inputtext" placeholder="Register Comment"/>
+        <div class="p-field" v-for="title in titles" :key="title.field">
+          <h1>{{ title.header }}</h1>
+          <input class="p-inputtext" :placeholder="'Register ' + title.header" />
         </div>
       </div>
       <div class="p-dialog-footer flex">
-        <button type="button" class="p-button bg-white" @click="closeDialog"> <span class="text-black">Cancel</span></button>
-        <button type="button" class="p-button bg-white" @click="saveDialog"> <span class="text-black font-bold">Save</span></button>
+        <button type="button" class="p-button bg-white" @click="closeDialog">
+          <span class="text-black">Cancel</span>
+        </button>
+        <button type="button" class="p-button bg-white" @click="saveDialog">
+          <span class="text-black font-bold">Save</span>
+        </button>
       </div>
     </pv-dialog>
   </div>
@@ -72,28 +29,38 @@
 
 <script>
 import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
+import {FilterMatchMode} from "primevue/api";
 
 export default {
-  name: "process-input-dialog",
+  name: "process-input-dialog-stock",
   props: {
-    processType: String,
-    endpoint: String,
+    endpoint: null,
   },
+
   data() {
     return {
-      apiService: new GreenhouseApiService(),
       displayDialog: false,
-      author: "",
-      day: 0,
-      growRoom: 0,
-      airTemperature: 0,
-      compostTemperature: 0,
-      carbonDioxide: 0,
-      airHydrogen: 0,
-      setting: 0,
-      comment: "",
-    };
+      filters: {},
+      processData: [],
+      titles: null,
+      greenhouseApi: new GreenhouseApiService()
+    }
   },
+  created() {
+    this.initFilters();
+  },
+  mounted() {
+    // Fetch initial data and columns
+    this.fetchData(this.endpoint);
+  },
+  watch: {
+    endpoint(newEndpoint, oldEndpoint) {
+      if (newEndpoint !== oldEndpoint) {
+        this.fetchData(newEndpoint);
+      }
+    },
+  },
+
   methods: {
     showDialog() {
       this.displayDialog = true;
@@ -106,22 +73,19 @@ export default {
 
       const currentDate = currentDateTime.toISOString().split('T')[0];
       const currentTime = currentDateTime.toTimeString().split(' ')[0];
-
       const dataToSend = {
         author: this.author,
         day: this.day,
         date: currentDate,
         time: currentTime,
-        growRoom: this.growRoom,
-        airTemperature: this.airTemperature,
-        compostTemperature: this.compostTemperature,
-        carbonDioxide: this.carbonDioxide,
-        airHydrogen: this.airHydrogen,
-        setting: this.setting,
+        thermocoupleOne: this.thermocoupleOne,
+        thermocoupleTwo: this.thermocoupleTwo,
+        thermocoupleThree: this.thermocoupleThree,
+        average: this.average,
+        frequency: this.frequency,
         comment: this.comment,
-        processType: this.processType,
-      }
-      this.apiService.create(this.endpoint, dataToSend)
+      };
+      this.greenhouseApi.create('bunker', dataToSend)
           .then(response => {
             console.log('Data saved successfully:', response.data);
           })
@@ -130,8 +94,33 @@ export default {
           });
       this.displayDialog = false;
     },
-  },
-};
+    initFilters() {
+      this.filters = {
+        global: {value: null, matchMode: FilterMatchMode.CONTAINS},
+      };
+    },
+    addData() {
+      this.titles = Object.keys(this.processData[0])
+          .filter((key) => key !== "processType" && key !== 'harvesting_id' && key !== "id" && key !== "apiId" && key !== "author" && key !== "day" && key !== "date" && key !== "time")
+          .map((key) => {
+            const formattedHeader = key
+                .split(/(?=[A-Z])/)
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            return {
+              field: key,
+              header: formattedHeader,
+            };
+          });
+    },
+    fetchData(endpoint) {
+      this.greenhouseApi.getAllData(endpoint).then((response) => {
+        this.processData = response.data;
+        this.addData();
+      });
+    },
+  }
+}
 </script>
 
 <style scoped>

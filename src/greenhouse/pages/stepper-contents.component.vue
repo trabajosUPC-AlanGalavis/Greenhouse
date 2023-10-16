@@ -1,23 +1,13 @@
 <script>
 import ButtonPrimary from '../components/button-primary.component.vue';
 import ProcessTable from "../components/process-table.component.vue";
-import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
-import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
-import ProcessInputDialogPreparationArea
-  from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
-import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
-import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
-
+import ProcessInputDialog from "@/greenhouse/components/process-input-dialog.component.vue";
 export default {
   name: 'stepper-contents',
   components: {
     ProcessTable,
     ButtonPrimary,
     ProcessInputDialog,
-    ProcessInputDialogStock,
-    ProcessInputDialogPreparationArea,
-    ProcessInputDialogBunker,
-    ProcessInputDialogTunel
   },
   data() {
     return {
@@ -78,17 +68,7 @@ export default {
       }
     },
     openInputDialog() {
-      if (this.currentStep === 0) {
-        this.$refs.processInputDialogStock.showDialog();
-      } else if (this.currentStep === 1) {
-        this.$refs.processInputDialogPreparationArea.showDialog();
-      } else if (this.currentStep === 2) {
-        this.$refs.processInputDialogBunker.showDialog();
-      } else if (this.currentStep === 3) {
-        this.$refs.processInputDialogTunel.showDialog();
-      } else {
-        this.$refs.processInputDialog.showDialog();
-      }
+      this.$refs.processInputDialog.showDialog();
     }
   },
 };
@@ -190,18 +170,6 @@ export default {
       <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
     </div>
 
-    <process-input-dialog-stock
-        ref="processInputDialogStock"
-    ></process-input-dialog-stock>
-    <process-input-dialog-preparation-area
-        ref="processInputDialogPreparationArea"
-    ></process-input-dialog-preparation-area>
-    <process-input-dialog-bunker
-        ref="processInputDialogBunker"
-    ></process-input-dialog-bunker>
-    <process-input-dialog-tunel
-        ref="processInputDialogTunel"
-    ></process-input-dialog-tunel>
     <process-input-dialog :process-type="phases[currentStep].message"
                           :endpoint="phases[currentStep].endpoint"
                           ref="processInputDialog"

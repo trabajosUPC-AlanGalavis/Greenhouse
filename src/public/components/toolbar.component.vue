@@ -3,13 +3,25 @@ export default {
   name: "toolbar",
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      languageOptions: [
+        { label: 'EN', value: 'en' },
+        { label: 'ES', value: 'es' },
+      ],
+      selectedLanguage: this.$i18n.locale,
     };
   },
   methods: {
     toggleNavbar() {
       this.showMenu = !this.showMenu;
-    }
+    },
+    toggleLanguage() {
+      this.showMenu = !this.showMenu;
+    },
+    changeLanguage(locale) {
+      this.$i18n.locale = locale;
+      this.selectedLanguage = locale;
+    },
   }
 };
 </script>
@@ -31,17 +43,24 @@ export default {
       </div>
       <div :class="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" @click="toggleLanguage">
             <a class="px-3 py-2 flex items-center leading-snug cursor-pointer">
-              <span class="ml-2 flex">EN<i class="fa fa-angle-down"></i></span>
+              <span class="ml-2 flex">
+                {{ $i18n.locale === 'en' ? 'EN' : 'ES' }}
+                <i class="fa fa-angle-down"></i>
+              </span>
             </a>
+            <ul v-if="showMenu" class="text-black absolute mt-2 py-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+              <li @click="changeLanguage('en')" class="cursor-pointer px-4 py-2 hover:bg-gray-200">EN</li>
+              <li @click="changeLanguage('es')" class="cursor-pointer px-4 py-2 hover:bg-gray-200">ES</li>
+            </ul>
           </li>
           <li class="nav-item">
             <router-link to="/organization">
               <div class="px-3 py-2 items-center font-bold">
                 <span class="ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  Organization
+                    {{'organization_name'}}
                 </span>
               </div>
             </router-link>
@@ -51,7 +70,7 @@ export default {
               <div class="px-3 py-2 flex items-center font-bold leading-snug">
                 <span class="ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  Profile
+                  {{ 'profile_name' }}
                 </span>
               </div>
             </router-link>
@@ -78,5 +97,24 @@ export default {
 p {
   font-size: var(--medium-text-regular-size);
   color: var(--white);
+}
+
+.p-dropdown {
+  background-color: transparent !important;
+  border: 0 !important;
+  margin: 0 !important;
+}
+
+.p-dropdown-label {
+  color: var(--primary-white) !important;
+  font-family: var(--font-primary) !important;
+}
+
+.p-dropdown .p-dropdown-label {
+  padding: 0 !important;
+}
+
+path {
+  color: var(--primary-white) !important;
 }
 </style>

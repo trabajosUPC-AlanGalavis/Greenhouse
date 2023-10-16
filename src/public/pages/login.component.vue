@@ -13,21 +13,21 @@ export default {
     <pv-card class="card md:mx-50 md:px-5">
       <template #content>
         <div class="mb-3 text-center md:text-left">
-          <h2>Welcome to Greenhouse</h2>
-          <p>To use the application, please login or register a company</p>
+          <h2>{{$t('welcome')}}</h2>
+          <p>{{$t('welcome_description')}}</p>
         </div>
         <div class="flex mb-5 justify-content-center md:justify-content-start">
           <div class="state-color active-label">
             <input id="login" type="radio" name="login-signup">
-            <div class="mr-5">
-              <label class="cursor-pointer" for="login">Login</label>
+            <div class="mx-5">
+              <label class="cursor-pointer" for="login">{{$t('login')}}</label>
             </div>
           </div>
           <div class="state-color">
             <router-link to="/signup">
               <input id="signup" type="radio" name="login-signup">
-              <div>
-                <label class="cursor-pointer" for="signup">Register a company</label>
+              <div class="mx-5">
+                <label class="cursor-pointer" for="signup">{{$t('signup')}}</label>
               </div>
             </router-link>
           </div>

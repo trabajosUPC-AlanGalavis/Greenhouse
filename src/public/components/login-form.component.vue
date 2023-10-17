@@ -31,12 +31,12 @@ export default {
           id="email"
           type="email"
           name="email"
-          :placeholder="$t('email')"
+          :placeholder="$t('login-signup.email')"
           required
           class="w-full border rounded-md px-3 py-2"
           v-model="email">
       </pv-input-text>
-      <label for="email">{{$t('email')}}</label>
+      <label for="email">{{$t('login-signup.email')}}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -48,27 +48,27 @@ export default {
           class="w-full border rounded-md px-3 py-2"
           v-model="password"
       ></pv-input-text>
-      <label for="password">{{$t('password')}}</label>
+      <label for="password">{{$t('login-signup.password')}}</label>
     </div>
     <div class="flex items-center md:items-start mb-3">
       <div class="h-5">
         <input id="remember" aria-describedby="remember" type="checkbox" class="rounded cursor-pointer">
       </div>
       <div class="text-sm ml-3">
-        <label for="remember" class="font-medium">{{$t('remember_me')}}</label>
+        <label for="remember" class="font-medium">{{$t('login-signup.remember_me')}}</label>
       </div>
     </div>
     <div class="text-center">
       <button-primary
           class="px-7 mb-3"
-          :text="$t('login')"
+          :text="$t('login-signup.login')"
           :buttonColor="'var(--primary-green)'"
           :buttonTextColor="'var(--primary-white)'"
           :buttonBorderColor="'var(--primary-green)'"
           type="submit">
       </button-primary>
       <p class="text-blue-500 text-sm underline">
-        <router-link to="/password-reset">{{$t('forgot_my_password')}}</router-link>
+        <router-link to="/password-reset">{{$t('login-signup.forgot_my_password')}}</router-link>
       </p>
     </div>
   </form>

@@ -3,12 +3,26 @@ export default {
   name: "toolbar",
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      languageOptions: [
+        {label: 'English', value: 'en'},
+        {label: 'Español', value: 'es'},
+      ],
+      selectedLanguage: this.$i18n.locale,
     };
   },
   methods: {
     toggleNavbar() {
       this.showMenu = !this.showMenu;
+    },
+    toggleLanguage() {
+      this.showMenu = !this.showMenu;
+    },
+    changeLanguage(selectedOption) {
+      const selectedValue = selectedOption.value;
+      this.$i18n.locale = selectedValue;
+      console.log(selectedValue);
+      this.selectedLanguage = selectedValue;
     }
   }
 };
@@ -20,7 +34,7 @@ export default {
       <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
         <router-link to="/">
           <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap items-center">
-            <img src="/logo-white.png" alt="logo" width="20" height="20">
+            <img src="public/logo-white.png" alt="logo" width="20" height="20">
             <p>Greenhouse</p>
           </div>
         </router-link>
@@ -32,27 +46,31 @@ export default {
       <div :class="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
           <li class="nav-item">
-            <a class="px-3 py-2 flex items-center leading-snug cursor-pointer">
-              <span class="ml-2 flex">EN<i class="fa fa-angle-down"></i></span>
-            </a>
+            <div class="px-3 py-2 items-center font-bold ml-2">
+              <pv-dropdown
+                  :options="languageOptions"
+                  option-label="label"
+                  option-value="value"
+                  :placeholder="selectedLanguage.toString()"
+                  @change="changeLanguage"
+                  v-model="selectedLanguage"
+              >
+              </pv-dropdown>
+            </div>
           </li>
           <li class="nav-item">
             <router-link to="/organization">
-              <div class="px-3 py-2 items-center font-bold">
-                <span class="ml-2 flex">
+              <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  Organization
-                </span>
+                  <p>{{ 'organization_name' }}</p>
               </div>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/profile">
-              <div class="px-3 py-2 flex items-center font-bold leading-snug">
-                <span class="ml-2 flex">
+              <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  Profile
-                </span>
+                  <p>{{ 'profile_name' }}</p>
               </div>
             </router-link>
           </li>
@@ -78,5 +96,25 @@ export default {
 p {
   font-size: var(--medium-text-regular-size);
   color: var(--white);
+}
+
+.p-dropdown {
+  background-color: transparent !important;
+  border: 0 !important;
+  margin: 0 !important;
+}
+
+.p-dropdown-label {
+  color: var(--primary-white) !important;
+  font-family: var(--font-primary) !important;
+}
+
+.p-dropdown .p-dropdown-label {
+  padding: 0 !important;
+  font-size: var(--medium-text-regular-size);
+}
+
+path {
+  color: var(--primary-white) !important;
 }
 </style>

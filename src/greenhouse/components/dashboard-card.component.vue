@@ -12,7 +12,6 @@
             </button>
           </router-link>
         </div>
-
       </template>
     </pv-card>
   </div>
@@ -33,6 +32,10 @@ export default {
 img{
   width: 100%;
   height: auto;
+}
+
+.p-card .p-card-body  {
+  padding: 0 !important;
 }
 
 .footer {

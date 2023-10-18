@@ -1,15 +1,23 @@
 <script>
 import Toolbar from "@/public/components/toolbar.component.vue";
-
+import { onMounted } from "vue";
 export default {
   name: "App",
   components: {Toolbar},
+  setup() {
+    onMounted(() => {
+      document.cookie = 'locale=en';
+    });
+  }
 };
 </script>
 
 <template>
-  <toolbar></toolbar>
-  <router-view></router-view>
+  <div class="select-none">
+    <toolbar></toolbar>
+    <router-view></router-view>
+  </div>
+
 </template>
 
 <style>

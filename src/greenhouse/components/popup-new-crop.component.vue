@@ -25,7 +25,7 @@ export default {
 <template>
   <button-primary
       class="text-center mx-auto"
-      :text="' + Start new harvest'"
+      :text="$t('crops-in-progress.start_new_crop')"
       :buttonColor="'var(--primary-green)'"
       :buttonTextColor="'var(--primary-white)'"
       :buttonBorderColor="'var(--primary-green)'"

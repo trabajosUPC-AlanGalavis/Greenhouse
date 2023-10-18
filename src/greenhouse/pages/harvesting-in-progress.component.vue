@@ -1,24 +1,58 @@
 <script>
 import ButtonPrimary from "../components/button-primary.component.vue";
 import PopupNew from "@/greenhouse/components/popup-new-crop.component.vue";
+import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
 
 export default {
   name: "harvesting-in-progress",
   components: {PopupNew, ButtonPrimary },
+
+  data(){
+    return{
+      harvestingApi: new HarvestingApiService(),
+      harvestData: [],
+      selectedHarvest: null
+    }
+  },
+  created(){
+    this.getHarvestingData();
+  },
+  methods: {
+    getHarvestingData(){
+      this.harvestingApi.getHarvestingData().then((response) => {
+        this.harvestData = response.data;
+        this.harvestData = this.harvestData.filter(data => (data.state === 'active'));
+      })
+    },
+
+    onRowSelect(){
+      this.$router.push('/stepper')
+    }
+  }
 };
+
+
 </script>
 
 <template>
   <pv-card class="card">
     <template #title>
-      <h4 class="text-center pt-4 uppercase">{{ $t('crops-in-progress.process_log') }}</h4>
-      <h2 class="text-center pb-2">{{ $t('crops-in-progress.crops_in_progress') }}</h2>
+      <h4 class="text-center pt-4 uppercase">process log</h4>
+      <h2 class="text-center pb-2">Crops in progress</h2>
 
       <pv-card class="card-small">
         <template #title>
           <div class="searchbar text-center">
             <pv-input-text class="bg-transparent border-transparent text-white" type="text" placeholder="Search harvest" />
           </div>
+            <pv-data-table v-model:selection="selectedHarvest" :value="harvestData" selectionMode="single"
+                           dataKey="id" :metaKeySelection="false" @rowSelect="onRowSelect" sortMode="multiple">
+              <pv-column field="id" header="Id"></pv-column>
+              <pv-column field="organization_id" header="Organization"></pv-column>
+              <pv-column field="start_date" header="Start Date" sortable="true"></pv-column>
+              <pv-column field="phase" header="Phase" sortable="true"></pv-column>
+
+            </pv-data-table>
         </template>
         <template #content class="text-center">
           <div class="text-center">

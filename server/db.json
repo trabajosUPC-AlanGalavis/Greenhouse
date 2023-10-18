@@ -5,21 +5,24 @@
       "organization_id": 1,
       "start_date": "14/08/2023",
       "end_date": "",
-      "phase": "4.2"
+      "phase": "4.2",
+      "state": "active"
     },
     {
       "id": 2,
       "organization_id": 1,
       "start_date": "16/08/2023",
       "end_date": "",
-      "phase": "2"
+      "phase": "2",
+      "state": "active"
     },
     {
       "id": 3,
       "organization_id": 1,
       "start_date": "17/08/2023",
       "end_date": "",
-      "phase": "1"
+      "phase": "1",
+      "state": "finished"
     }
   ],
   "stock": [
@@ -240,6 +243,24 @@
       "comment": "",
       "processType": "Harvest",
       "apiId": "v1"
+    }
+  ],
+  "organizations": [
+    {
+      "id": 1,
+      "business_name": "Peru Agro J&V S.A.C",
+      "RUC": "20602479448",
+      "avatar": "",
+      "email": "nespinoza.naer@gmail.com",
+      "owner_id": 1
+    },
+    {
+      "id": 2,
+      "business_name": "Venta de Hierbas Soto S.A.C",
+      "RUC": "30602479447",
+      "avatar": "",
+      "email": "aostito@gmail.com",
+      "owner_id": 49
     }
   ]
 }

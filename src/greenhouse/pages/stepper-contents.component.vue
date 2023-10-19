@@ -274,7 +274,6 @@ export default {
   bottom: 0;
   right: 0;
   display: flex;
-  padding: 100px;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);

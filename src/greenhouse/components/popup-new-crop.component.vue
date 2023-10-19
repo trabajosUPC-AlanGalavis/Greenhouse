@@ -29,8 +29,7 @@ export default {
       :buttonColor="'var(--primary-green)'"
       :buttonTextColor="'var(--primary-white)'"
       :buttonBorderColor="'var(--primary-green)'"
-      @click="openPopup()"
-  >
+      @click="openPopup()">
   </button-primary>
 
   <div class="popup-container" v-if="showPopup">
@@ -40,7 +39,7 @@ export default {
       </div>
       <div class="popup-body">
         <br>
-        <p style="text-align: center;">{{ popupText + date }}</p>
+        <p class="text-center">{{ popupText + date }}</p>
       </div>
       <div class="popup-footer">
         <router-link to="/stepper">
@@ -50,7 +49,6 @@ export default {
               :buttonColor="'var(--primary-green)'"
               :buttonTextColor="'var(--primary-white)'"
               :buttonBorderColor="'var(--primary-green)'"
-              @click="openPopup()"
           >
           </button-primary>
         </router-link>
@@ -60,7 +58,7 @@ export default {
             :buttonColor="'var(--gray-2)'"
             :buttonTextColor="'var(--primary-white)'"
             :buttonBorderColor="'var(--gray-2)'"
-            @click="openPopup()"
+            @click="closePopup()"
         >
         </button-primary>
       </div>

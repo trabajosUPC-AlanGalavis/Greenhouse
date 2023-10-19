@@ -8,6 +8,7 @@ export default {
       greenhouseApi: null,
       image: "",
       first_name: "",
+      last_name: "",
       email: "",
     };
   },

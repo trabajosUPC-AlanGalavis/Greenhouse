@@ -39,5 +39,17 @@
     "crops_in_progress": "Crops in progress",
     "start_new_crop": "Start new crop",
     "search_crop": "Search crop"
+  },
+  "user-profile": {
+    "my_profile": "My profile",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "account": "Account",
+    "change_name": "Change name",
+    "change_email": "Change email",
+    "change_password": "Change password",
+    "delete_account": "Delete account",
+    "change_profile_picture": "Change profile picture"
   }
 }

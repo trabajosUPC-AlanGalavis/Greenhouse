@@ -39,5 +39,17 @@
     "crops_in_progress": "Cultivos en progreso",
     "start_new_crop": "Comenzar nuevo cultivo",
     "search_crop": "Buscar cultivo"
+  },
+  "user-profile": {
+    "my_profile": "Mi perfil",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "account": "Cuenta",
+    "change_name": "Cambiar nombre",
+    "change_email": "Cambiar correo electrónico",
+    "change_password": "Cambiar contraseña",
+    "delete_account": "Borrar cuenta",
+    "change_profile_picture": "Cambiar foto de perfil"
   }
 }

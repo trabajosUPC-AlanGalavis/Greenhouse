@@ -74,4 +74,8 @@ export class GreenhouseApiService {
     getHarvestingIdIncubation(id){
         return http.get(`grow_room_record?processType=Incubation&&harvesting_id=${id}`);
     }
+
+    getProfiles () {
+        return http.get('/user');
+    }
 }

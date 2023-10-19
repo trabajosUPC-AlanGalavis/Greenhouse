@@ -1,4 +1,10 @@
 {
+  "user": {
+    "image": "https://schoolworkhelper.net/wp-content/uploads/2011/07/Winston-Smith.gif",
+    "first_name": "Winston",
+    "last_name": "Smith",
+    "email": "winstonsmith@gmail.com"
+  },
   "harvesting": [
     {
       "id": 1,

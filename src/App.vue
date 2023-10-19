@@ -55,8 +55,11 @@ export default {
 }
 
 * {
-  font-family: var(--font-primary) !important;
   user-select: none;
+}
+
+* :not(i) {
+  font-family: var(--font-primary) !important;
 }
 
 body {

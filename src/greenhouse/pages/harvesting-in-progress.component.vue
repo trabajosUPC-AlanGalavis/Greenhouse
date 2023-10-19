@@ -35,8 +35,10 @@ export default {
 <template>
   <pv-card class="card">
     <template #header>
-      <h4 class="text-center pt-4 uppercase">{{ $t('crops-in-progress.process_log') }}</h4>
-      <h2 class="text-center font-bold text-4xl">{{ $t('crops-in-progress.crops_in_progress') }}</h2>
+      <div class="py-4">
+        <h4 class="text-center uppercase">{{ $t('crops-in-progress.process_log') }}</h4>
+        <h2 class="text-center font-bold text-4xl">{{ $t('crops-in-progress.crops_in_progress') }}</h2>
+      </div>
     </template>
     <template #content>
       <pv-card class="card-small">

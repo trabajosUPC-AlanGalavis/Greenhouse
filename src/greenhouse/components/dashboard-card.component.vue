@@ -4,7 +4,7 @@
       <template #content>
         <img :src="image" width="220" height="220" alt="dashboard-icon">
       </template>
-      <template #footer class="footer">
+      <template #footer>
         <div class="footer w-full p-3">
           <router-link :to="link">
             <button>
@@ -47,4 +47,9 @@ img{
   border-radius: 5px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
+
+::v-deep .p-card .p-card-body {
+  padding: 0 !important;
+}
+
 </style>

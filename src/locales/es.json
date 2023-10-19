@@ -29,7 +29,15 @@
     "crops_in_progress": "Cultivos en progreso",
     "my_company": "Mi empresa",
     "statistical_reports": "Reportes estadísticos",
-    "crops_archive": "Archivo de cultivos"
+    "crops_archive": "Archivo de cultivos",
+    "recent_records": "Registros recientes",
+    "crop_id": "ID del culvito",
+    "author": "Autor",
+    "start_date": "Fecha de inicio del cultivo",
+    "phase": "Fase actual",
+    "record_date": "Fecha de publicación del registro",
+    "record_time": "Hora de publicación del registro",
+    "comment": "Observación"
   },
   "pop-up": {
     "warning": "Atención"

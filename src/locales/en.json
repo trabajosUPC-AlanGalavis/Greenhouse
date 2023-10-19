@@ -29,7 +29,15 @@
     "crops_in_progress": "Crops in progress",
     "my_company": "My company",
     "statistical_reports": "Statistical reports",
-    "crops_archive": "Crops archive"
+    "crops_archive": "Crops archive",
+    "recent_records": "Recent records",
+    "crop_id": "Crop ID",
+    "author": "Author",
+    "start_date": "Crop start date",
+    "phase": "Current phase",
+    "record_date": "Record date",
+    "record_time": "Record time",
+    "comment": "Comment"
   },
   "pop-up": {
     "warning": "Warning"

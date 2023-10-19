@@ -11,15 +11,15 @@ export default {
 <template>
   <pv-card class="card">
     <template #title>
-      <h2>{{ $t('dashboard.dashboard') }}</h2>
+      <h2 class="text-center font-bold text-4xl mb-4">{{ $t('dashboard.dashboard') }}</h2>
     </template>
     <template #content>
       <div class="text-center">
         <div class="grid gap-4">
           <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/process-state.png'" :buttonText="$t('dashboard.crops_in_progress')" :link="'/process-log'"></dashboard-card>
           <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/enterprise.png'" :buttonText="$t('dashboard.my_company')" :link="'/organization'"></dashboard-card>
-          <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/reports.png'" :buttonText="$t('dashboard.statistical_reports')" :link="'/'"></dashboard-card>
-          <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/history.png'" :buttonText="$t('dashboard.crops_archive')" :link="'/'"></dashboard-card>
+          <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/statistical-reports.png'" :buttonText="$t('dashboard.statistical_reports')" :link="'/statistical-reports'"></dashboard-card>
+          <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/archive.png'" :buttonText="$t('dashboard.crops_archive')" :link="'/'"></dashboard-card>
         </div>
       </div>
     </template>
@@ -32,8 +32,6 @@ export default {
 }
 
 h2 {
-  text-align: center;
-  font-family: var(--font-primary);
   font-size: var(--heading-2-size);
 }
 

@@ -75,7 +75,5 @@ export default {
 </template>
 
 <style scoped>
-* {
-  font-family: var(--font-primary);
-}
+
 </style>

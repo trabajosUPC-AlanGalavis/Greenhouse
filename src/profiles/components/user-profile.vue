@@ -1,11 +1,11 @@
 <script>
-import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
+import {ProfileApiService} from "@/greenhouse/services/profile-api.service";
 
 export default {
   name: "user-profile",
   data() {
     return {
-      greenhouseApi: null,
+      profileApi: null,
       image: "",
       first_name: "",
       last_name: "",
@@ -13,8 +13,8 @@ export default {
     };
   },
   created() {
-    this.greenhouseApi = new GreenhouseApiService()
-    this.greenhouseApi.getProfiles()
+    this.profileApi = new ProfileApiService()
+    this.profileApi.getProfiles()
         .then((response) => {
           this.image = response.data.image;
           this.first_name = response.data.first_name;

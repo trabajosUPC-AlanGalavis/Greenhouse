@@ -3,6 +3,11 @@ export default {
   name: "toolbar",
   data() {
     return {
+      profileApi: null,
+      organization_name: '',
+      image: "",
+      first_name: "",
+      last_name: "",
       showMenu: false,
       languageOptions: [
         {label: 'English', value: 'en'},
@@ -13,9 +18,6 @@ export default {
   },
   methods: {
     toggleNavbar() {
-      this.showMenu = !this.showMenu;
-    },
-    toggleLanguage() {
       this.showMenu = !this.showMenu;
     },
     changeLanguage(selectedOption) {
@@ -62,7 +64,7 @@ export default {
             <router-link to="/organization">
               <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar image="" shape="circle" class="border-2 border-b-white mr-2"/>
-                  <p>{{ 'organization_name' }}</p>
+                  <p>{{ 'company_name' }}</p>
               </div>
             </router-link>
           </li>

@@ -72,7 +72,7 @@ h4 {
   font-size: var(--heading-4-size);
 }
 
-:deep(th)  {
+:deep(th) {
   background-color: var(--secondary-green-2) !important;
   color: var(--white) !important;
 }

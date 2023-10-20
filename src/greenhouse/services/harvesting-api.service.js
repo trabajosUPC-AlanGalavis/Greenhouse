@@ -2,7 +2,11 @@ import http from '../../shared/services/http-common';
 
 export class HarvestingApiService {
 
-    getHarvestingData(){
-        return http.get('/harvesting')
+    getCropData(){
+        return http.get('/crops')
+    }
+
+    createCropData(data) {
+        return http.post('/crops', data)
     }
 }

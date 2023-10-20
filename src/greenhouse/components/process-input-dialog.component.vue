@@ -101,7 +101,7 @@ export default {
     },
     addData() {
       this.titles = Object.keys(this.processData[0])
-          .filter((key) => key !== "processType" && key !== 'harvesting_id' && key !== "id" && key !== "apiId" && key !== "author" && key !== "day" && key !== "date" && key !== "time")
+          .filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId" && key !== "author" && key !== "day" && key !== "date" && key !== "time")
           .map((key) => {
             const formattedHeader = key
                 .split(/(?=[A-Z])/)

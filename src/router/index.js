@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import StepperContent from "@/greenhouse/pages/stepper-contents.component.vue";
+import StepperContent from "@/greenhouse/components/stepper-contents.component.vue";
 import Login from "@/public/pages/login.component.vue";
 import PageNotFound from "@/public/pages/page-not-found.component.vue";
 import Dashboard from "@/greenhouse/pages/dashboard.component.vue";

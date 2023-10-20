@@ -1,5 +1,6 @@
 <script>
 import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
+import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
 import {FilterMatchMode} from "primevue/api";
 
 export default {
@@ -13,11 +14,19 @@ export default {
       filters: {},
       processData: [],
       columns: null,
-      greenhouseApi: new GreenhouseApiService()
+      greenhouseApi: new GreenhouseApiService(),
+      cropApi: null,
+      crop_id: 0,
+      start_date: "",
     }
   },
   created() {
+    this.cropApi = new HarvestingApiService();
     this.initFilters();
+    this.cropApi.getCropData().then((response => {
+      this.crop_id = response.data[0].id;
+      this.start_date = response.data[0].start_date;
+    }));
   },
   mounted() {
     // Fetch initial data and columns
@@ -40,7 +49,7 @@ export default {
     },
     addColumn() {
       this.columns = Object.keys(this.processData[0])
-          .filter((key) => key !== "processType" && key !== 'harvesting_id' && key !== "id" && key !== "apiId")
+          .filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId")
           .map((key) => {
             const formattedHeader = key
                 .split(/(?=[A-Z])/)
@@ -79,7 +88,7 @@ export default {
       responsiveLayout="scroll">
     <template #header>
       <div class="table-header flex flex-column md:justify-content-between">
-        <h2 class="mb-2 md:m-0 p-as-md-center text-xl font-bold">Records of harvest {{ "" }}, started on {{ "" }}</h2>
+        <h2 class="mb-2 md:m-0 p-as-md-center text-xl font-bold">Records of crop {{ crop_id }}, started on {{ start_date }}</h2>
         <pv-input-text class="bg-transparent border-transparent text-black"
                        v-model="filters['global'].value"
                        placeholder="Filter records..."/>

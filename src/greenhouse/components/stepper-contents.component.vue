@@ -1,6 +1,6 @@
 <script>
-import ButtonPrimary from '../components/button-primary.component.vue';
-import ProcessTable from "../components/process-table.component.vue";
+import ButtonPrimary from './button-primary.component.vue';
+import ProcessTable from "../pages/process-table.component.vue";
 import ProcessInputDialog from "@/greenhouse/components/process-input-dialog.component.vue";
 export default {
   name: 'stepper-contents',
@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       currentStep: 0,
-      date_start: "18/09/23 ",
+      start_date: '',
       isButtonDisabled: false,
       showPopup: false,
       isLastPhase: false,
@@ -145,7 +145,7 @@ export default {
         </div>
         <div class="popup-body-2">
           <br>
-          <p style="text-align: center;">The cultivation started on {{ date_start }} has successfully completed all
+          <p style="text-align: center;">The cultivation started on {{ start_date }} has successfully completed all
             stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
         </div>
 
@@ -164,10 +164,6 @@ export default {
 
         </div>
       </div>
-    </div>
-
-    <div class="mb-3">
-      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
     </div>
 
     <process-input-dialog :process-type="phases[currentStep].message"
@@ -355,9 +351,7 @@ export default {
   background-color: #4A845B;
   text-align: center;
   padding: 15px;
-  border-radius: 20px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 20px 20px 0 0;
 }
 
 </style>

@@ -36,7 +36,6 @@ export default {
   props: {
     endpoint: null,
   },
-
   data() {
     return {
       displayDialog: false,
@@ -85,7 +84,7 @@ export default {
         frequency: this.frequency,
         comment: this.comment,
       };
-      this.greenhouseApi.create('bunker', dataToSend)
+      this.greenhouseApi.create(this.endpoint, dataToSend)
           .then(response => {
             console.log('Data saved successfully:', response.data);
           })
@@ -102,6 +101,7 @@ export default {
     addData() {
       this.titles = Object.keys(this.processData[0])
           .filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId" && key !== "author" && key !== "day" && key !== "date" && key !== "time")
+          //.filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId" && key !== "date" && key !== "time")
           .map((key) => {
             const formattedHeader = key
                 .split(/(?=[A-Z])/)

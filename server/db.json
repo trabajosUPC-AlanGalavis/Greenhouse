@@ -1,11 +1,37 @@
 {
-  "user": {
-    "image": "https://schoolworkhelper.net/wp-content/uploads/2011/07/Winston-Smith.gif",
-    "first_name": "Winston",
-    "last_name": "Smith",
-    "email": "winstonsmith@gmail.com"
-  },
-  "harvesting": [
+  "users": [
+    {
+      "id": 1,
+      "name": "Winston Smith",
+      "email": "winstonsmith@peruagro.com",
+      "company": "Peru Agro J&V Inc.",
+      "company_id": 1,
+      "role": "Administrator",
+      "password": "password123",
+      "photo": "https://i.ibb.co/DQQnkzp/3980947.png"
+    },
+    {
+      "id": 2,
+      "name": "Julia Perez",
+      "email": "juliaperez@peruagro.com",
+      "company": "Peru Agro A&C Inc.",
+      "company_id": 2,
+      "role": "Administrator",
+      "password": "julia456",
+      "photo": "https://i.ibb.co/DQQnkzp/3980947.png"
+    },
+    {
+      "id": 3,
+      "name": "O'Brien Garcia",
+      "email": "obrien@peruagro.com",
+      "company": "Peru Agro J&V Inc.",
+      "company_id": 1,
+      "role": "Administrator",
+      "password": "obrien789",
+      "photo": "https://i.ibb.co/DQQnkzp/3980947.png"
+    }
+  ],
+ "harvesting": [
     {
       "id": 1,
       "organization_id": 1,

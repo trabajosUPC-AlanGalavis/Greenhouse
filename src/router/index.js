@@ -9,6 +9,7 @@ import PasswordReset from "@/public/pages/password-reset.component.vue";
 import SitePolicy from "@/public/pages/site-policy.component.vue";
 import UserProfile from "@/profiles/pages/user-profile.component.vue";
 import statisticalReports from "@/greenhouse/pages/statistical-reports.vue";
+import Organization from "@/organizations-content/pages/organization.component.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,10 @@ const router = createRouter({
         {
           path:"/profile/:id",
           component:UserProfile,
+        },
+        {
+            path:"/organization/:id",
+            component:Organization,
         }
     ],
 });

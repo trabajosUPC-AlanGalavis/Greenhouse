@@ -8,24 +8,23 @@ export default {
 
   data() {
     return {
-      cropApi: new HarvestingApiService(),
-      harvestData: [],
-      selectedHarvest: null,
+      cropApiService: new HarvestingApiService(),
+      cropsData: [],
+      selectedCrop: null,
       newCrop: {},
-      cropCount: 0,
+      cropQuantity: 0,
       showPopup: false,
-      date: "25/09/2023",
     }
   },
   created() {
-    this.getHarvestingData();
+    this.getCropData();
   },
   methods: {
-    getHarvestingData() {
-      this.cropApi.getCropData().then((response) => {
-        this.harvestData = response.data;
-        this.cropCount = this.harvestData.length;
-        this.harvestData = this.harvestData.filter(data => (data.state === 'active'));
+    getCropData() {
+      this.cropApiService.getCropData().then((response) => {
+        this.cropsData = response.data;
+        this.cropQuantity = this.cropsData.length;
+        this.cropsData = this.cropsData.filter(data => (data.state === 'active'));
       })
     },
 
@@ -35,18 +34,20 @@ export default {
 
     saveNewCrop(){
       this.buildNewCrop();
-      this.cropApi
+      this.cropApiService
           .createCropData(this.newCrop)
           .then((response) => {
-            this.harvestData.push(this.newCrop);
+            this.cropsData.push(this.newCrop);
             console.log(response);
-          })
+          }).catch(error => {
+          console.error('Error saving new crop:', error);
+      });
       this.newCrop = {};
     },
 
     buildNewCrop(){
-      this.newCrop.id = this.cropCount+1;
-      this.newCrop.organization_id = 1;
+      this.newCrop.id = this.cropQuantity+1;
+      this.newCrop.company_id = 1;
       this.newCrop.start_date = this.getCurrentDate();
       this.newCrop.end_date = "";
       this.newCrop.phase = "1";
@@ -95,15 +96,21 @@ export default {
         </template>
         <template #content>
           <pv-data-table
-              v-model:selection="selectedHarvest"
-              :value="harvestData"
+              v-model:selection="selectedCrop"
+              :value="cropsData"
               selectionMode="single"
               dataKey="id"
               :metaKeySelection="false"
               @rowSelect="onRowSelect"
+              paginator
+              :rows="5"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+              paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink
+              LastPageLink"
+              currentPageReportTemplate="{first} to {last} of {totalRecords}"
               sortMode="multiple">
             <pv-column field="id" header="Id"></pv-column>
-            <pv-column field="organization_id" header="Organization"></pv-column>
+            <pv-column field="company_id" header="Company"></pv-column>
             <pv-column field="start_date" header="Start Date" sortable='true'></pv-column>
             <pv-column field="phase" header="Phase" sortable='true'></pv-column>
           </pv-data-table>
@@ -124,7 +131,7 @@ export default {
                 </div>
                 <div class="popup-body">
                   <br>
-                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date {{date}}</p>
+                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date {{getCurrentDate()}}</p>
                 </div>
                 <div class="popup-footer">
                   <router-link to="/stepper">
@@ -163,6 +170,10 @@ h2 {
   font-size: var(--heading-2-size);
 }
 
+.p-icon{
+  color: black;
+}
+
 h4 {
   color: var(--secondary-green-1);
   font-size: var(--heading-4-size);
@@ -192,9 +203,11 @@ h4 {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .popup-body h5 {
   color: #626262;
 }
+
 .popup-body p {
   color: #626262;
   font-size: 16px;
@@ -217,7 +230,6 @@ h4 {
   max-width: 100%;
   max-height: 70vh;
 }
-
 
 .close-button img {
   width: 24px;
@@ -247,7 +259,6 @@ h4 {
   background-color: #4A845B;
   color: white;
 }
-
 
 .popup-footer .btn.close {
   background-color: #D9D9D9 ;

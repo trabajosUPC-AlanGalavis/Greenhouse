@@ -36,7 +36,7 @@ export default {
       <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
         <router-link to="/">
           <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap items-center">
-            <img src="public/logo-white.png" alt="logo" width="20" height="20">
+            <img src="/logo-white.png" alt="logo" width="20" height="20">
             <p>Greenhouse</p>
           </div>
         </router-link>

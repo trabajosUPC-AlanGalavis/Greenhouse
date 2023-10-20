@@ -1,16 +1,20 @@
 <script>
-import PopupNew from "@/greenhouse/components/popup-new-crop.component.vue";
 import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 
 export default {
   name: "harvesting-in-progress",
-  components: {PopupNew},
+  components: {ButtonPrimary},
 
   data() {
     return {
-      harvestingApi: new HarvestingApiService(),
+      cropApi: new HarvestingApiService(),
       harvestData: [],
-      selectedHarvest: null
+      selectedHarvest: null,
+      newCrop: {},
+      cropCount: 0,
+      showPopup: false,
+      date: "25/09/2023",
     }
   },
   created() {
@@ -18,15 +22,56 @@ export default {
   },
   methods: {
     getHarvestingData() {
-      this.harvestingApi.getHarvestingData().then((response) => {
+      this.cropApi.getCropData().then((response) => {
         this.harvestData = response.data;
+        this.cropCount = this.harvestData.length;
         this.harvestData = this.harvestData.filter(data => (data.state === 'active'));
       })
     },
 
     onRowSelect() {
       this.$router.push('/stepper')
-    }
+    },
+
+    saveNewCrop(){
+      this.buildNewCrop();
+      this.cropApi
+          .createCropData(this.newCrop)
+          .then((response) => {
+            this.harvestData.push(this.newCrop);
+            console.log(response);
+          })
+      this.newCrop = {};
+    },
+
+    buildNewCrop(){
+      this.newCrop.id = this.cropCount+1;
+      this.newCrop.organization_id = 1;
+      this.newCrop.start_date = this.getCurrentDate();
+      this.newCrop.end_date = "";
+      this.newCrop.phase = "1";
+      this.newCrop.state = "active";
+    },
+
+    getCurrentDate() {
+      let currentDate = new Date().toLocaleString();
+      for (let i = 0; i < currentDate.length; i++){
+        if (currentDate[i] === ','){
+          currentDate = currentDate.substring(0,i)
+          break;
+        }
+      }
+      return currentDate;
+    },
+
+    openPopup() {
+      this.showPopup = true;
+    },
+
+    closePopup() {
+      this.showPopup = false;
+    },
+
   }
 };
 
@@ -59,11 +104,52 @@ export default {
               sortMode="multiple">
             <pv-column field="id" header="Id"></pv-column>
             <pv-column field="organization_id" header="Organization"></pv-column>
-            <pv-column field="start_date" header="Start Date" sortable="true"></pv-column>
-            <pv-column field="phase" header="Phase" sortable="true"></pv-column>
+            <pv-column field="start_date" header="Start Date" sortable='true'></pv-column>
+            <pv-column field="phase" header="Phase" sortable='true'></pv-column>
           </pv-data-table>
           <div class="text-center">
-            <popup-new></popup-new>
+            <button-primary
+                class="text-center mx-auto"
+                :text="$t('crops-in-progress.start_new_crop')"
+                :buttonColor="'var(--primary-green)'"
+                :buttonTextColor="'var(--primary-white)'"
+                :buttonBorderColor="'var(--primary-green)'"
+                @click="openPopup()">
+            </button-primary>
+
+            <div class="popup-container" v-if="showPopup">
+              <div class="popup-content">
+                <div class="popup-header">
+                  <h3>WARNING</h3>
+                </div>
+                <div class="popup-body">
+                  <br>
+                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date {{date}}</p>
+                </div>
+                <div class="popup-footer">
+                  <router-link to="/stepper">
+                    <button-primary
+                        class="text-center mx-auto"
+                        :text="' Yes, Start'"
+                        :buttonColor="'var(--primary-green)'"
+                        :buttonTextColor="'var(--primary-white)'"
+                        :buttonBorderColor="'var(--primary-green)'"
+                        @click="saveNewCrop()"
+                    >
+                    </button-primary>
+                  </router-link>
+                  <button-primary
+                      class="text-center mx-9"
+                      :text="' Cancel'"
+                      :buttonColor="'var(--gray-2)'"
+                      :buttonTextColor="'var(--primary-white)'"
+                      :buttonBorderColor="'var(--gray-2)'"
+                      @click="closePopup()"
+                  >
+                  </button-primary>
+                </div>
+              </div>
+            </div>
           </div>
         </template>
       </pv-card>
@@ -92,5 +178,79 @@ h4 {
   background-color: var(--secondary-green-2);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding: 5%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.popup-body h5 {
+  color: #626262;
+}
+.popup-body p {
+  color: #626262;
+  font-size: 16px;
+  white-space: pre-wrap;
+  padding:10px;
+}
+
+.popup-content {
+  position: relative;
+  background-color: #fff;
+
+  border-radius: 25px;
+  text-align: center;
+  padding-bottom:40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.popup-content img {
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+
+.close-button img {
+  width: 24px;
+  height: 24px;
+  border: none;
+}
+
+.popup-header {
+  background-color: #4A845B;
+  text-align: center;
+  padding:15px;
+  border-radius: 20px 20px 0 0;
+
+}
+
+.popup-header h3 {
+  color: white;
+  margin: 0;
+}
+
+.popup-footer .btn {
+  margin-right: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.popup-footer .btn.yes-finish {
+  background-color: #4A845B;
+  color: white;
+}
+
+
+.popup-footer .btn.close {
+  background-color: #D9D9D9 ;
+  color: black;
 }
 </style>

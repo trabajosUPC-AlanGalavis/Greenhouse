@@ -7,7 +7,7 @@ import HarvestingInProgress from "@/greenhouse/pages/harvesting-in-progress.comp
 import Signup from "@/public/pages/signup.component.vue";
 import PasswordReset from "@/public/pages/password-reset.component.vue";
 import SitePolicy from "@/public/pages/site-policy.component.vue";
-
+import UserProfile from "@/profiles/pages/user-profile.component.vue";
 import statisticalReports from "@/greenhouse/pages/statistical-reports.vue";
 
 const router = createRouter({
@@ -52,7 +52,11 @@ const router = createRouter({
 
         {
             path: "/statistical-reports",
-            component: statisticalReports
+            component: statisticalReports,
+        },
+        {
+          path:"/profile/:id",
+          component:UserProfile,
         }
     ],
 });

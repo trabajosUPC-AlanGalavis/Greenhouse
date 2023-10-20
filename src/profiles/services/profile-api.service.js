@@ -1,7 +1,12 @@
 import http from '../../shared/services/http-common';
 
 export class ProfileApiService {
-    getProfiles () {
+    getUsers () {
         return http.get('/user');
     }
+
+    getCompany () {
+        return http.get('/company');
+    }
+
 }

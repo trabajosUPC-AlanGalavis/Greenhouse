@@ -1,34 +1,114 @@
 {
-  "user": {
-    "image": "https://schoolworkhelper.net/wp-content/uploads/2011/07/Winston-Smith.gif",
-    "first_name": "Winston",
-    "last_name": "Smith",
-    "email": "winstonsmith@gmail.com"
-  },
-  "harvesting": [
+  "user": [
     {
       "id": 1,
-      "organization_id": 1,
-      "start_date": "14/08/2023",
-      "end_date": "",
-      "phase": "4.2",
-      "state": "active"
+      "company_id": 1,
+      "image": "https://schoolworkhelper.net/wp-content/uploads/2011/07/Winston-Smith.gif",
+      "first_name": "Winston",
+      "last_name": "Smith",
+      "email": "winstonsmith@gmail.com",
+      "password": "123456"
     },
     {
       "id": 2,
-      "organization_id": 1,
-      "start_date": "16/08/2023",
-      "end_date": "",
-      "phase": "2",
-      "state": "active"
+      "company_id": 2,
+      "image": "https://example.com/user2.jpg",
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "email": "alicejohnson@gmail.com",
+      "password": "password123"
     },
     {
       "id": 3,
-      "organization_id": 1,
-      "start_date": "17/08/2023",
-      "end_date": "",
-      "phase": "1",
-      "state": "finished"
+      "company_id": 1,
+      "image": "https://example.com/user3.jpg",
+      "first_name": "Bob",
+      "last_name": "Anderson",
+      "email": "bobanderson@gmail.com",
+      "password": "securepass"
+    },
+    {
+      "id": 4,
+      "company_id": 2,
+      "image": "https://example.com/user4.jpg",
+      "first_name": "Eva",
+      "last_name": "Smith",
+      "email": "evasmith@gmail.com",
+      "password": "newpassword"
+    },
+    {
+      "id": 5,
+      "company_id": 1,
+      "image": "https://example.com/user5.jpg",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "johndoe@gmail.com",
+      "password": "mysecret"
+    },
+    {
+      "id": 6,
+      "company_id": 3,
+      "image": "https://example.com/user6.jpg",
+      "first_name": "Mary",
+      "last_name": "Wilson",
+      "email": "marywilson@gmail.com",
+      "password": "marypass"
+    },
+    {
+      "id": 7,
+      "company_id": 3,
+      "image": "https://example.com/user7.jpg",
+      "first_name": "Daniel",
+      "last_name": "Brown",
+      "email": "danielbrown@gmail.com",
+      "password": "danielsecret"
+    },
+    {
+      "id": 8,
+      "company_id": 4,
+      "image": "https://example.com/user8.jpg",
+      "first_name": "Sophia",
+      "last_name": "Martinez",
+      "email": "sophiamartinez@gmail.com",
+      "password": "sophiapassword"
+    },
+    {
+      "id": 9,
+      "company_id": 5,
+      "image": "https://example.com/user9.jpg",
+      "first_name": "David",
+      "last_name": "Garcia",
+      "email": "davidgarcia@gmail.com",
+      "password": "davidpass"
+    },
+    {
+      "id": 10,
+      "company_id": 4,
+      "image": "https://example.com/user10.jpg",
+      "first_name": "Olivia",
+      "last_name": "Rodriguez",
+      "email": "oliviarodriguez@gmail.com",
+      "password": "oliviapass"
+    }
+  ],
+  "company": [
+    {
+      "id": 1,
+      "company_name": "Peru Agro J&V S.A.C",
+      "ruc": "20611429976",
+      "image": "https://us.123rf.com/450wm/elenagarder/elenagarder1710/elenagarder171000422/87214294-icono-de-vector-de-color-fino-de-champignon-estilo-lineal-aislado-de-las-verduras-de-la-seta-para.jpg?ver=6",
+      "email": "nespinoza.naer@gmail.com",
+      "owner_id": 1,
+      "users": [1, 3, 5]
+    },
+    {
+      "id": 2,
+      "company_name": "Venta de Hierbas Soto S.A.C",
+      "ruc": "30602479447",
+      "avatar": "",
+      "email": "aostito@gmail.com",
+      "owner_id": 2,
+      "users": [2, 4]
     }
   ],
   "stock": [
@@ -249,24 +329,6 @@
       "comment": "",
       "processType": "Harvest",
       "apiId": "v1"
-    }
-  ],
-  "organizations": [
-    {
-      "id": 1,
-      "business_name": "Peru Agro J&V S.A.C",
-      "RUC": "20602479448",
-      "avatar": "",
-      "email": "nespinoza.naer@gmail.com",
-      "owner_id": 1
-    },
-    {
-      "id": 2,
-      "business_name": "Venta de Hierbas Soto S.A.C",
-      "RUC": "30602479447",
-      "avatar": "",
-      "email": "aostito@gmail.com",
-      "owner_id": 49
     }
   ]
 }

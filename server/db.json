@@ -31,6 +31,65 @@
       "photo": "https://i.ibb.co/DQQnkzp/3980947.png"
     }
   ],
+  "organization": [
+    {
+      "id": 1,
+      "organizationName": "Peru Agro J&V S.A.C",
+      "ruc": "20602479448",
+      "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+      "workers": [
+        {
+          "id": 1,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Jane Doe"
+        },
+        {
+          "id": 2,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Juanito Alcachofa"
+        },
+        {
+          "id": 3,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Aristides Aguilar"
+        },
+        {
+          "id": 4,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Armando Paredes"
+        }
+
+      ]
+    },
+    {
+      "id": 2,
+      "organizationName": "Peru Agro A&C Inc.",
+      "ruc": "20602479449",
+      "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+      "workers": [
+        {
+          "id": 5,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Julia Perez"
+        },
+        {
+          "id": 6,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Roberto Carlos"
+        },
+        {
+          "id": 7,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Elena Torres"
+        },
+        {
+          "id": 8,
+          "photo": "https://i.ibb.co/DQQnkzp/3980947.png",
+          "name": "Francisco Ramirez"
+        }
+      ]
+    }
+  ],
  "harvesting": [
     {
       "id": 1,

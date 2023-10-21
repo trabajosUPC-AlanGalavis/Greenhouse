@@ -4,7 +4,7 @@ import http from '../../shared/services/http-common';
 export class GreenhouseApiService {
     getAllData(type, id) {
         //return http.get(`/${type}harvesting_id=${id}`);
-        return http.get(`/${type}harvesting_id=1`);
+        return http.get(`/${type}crop_id=1`);
     }
 
     create(type, data) {
@@ -71,7 +71,7 @@ export class GreenhouseApiService {
         return http.delete(`/grow_room_record/${id}`);
     }
 
-    getHarvestingIdIncubation(id){
+    getCropIdIncubation(id){
         return http.get(`grow_room_record?processType=Incubation&&harvesting_id=${id}`);
     }
 }

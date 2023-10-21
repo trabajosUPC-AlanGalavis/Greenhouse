@@ -1,18 +1,18 @@
 <script>
-import ButtonPrimary from '../components/button-primary.component.vue';
-import ProcessTable from "../components/process-table.component.vue";
-import ProcessInputDialog from "@/greenhouse/components/process-input-dialog.component.vue";
+import ButtonPrimary from './button-primary.component.vue';
+import ProcessTable from "../pages/process-table.component.vue";
+
 export default {
   name: 'stepper-contents',
   components: {
     ProcessTable,
     ButtonPrimary,
-    ProcessInputDialog,
+    //ProcessInputDialog,
   },
   data() {
     return {
       currentStep: 0,
-      date_start: "18/09/23 ",
+      start_date: '',
       isButtonDisabled: false,
       showPopup: false,
       isLastPhase: false,
@@ -68,7 +68,7 @@ export default {
       }
     },
     openInputDialog() {
-      this.$refs.processInputDialog.showDialog();
+      this.$refs.ProcessTable.showDialog();
     }
   },
 };
@@ -87,7 +87,9 @@ export default {
         </div>
       </template>
     </pv-steps>
-    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
+    <process-table :endpoint="phases[currentStep].endpoint"
+                   ref="ProcessTable"
+    ></process-table>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3 mr-3"
                       @click="openPopup"
@@ -145,7 +147,7 @@ export default {
         </div>
         <div class="popup-body-2">
           <br>
-          <p style="text-align: center;">The cultivation started on {{ date_start }} has successfully completed all
+          <p style="text-align: center;">The cultivation started on {{ start_date }} has successfully completed all
             stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
         </div>
 
@@ -162,18 +164,13 @@ export default {
             </button-primary>
           </router-link>
 
+
+
         </div>
       </div>
     </div>
 
-    <div class="mb-3">
-      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
-    </div>
 
-    <process-input-dialog :process-type="phases[currentStep].message"
-                          :endpoint="phases[currentStep].endpoint"
-                          ref="processInputDialog"
-    ></process-input-dialog>
   </div>
 </template>
 
@@ -355,9 +352,7 @@ export default {
   background-color: #4A845B;
   text-align: center;
   padding: 15px;
-  border-radius: 20px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 20px 20px 0 0;
 }
 
 </style>

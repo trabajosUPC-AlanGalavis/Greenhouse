@@ -5,7 +5,7 @@ export class ProfileApiService {
         return http.get('/user');
     }
 
-    getCompany () {
+    getCompanies () {
         return http.get('/company');
     }
 

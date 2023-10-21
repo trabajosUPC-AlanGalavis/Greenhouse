@@ -1,13 +1,13 @@
 <script>
 import ButtonPrimary from './button-primary.component.vue';
 import ProcessTable from "../pages/process-table.component.vue";
-import ProcessInputDialog from "@/greenhouse/components/process-input-dialog.component.vue";
+
 export default {
   name: 'stepper-contents',
   components: {
     ProcessTable,
     ButtonPrimary,
-    ProcessInputDialog,
+    //ProcessInputDialog,
   },
   data() {
     return {
@@ -68,7 +68,7 @@ export default {
       }
     },
     openInputDialog() {
-      this.$refs.processInputDialog.showDialog();
+      this.$refs.ProcessTable.showDialog();
     }
   },
 };
@@ -87,7 +87,9 @@ export default {
         </div>
       </template>
     </pv-steps>
-    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
+    <process-table :endpoint="phases[currentStep].endpoint"
+                   ref="ProcessTable"
+    ></process-table>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3 mr-3"
                       @click="openPopup"
@@ -162,14 +164,13 @@ export default {
             </button-primary>
           </router-link>
 
+
+
         </div>
       </div>
     </div>
 
-    <process-input-dialog :process-type="phases[currentStep].message"
-                          :endpoint="phases[currentStep].endpoint"
-                          ref="processInputDialog"
-    ></process-input-dialog>
+
   </div>
 </template>
 

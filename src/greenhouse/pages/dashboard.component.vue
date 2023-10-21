@@ -39,7 +39,7 @@ export default {
                           :buttonText="$t('dashboard.statistical_reports')"
                           :link="'/statistical-reports'"></dashboard-card>
           <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/archive.png'"
-                          :buttonText="$t('dashboard.crops_archive')" :link="'/'"></dashboard-card>
+                          :buttonText="$t('dashboard.crops_archive')" :link="'/crop-history'"></dashboard-card>
         </div>
         <div>
           <div class="mb-4">

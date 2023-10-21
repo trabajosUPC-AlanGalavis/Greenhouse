@@ -137,7 +137,7 @@
       "id": 3,
       "organization_id": 1,
       "start_date": "17/08/2023",
-      "end_date": "",
+      "end_date": "19/08/2023",
       "phase": "1",
       "state": "finished"
     },
@@ -164,6 +164,14 @@
       "end_date": "",
       "phase": "1",
       "state": "active"
+    },
+    {
+      "id": 6,
+      "company_id": 1,
+      "start_date": "21/10/2023",
+      "end_date": "24/10/2023",
+      "phase": "1",
+      "state": "finished"
     }
   ],
   "stock": [

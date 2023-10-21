@@ -9,6 +9,7 @@ import PasswordReset from "@/public/pages/password-reset.component.vue";
 import SitePolicy from "@/public/pages/site-policy.component.vue";
 import userProfile from "@/profiles/components/user-profile.vue";
 import statisticalReports from "@/greenhouse/pages/statistical-reports.vue";
+import CropHistoryComponent from "@/greenhouse/pages/crop-history.component.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,10 @@ const router = createRouter({
         {
             path: "/process-log",
             component: HarvestingInProgress,
+        },
+        {
+            path: "/crop-history",
+            component: CropHistoryComponent,
         },
         {
             path: "/stepper",

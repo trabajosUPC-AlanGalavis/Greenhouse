@@ -15,9 +15,18 @@ export default {
   },
   created() {
     this.greenhouseApi = new GreenhouseApiService();
+    this.fetchMostRecentRecords()
   },
   methods: {
-    getRecordData() {
+    async fetchMostRecentRecords() {
+      try {
+        const cropId = 1; // Replace with the desired crop ID
+        const mostRecentRecords = await this.greenhouseApi.getMostRecentRecords(cropId);
+        this.recordData = mostRecentRecords;
+        console.log(mostRecentRecords);
+      } catch (error) {
+        console.error('Error fetching most recent records:', error);
+      }
     },
   },
 };
@@ -49,11 +58,11 @@ export default {
               :value="recordData"
               selectionMode="single">
             <pv-column field="id" :header="$t('dashboard.crop_id')"></pv-column>
-            <pv-column field="author_id" :header="$t('dashboard.author')"></pv-column>
+            <pv-column field="author" :header="$t('dashboard.author')"></pv-column>
             <pv-column field="start_date" :header="$t('dashboard.start_date')" sortable="true"></pv-column>
             <pv-column field="phase" :header="$t('dashboard.phase')" sortable="true"></pv-column>
-            <pv-column field="record_date" :header="$t('dashboard.record_date')" sortable="true"></pv-column>
-            <pv-column field="record_time" :header="$t('dashboard.record_time')" sortable="true"></pv-column>
+            <pv-column field="date" :header="$t('dashboard.record_date')" sortable="true"></pv-column>
+            <pv-column field="time" :header="$t('dashboard.record_time')" sortable="true"></pv-column>
             <pv-column field="comment" :header="$t('dashboard.comment')"></pv-column>
           </pv-data-table>
         </div>

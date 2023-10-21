@@ -11,6 +11,51 @@ export class GreenhouseApiService {
         return http.post(`/${type}`, data);
     }
 
+    async getMostRecentRecords(cropId) {
+        try {
+            // Fetch the most recent records for each type
+            const mostRecentStock = await this.getMostRecentRecord('stock', cropId);
+            const mostRecentPreparationArea = await this.getMostRecentRecord('preparation_area', cropId);
+            const mostRecentBunker = await this.getMostRecentRecord('bunker', cropId);
+            const mostRecentTunnel = await this.getMostRecentRecord('tunnel', cropId);
+            const mostRecentGrowRoomRecord = await this.getMostRecentRecord('grow_room_record', cropId);
+
+            return {
+                stock: mostRecentStock,
+                preparationArea: mostRecentPreparationArea,
+                bunker: mostRecentBunker,
+                tunnel: mostRecentTunnel,
+                growRoomRecord: mostRecentGrowRoomRecord,
+            };
+        } catch (error) {
+            throw new Error('Error fetching most recent records: ' + error.message);
+        }
+    }
+
+    async getMostRecentRecord(type, cropId) {
+        try {
+            // Make a request to get the most recent record of the specified type
+            const response = await http.get(`/${type}?crop_id=${cropId}`);
+            const records = response.data;
+
+            // Sort the records by date in descending order
+            records.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Get the most recent record
+            const mostRecentRecord = records.length > 0 ? records[0] : null;
+
+            // Fetch the associated crop data
+            const cropResponse = await http.get(`/crops?id=${cropId}`); // Modify this URL as needed
+            const cropData = cropResponse.data;
+
+            const dataToSend = { ...mostRecentRecord, ...cropData[0] };
+
+            return dataToSend; // Return an array
+        } catch (error) {
+            throw new Error(`Error fetching most recent ${type} record: ` + error.message);
+        }
+    }
+
     updateStock(id, data){
         return http.put(`/stock/${id}`, data);
     }

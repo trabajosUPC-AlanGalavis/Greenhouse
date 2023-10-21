@@ -148,6 +148,22 @@
       "end_date": "",
       "phase": "Stock",
       "state": "active"
+    },
+    {
+      "id": 5,
+      "company_id": 1,
+      "start_date": "21/10/2023",
+      "end_date": "",
+      "phase": "1",
+      "state": "active"
+    },
+    {
+      "id": 6,
+      "company_id": 1,
+      "start_date": "21/10/2023",
+      "end_date": "",
+      "phase": "1",
+      "state": "active"
     }
   ],
   "stock": [

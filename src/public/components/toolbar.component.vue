@@ -133,7 +133,4 @@ p {
   font-size: var(--medium-text-regular-size);
 }
 
-path {
-  color: var(--primary-white) !important;
-}
 </style>

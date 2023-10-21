@@ -1,6 +1,7 @@
 <script>
 import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
+import {FilterMatchMode, FilterOperator} from "primevue/api";
 
 export default {
   name: "harvesting-in-progress",
@@ -14,6 +15,10 @@ export default {
       newCrop: {},
       cropQuantity: 0,
       showPopup: false,
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS},
+        date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+      }
     }
   },
   created() {
@@ -48,21 +53,18 @@ export default {
     buildNewCrop(){
       this.newCrop.id = this.cropQuantity+1;
       this.newCrop.company_id = 1;
-      this.newCrop.start_date = this.getCurrentDate();
+      this.newCrop.start_date = this.formatDate(new Date());
       this.newCrop.end_date = "";
       this.newCrop.phase = "1";
       this.newCrop.state = "active";
     },
 
-    getCurrentDate() {
-      let currentDate = new Date().toLocaleString();
-      for (let i = 0; i < currentDate.length; i++){
-        if (currentDate[i] === ','){
-          currentDate = currentDate.substring(0,i)
-          break;
-        }
-      }
-      return currentDate;
+    formatDate(date) {
+      return date.toLocaleDateString('es', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
     },
 
     openPopup() {
@@ -79,6 +81,7 @@ export default {
 </script>
 
 <template>
+
   <pv-card class="card">
     <template #header>
       <div class="py-4">
@@ -90,13 +93,19 @@ export default {
       <pv-card class="card-small">
         <template #header>
           <div class="searchbar text-center">
-            <pv-input-text class="bg-transparent border-transparent text-white" type="text"
-                           placeholder="Search harvest"/>
+            <pv-input-text
+                class="bg-transparent border-transparent text-white"
+                type="text"
+                v-model="filters['global'].value"
+                placeholder="Search harvest"/>
           </div>
         </template>
         <template #content>
           <pv-data-table
               v-model:selection="selectedCrop"
+              v-model:filters="filters"
+              filterDisplay="menu"
+              show-gridlines
               :value="cropsData"
               selectionMode="single"
               dataKey="id"
@@ -110,8 +119,18 @@ export default {
               currentPageReportTemplate="{first} to {last} of {totalRecords}"
               sortMode="multiple">
             <pv-column field="id" header="Id"></pv-column>
-            <pv-column field="company_id" header="Company"></pv-column>
-            <pv-column field="start_date" header="Start Date" sortable='true'></pv-column>
+            <pv-column filter-field="date" dataType="date" header="Start Date" sortable='true'>
+              <template #body="{ data }">
+                {{data.start_date}}
+              </template>
+              <template #filter="{ filterModel }">
+                <pv-calendar
+                    v-model="filterModel.value"
+                    dateFormat="dd/mm/yy"
+                    placeholder="dd/mm/yy"
+                    mask="99/99/9999"/>
+              </template>
+            </pv-column>
             <pv-column field="phase" header="Phase" sortable='true'></pv-column>
           </pv-data-table>
           <div class="text-center">
@@ -131,7 +150,8 @@ export default {
                 </div>
                 <div class="popup-body">
                   <br>
-                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date {{getCurrentDate()}}</p>
+                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date
+                    {{ formatDate(new Date()) }}</p>
                 </div>
                 <div class="popup-footer">
                   <router-link to="/stepper">
@@ -190,6 +210,7 @@ h4 {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
 
 .popup-container {
   position: fixed;

@@ -23,6 +23,7 @@ import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
 import Dropdown from "primevue/dropdown";
 import InputText from 'primevue/inputtext';
+import Calendar from "primevue/calendar";
 //Router
 import router from "@/router";
 //Localization
@@ -56,6 +57,7 @@ createApp(App)
     .component('pv-data-table', DataTable)
     .component('pv-dialog', Dialog)
     .component('pv-input-text', InputText)
+    .component('pv-calendar', Calendar)
     .use(router)
     .use(i18n)
     .mount('#app')

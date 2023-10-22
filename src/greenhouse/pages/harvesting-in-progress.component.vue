@@ -18,7 +18,7 @@ export default {
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS},
         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-      }
+      },
     }
   },
   created() {
@@ -34,7 +34,15 @@ export default {
     },
 
     onRowSelect() {
-      this.$router.push('/stepper')
+      if (this.selectedCrop){
+        this.$router.push({
+          name: 'stepper',
+          params: {
+            crop_id: this.selectedCrop.id,
+            phase: this.selectedCrop.phase,
+          },
+        });
+      }
     },
 
     saveNewCrop(){
@@ -55,7 +63,7 @@ export default {
       this.newCrop.company_id = 1;
       this.newCrop.start_date = this.formatDate(new Date());
       this.newCrop.end_date = "";
-      this.newCrop.phase = "1";
+      this.newCrop.phase = "Stock";
       this.newCrop.state = "active";
     },
 

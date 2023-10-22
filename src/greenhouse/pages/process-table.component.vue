@@ -7,6 +7,7 @@ export default {
   name: "process-table",
   props: {
     endpoint: null,
+    crop_id: null,
   },
 
   data() {
@@ -16,7 +17,6 @@ export default {
       columns: null,
       greenhouseApi: new GreenhouseApiService(),
       cropApi: null,
-      crop_id: 0,
       start_date: "",
       formData: {},
       displayDialog: false,
@@ -27,7 +27,6 @@ export default {
     this.cropApi = new HarvestingApiService();
     this.initFilters();
     this.cropApi.getCropData().then((response => {
-      this.crop_id = response.data[0].id;
       this.start_date = response.data[0].start_date;
     }));
   },
@@ -64,7 +63,7 @@ export default {
           });
     },
     fetchDataAndColumns(endpoint) {
-      this.greenhouseApi.getAllData(endpoint).then((response) => {
+      this.greenhouseApi.getAllDataByCropId(endpoint, this.crop_id).then((response) => {
         this.processData = response.data;
         this.addColumn();
       });

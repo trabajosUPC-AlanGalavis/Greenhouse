@@ -6,7 +6,17 @@ export class HarvestingApiService {
         return http.get('/crops')
     }
 
+    getCropDataById(id){
+        return http.get(`/crops/${id}`)
+    }
+
     createCropData(data) {
         return http.post('/crops', data)
+    }
+
+    updateCurrentPhase(cropId, newPhase) {
+        return http.patch(`/crops/${cropId}`, {
+            phase: newPhase
+        })
     }
 }

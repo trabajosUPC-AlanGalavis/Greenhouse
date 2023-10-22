@@ -51,7 +51,8 @@ const router = createRouter({
             component: CropHistoryComponent,
         },
         {
-            path: "/stepper",
+            path: "/stepper/:crop_id/:phase",
+            name: "stepper",
             component: StepperContent,
         },
         {

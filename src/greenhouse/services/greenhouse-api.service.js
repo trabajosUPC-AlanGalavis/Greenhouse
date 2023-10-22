@@ -2,9 +2,14 @@
 import http from '../../shared/services/http-common';
 
 export class GreenhouseApiService {
-    getAllData(type, id) {
+    getAllData(type) {
         //return http.get(`/${type}harvesting_id=${id}`);
-        return http.get(`/${type}crop_id=1`);
+        return http.get(`/${type}`);
+    }
+
+    getAllDataByCropId(type, id) {
+        console.log(id);
+        return http.get(`/${type}crop_id=${id}`);
     }
 
     create(type, data) {

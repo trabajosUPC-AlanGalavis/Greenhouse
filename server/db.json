@@ -154,7 +154,7 @@
       "company_id": 1,
       "start_date": "21/10/2023",
       "end_date": "",
-      "phase": "1",
+      "phase": "Preparation Area",
       "state": "active"
     },
     {
@@ -162,7 +162,7 @@
       "company_id": 1,
       "start_date": "21/10/2023",
       "end_date": "24/10/2023",
-      "phase": "1",
+      "phase": "Harvest",
       "state": "finished"
     }
   ],

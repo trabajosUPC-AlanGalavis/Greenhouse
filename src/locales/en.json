@@ -48,6 +48,15 @@
     "start_new_crop": "Start new crop",
     "search_crop": "Search crop"
   },
+  "crop-history": {
+    "control_panel": "Control panel",
+    "crop_history": "Crop History",
+    "search_crop": "Search crops",
+    "crop_id": "Crop ID",
+    "crop_start_date": "Start Date",
+    "crop_view_logs": "View logs",
+    "crop_end_date": "End Date"
+  },
   "user-profile": {
     "my_profile": "My profile",
     "name": "Name",

@@ -48,6 +48,15 @@
     "start_new_crop": "Comenzar nuevo cultivo",
     "search_crop": "Buscar cultivo"
   },
+  "crop-history": {
+    "control_panel": "Panel de control",
+    "crop_history": "Histórico de cultivos",
+    "search_crop": "Buscar registros",
+    "crop_id": "ID del cultivo",
+    "crop_start_date": "Fecha de inicio del cultivo",
+    "crop_view_logs": "Ver registros",
+    "crop_end_date": "Fecha de fin de cultivo"
+  },
   "user-profile": {
     "my_profile": "Mi perfil",
     "name": "Nombre",

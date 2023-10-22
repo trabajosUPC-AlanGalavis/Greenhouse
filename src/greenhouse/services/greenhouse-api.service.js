@@ -11,22 +11,41 @@ export class GreenhouseApiService {
         return http.post(`/${type}`, data);
     }
 
-    async getMostRecentRecords(cropId) {
+    async getMostRecentRecords() {
         try {
-            // Fetch the most recent records for each type
-            const mostRecentStock = await this.getMostRecentRecord('stock', cropId);
-            const mostRecentPreparationArea = await this.getMostRecentRecord('preparation_area', cropId);
-            const mostRecentBunker = await this.getMostRecentRecord('bunker', cropId);
-            const mostRecentTunnel = await this.getMostRecentRecord('tunnel', cropId);
-            const mostRecentGrowRoomRecord = await this.getMostRecentRecord('grow_room_record', cropId);
+            // Fetch a list of all crops
+            const cropsResponse = await http.get('/crops'); // Modify this URL as needed
+            const crops = cropsResponse.data;
 
-            return {
-                stock: mostRecentStock,
-                preparationArea: mostRecentPreparationArea,
-                bunker: mostRecentBunker,
-                tunnel: mostRecentTunnel,
-                growRoomRecord: mostRecentGrowRoomRecord,
-            };
+            // Initialize an object to store the most recent records for each crop
+            const mostRecentRecords = {};
+            const dataToSend = {};
+            let dataToReturn = {};
+
+            // Iterate through each crop
+            for (const crop of crops) {
+                const cropId = crop.id;
+                let cropPhase = crop.phase;
+                if (cropPhase === 'Casing' || cropPhase === 'Incubation' || cropPhase === 'Induction' || cropPhase === 'Harvest'){
+                    cropPhase = `grow_room_record?processType=${cropPhase}`;
+                }
+                try {
+                    const mostRecentRecord = await this.getMostRecentRecord(cropPhase, cropId); // Replace 'your_type_here' with the appropriate type
+                    mostRecentRecords[cropId] = mostRecentRecord;
+                }
+                catch (error) {
+                    continue;
+                }
+
+                if (mostRecentRecords[cropId] === null) {
+                    continue;
+                }
+                dataToReturn = { ...mostRecentRecords[cropId], ...crop };
+                dataToSend[cropId] = dataToReturn;
+            }
+
+            //console.log(dataToReturn);
+            return dataToSend;
         } catch (error) {
             throw new Error('Error fetching most recent records: ' + error.message);
         }
@@ -35,26 +54,31 @@ export class GreenhouseApiService {
     async getMostRecentRecord(type, cropId) {
         try {
             // Make a request to get the most recent record of the specified type
-            const response = await http.get(`/${type}?crop_id=${cropId}`);
-            const records = response.data;
+            if (type === 'grow_room_record?processType=Casing' || type === 'grow_room_record?processType=Incubation' || type === 'grow_room_record?processType=Induction' || type === 'grow_room_record?processType=Harvest'){
+                const response = await http.get(`/${type}&&crop_id=${cropId}`);
+                const records = response.data;
+                records.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const mostRecentRecord = records.length > 0 ? records[0] : null;
+                return mostRecentRecord;
+            }
+            else {
+                const response = await http.get(`/${type}?crop_id=${cropId}`);
+                const records = response.data;
 
-            // Sort the records by date in descending order
-            records.sort((a, b) => new Date(b.date) - new Date(a.date));
+                // Sort the records by date in descending order
+                records.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // Get the most recent record
-            const mostRecentRecord = records.length > 0 ? records[0] : null;
+                // Get the most recent record
+                const mostRecentRecord = records.length > 0 ? records[0] : null;
 
-            // Fetch the associated crop data
-            const cropResponse = await http.get(`/crops?id=${cropId}`); // Modify this URL as needed
-            const cropData = cropResponse.data;
+                return mostRecentRecord;
+            }
 
-            const dataToSend = { ...mostRecentRecord, ...cropData[0] };
-
-            return dataToSend; // Return an array
         } catch (error) {
             throw new Error(`Error fetching most recent ${type} record: ` + error.message);
         }
     }
+
 
     updateStock(id, data){
         return http.put(`/stock/${id}`, data);

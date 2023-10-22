@@ -20,8 +20,8 @@ export default {
   methods: {
     async fetchMostRecentRecords() {
       try {
-        const cropId = 1; // Replace with the desired crop ID
-        const mostRecentRecords = await this.greenhouseApi.getMostRecentRecords(cropId);
+        //const cropId = 1; // Replace with the desired crop ID
+        const mostRecentRecords = await this.greenhouseApi.getMostRecentRecords();
         this.recordData = mostRecentRecords;
         console.log(mostRecentRecords);
       } catch (error) {

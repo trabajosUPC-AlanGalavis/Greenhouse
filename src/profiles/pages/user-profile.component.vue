@@ -1,90 +1,91 @@
 <script>
-import { getUsersById } from '../service/user-data.service';
+import {ProfileApiService} from "@/profiles/services/profile-api.service";
 
 export default {
+  name: "user-profile",
   data() {
     return {
-      user: {}
+      profileApi: null,
+      image: "",
+      first_name: "",
+      last_name: "",
+      email: "",
     };
   },
-  computed: {
-    userId() {
-      return this.$route.params.id;
-    }
-  },
-  async created() {
-    try {
-      const response = await getUsersById(this.userId);
-      this.user = response.data;
-    } catch (error) {
-      console.error("Error obteniendo el usuario:", error);
-    }
+  created() {
+    this.profileApi = new ProfileApiService();
+    this.profileApi.getUsers()
+        .then((response) => {
+          this.image = response.data[0].image;
+          this.first_name = response.data[0].first_name;
+          this.last_name = response.data[0].last_name;
+          this.email = response.data[0].email;
+        });
   }
 };
-
 </script>
 
 <template>
-  <div class="profile-container bg-white rounded-lg shadow-md p-1 w-4/5 mx-auto flex">
-    <div class="w-1/3 flex justify-center items-center">
-      <div class="profile-image flex flex-col items-center relative">
-        <h2 class="mb-2 text-center text-gray-3 text-6xl font-bold">My profile</h2>
-        <img :src="user.photo" alt="Imagen de perfil" class="w-80 h-80 rounded-full border-8 border-green-800"/>
-      </div>
-    </div>
-    <div class="w-2/3 pl-6">
-      <div class="mb-1 relative">
-        <label class="block text-gray-2 font-bold">Name:</label>
-        <input type="text" v-model="user.name" class="border border-gray-1 rounded p-1 w-full mt-1" readonly />
-        <a href="#" class="block text-left" style="text-decoration: underline;">Change name</a>
-        <div class="mb-1 p-1 relative linea-verde"></div>
-      </div>
-
-      <div class="mb-1 relative">
-        <label class="block text-gray-2  font-bold">Email:</label>
-        <input type="email" v-model="user.email" class="border border-gray-1 rounded  p-1 w-full mt-1" readonly />
-        <a href="#" class="block text-left" style="text-decoration: underline;">Change email</a>
-        <div class="mb-1 p-1 relative linea-verde"></div>
-      </div>
-
-      <div class="mb-1 relative">
-        <label class="block text-gray-2  font-bold">Organization:</label>
-        <input type="text" v-model="user.company" class="border border-gray-1 rounded  p-1 w-full mt-1" readonly />
-        <a href="#" class="block text-left " style="text-decoration: underline;">View organization</a>
-        <div class="mb-1 p-1 relative linea-verde"></div>
-      </div>
-      <div class="mb-1 relative">
-        <label class="block text-gray-2 font-bold">Role:</label>
-        <input type="text" v-model="user.role" class="border border-gray-1 rounded  p-1 w-full mt-1" readonly />
-        <a href="#" class="block text-left" style="text-decoration: underline;">Change role</a>
-        <div class="mb-1 p-1 relative linea-verde"></div>
-      </div>
-      <div class="mb-1 relative">
-        <label class="block text-gray-2  font-bold">Password:</label>
-        <input type="password" v-model="user.password" class="border border-gray-1 rounded p-1 w-full mt-1" readonly />
-        <a href="#" class="block text-left" style="text-decoration: underline;">Change password</a>
-        <div class="mb-1 p-1 relative linea-verde"></div>
-      </div>
-
-      <div class="mb-1 relative">
-        <label class="block text-gray-2  font-bold">Account:</label>
-        <a href="#" style="color: var(--red); text-decoration: underline;" >Delete</a>
-      </div>
-    </div>
+  <div class="max-w-4xl mx-auto">
+    <pv-card class="card md:px-5">
+      <template #content>
+        <div class="lg:flex">
+          <div class="lg:w-1/2 text-center align-content-center mb-5 md:mr-5">
+            <p class="font-bold text-4xl mb-4">{{ $t('user-profile.my_profile') }}</p>
+            <div class="flex items-center justify-center mb-2">
+              <img class="rounded-full w-56 h-56" :src="image" alt="avatar">
+            </div>
+            <a class="text-blue-500 text-sm underline">{{ $t('user-profile.change_profile_picture') }}</a>
+          </div>
+          <div class="lg:w-1/2 p-1 md:pt-6">
+            <div>
+              <div class="mb-4">
+                <div class="flex justify-between items-center">
+                  <p class="font-bold mr-2">{{ $t('user-profile.name') }}:</p>
+                  <p class="text-sm overflow-ellipsis">{{ first_name + ' ' + last_name }}</p>
+                </div>
+                <a class="text-blue-500 text-sm underline">{{ $t('user-profile.change_name') }}</a>
+              </div>
+              <div class="mb-4">
+                <div class="flex justify-between items-center">
+                  <p class="font-bold mr-2">{{ $t('user-profile.email') }}:</p>
+                  <p class="text-sm overflow-ellipsis">{{ email }}</p>
+                </div>
+                <a class="text-blue-500 text-sm underline">{{ $t('user-profile.change_email') }}</a>
+              </div>
+              <div class="mb-4">
+                <div class="flex justify-between items-center">
+                  <p class="font-bold mr-2">{{ $t('user-profile.password') }}:</p>
+                  <p class="text-sm overflow-ellipsis">●●●●●●●●</p>
+                </div>
+                <a class="text-blue-500 text-sm underline">{{ $t('user-profile.change_password') }}</a>
+              </div>
+              <div class="mb-4">
+                <div class="flex justify-between items-center">
+                  <p class="font-bold mr-2">{{ $t('user-profile.account') }}:</p>
+                </div>
+                <a class="text-red-500 text-sm underline">{{ $t('user-profile.delete_account') }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </pv-card>
   </div>
 </template>
 
 <style scoped>
-a{
-  color:#4A845B;
+* {
+  color: var(--black);
 }
-.linea-verde {
-  border-bottom: 2px solid #112c11;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+
+img {
+  border: solid 7px var(--primary-green);
 }
-label{
-  font-size:25px;
+
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
-

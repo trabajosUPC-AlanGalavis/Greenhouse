@@ -10,6 +10,7 @@ import SitePolicy from "@/public/pages/site-policy.component.vue";
 import userProfile from "@/profiles/components/user-profile.vue";
 import statisticalReports from "@/greenhouse/pages/statistical-reports.vue";
 import CropHistoryComponent from "@/greenhouse/pages/crop-history.component.vue";
+import companyProfile from "@/profiles/components/company-profile.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,10 @@ const router = createRouter({
         {
             path: "/profile",
             component: userProfile
+        },
+        {
+            path: "/company",
+            component: companyProfile,
         },
         {
             path: "/statistical-reports",

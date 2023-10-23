@@ -1,12 +1,7 @@
 import http from '../../shared/services/http-common';
 
-export class ProfileApiService {
+export class EmployeeApiService {
     getUsers () {
         return http.get('/user');
     }
-
-    getCompanies () {
-        return http.get('/company');
-    }
-
 }

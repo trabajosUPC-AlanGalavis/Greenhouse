@@ -48,15 +48,6 @@
     "start_new_crop": "Comenzar nuevo cultivo",
     "search_crop": "Buscar cultivo"
   },
-  "crop-history": {
-    "control_panel": "Panel de control",
-    "crop_history": "Histórico de cultivos",
-    "search_crop": "Buscar registros",
-    "crop_id": "ID del cultivo",
-    "crop_start_date": "Fecha de inicio del cultivo",
-    "crop_view_logs": "Ver registros",
-    "crop_end_date": "Fecha de fin de cultivo"
-  },
   "user-profile": {
     "my_profile": "Mi perfil",
     "name": "Nombre",
@@ -68,5 +59,28 @@
     "change_password": "Cambiar contraseña",
     "delete_account": "Borrar cuenta",
     "change_profile_picture": "Cambiar foto de perfil"
+  },
+  "company_profile": {
+    "my_company": "Mi empresa",
+    "company_name": "Razón social",
+    "ruc": "RUC",
+    "company": "Empresa",
+    "change_company_name": "Cambiar razón social",
+    "change_ruc": "Cambiar RUC",
+    "delete_company": "Borrar empresa",
+    "change_profile_picture": "Cambiar foto de la empresa",
+    "employees": "Trabajadores",
+    "invite_employee": "Invitar a un trabajador",
+    "view_more": "Ver más",
+    "search": "Buscar trabajador"
+  },
+  "crop-history": {
+    "control_panel": "Panel de control",
+    "crop_history": "Archivo de cultivos",
+    "search_crop": "Buscar cultivo",
+    "crop_id": "ID del cultivo",
+    "crop_start_date": "Fecha de inicio del cultivo",
+    "crop_end_date": "Fecha de finalización del cultivo",
+    "crop_view_logs": "Ver registros"
   }
 }

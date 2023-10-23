@@ -1,11 +1,13 @@
 <script>
-import {ProfileApiService} from "@/profiles/services/profile-api.service";
+import {EmployeeApiService} from "@/profiles/services/employee-api.service";
+import {CompanyApiService} from "@/profiles/services/company-api.service";
 
 export default {
   name: "toolbar",
   data() {
     return {
-      profileApi: null,
+      employeeApi: null,
+      companyApi: null,
       company_name: '',
       company_image: '',
       full_name: '',
@@ -19,15 +21,16 @@ export default {
     };
   },
   created() {
-    this.profileApi = new ProfileApiService();
-    this.profileApi.getUsers()
+    this.employeeApi = new EmployeeApiService();
+    this.employeeApi.getUsers()
         .then((response) => {
           const first_name = response.data[0].first_name;
           const last_name = response.data[0].last_name;
           this.full_name = first_name + ' ' + last_name;
           this.user_image = response.data[0].image;
         });
-    this.profileApi.getCompanies()
+    this.companyApi = new CompanyApiService();
+    this.companyApi.getCompanies()
         .then((response) => {
           this.company_name = response.data[0].company_name;
           this.company_image = response.data[0].image;
@@ -78,7 +81,7 @@ export default {
             </div>
           </li>
           <li class="nav-item">
-            <router-link to="/organization">
+            <router-link to="/company">
               <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar :image="company_image" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>{{ company_name }}</p>

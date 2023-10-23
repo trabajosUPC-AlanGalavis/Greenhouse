@@ -55,9 +55,11 @@
 
 <script>
   import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+  import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 
   export default {
     name: "crop-history",
+    components: {ButtonPrimary},
     data() {
       return {
         cropApiService: new HarvestingApiService(),
@@ -80,14 +82,19 @@
 
 <style scoped>
 
+* {
+  color: var(--black);
+}
+
 .card-small {
   background-color: var(--white);
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
   margin: 0 6%;
 }
 
+h4 {
+  color: var(--secondary-green-1);
+  font-size: var(--heading-4-size);
+}
 
 </style>
-<script setup>
-import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
-</script>

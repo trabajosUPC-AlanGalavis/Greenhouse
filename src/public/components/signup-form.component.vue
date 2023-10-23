@@ -45,7 +45,7 @@ export default {
           class="w-full border rounded-md px-3 py-2"
           v-model="company_name"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.company_name') }}</label>
+      <label for="company_name">{{ $t('login-signup.company_name') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -56,7 +56,7 @@ export default {
           class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full border rounded-md px-3 py-2 "
           v-model="ruc"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.ruc') }}</label>
+      <label for="ruc">{{ $t('login-signup.ruc') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -80,7 +80,7 @@ export default {
           class="w-full border rounded-md px-3 md:py-2"
           v-model="first_name"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.first_name') }}</label>
+      <label for="first-name">{{ $t('login-signup.first_name') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -92,7 +92,7 @@ export default {
           class="w-full border rounded-md px-3 md:py-2"
           v-model="last_name"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.last_name') }}</label>
+      <label for="last-name">{{ $t('login-signup.last_name') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -116,7 +116,7 @@ export default {
           class="w-full border rounded-md px-3 py-2"
           v-model="password_confirmation"
       ></pv-input-text>
-      <label for="password">{{ $t('login-signup.password_confirm') }}</label>
+      <label for="confirm-password">{{ $t('login-signup.password_confirm') }}</label>
     </div>
     <div class="flex items-center md:items-start mb-3">
       <div class="h-5">

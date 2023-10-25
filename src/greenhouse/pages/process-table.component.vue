@@ -19,6 +19,7 @@ export default {
       cropApi: null,
       start_date: "",
       formData: {},
+      form: [],
       displayDialog: false,
       titles: null
     }
@@ -75,11 +76,18 @@ export default {
         this.addData();
       });
     },
-      showDialog() {
-      this.fetchData(this.endpoint);
+    fetchFormData(endpoint) {
+      this.greenhouseApi.getAllData(endpoint).then((response) => {
+        this.form = response.data;
+        this.addFormData();
+      });
+    },
+    showDialog() {
+      this.fetchFormData(this.endpoint);
       this.displayDialog = true;
     },
     closeDialog() {
+      this.clearInputFields();
       this.displayDialog = false;
     },
     getDataToSend() {
@@ -93,7 +101,7 @@ export default {
         day: this.formData.day, // TODO calculate it
         date: currentDate,
         time: currentTime,
-        crop_id: 1, // TODO calculate it
+        crop_id: this.crop_id,
       };
 
       // Merge common data with the formData
@@ -176,6 +184,7 @@ export default {
       return dataToSend;
     },
     saveDialog() {
+
       const dataToSend = this.getDataToSend();
       //console.log('Data to send:', dataToSend)
       this.greenhouseApi.create(this.endpoint, dataToSend)
@@ -190,9 +199,25 @@ export default {
       this.displayDialog = false;
     },
     clearInputFields() {
+      this.fetchData(this.endpoint)
+      this.fetchDataAndColumns(this.endpoint);
       for (const key in this.formData) {
         this.formData[key] = null;
       }
+    },
+    addFormData() {
+      this.titles = Object.keys(this.form[0])
+          .filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId" && key !== "author" && key !== "date" && key !== "time")
+          .map((key) => {
+            const formattedHeader = key
+                .split(/(?=[A-Z])/)
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            return {
+              field: key,
+              header: formattedHeader,
+            };
+          });
     },
     addData() {
       this.titles = Object.keys(this.processData[0])

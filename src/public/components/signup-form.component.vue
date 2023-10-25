@@ -17,6 +17,10 @@ export default {
     }
   },
   methods: {
+    handleSubmit() {
+      this.$router.push("/login");
+    }
+    /*
     async handleSubmit() {
       const response = await axios.post('/signup', {
         company_name: this.company_name,
@@ -30,6 +34,7 @@ export default {
       console.log(response);
       this.$router.push("/login");
     }
+     */
   }
 }
 </script>

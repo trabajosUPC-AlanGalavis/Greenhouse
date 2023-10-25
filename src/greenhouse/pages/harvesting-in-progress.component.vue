@@ -15,6 +15,7 @@ export default {
       newCrop: {},
       cropQuantity: 0,
       showPopup: false,
+      crop_id: 0,
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS},
         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
@@ -30,6 +31,7 @@ export default {
         this.cropsData = response.data;
         this.cropQuantity = this.cropsData.length;
         this.cropsData = this.cropsData.filter(data => (data.state === 'active'));
+        this.crop_id = this.cropQuantity + 1;
       })
     },
 
@@ -162,7 +164,7 @@ export default {
                     {{ formatDate(new Date()) }}</p>
                 </div>
                 <div class="popup-footer">
-                  <router-link to="/stepper">
+                  <router-link :to="'/stepper/'+crop_id+'/Stock'">
                     <button-primary
                         class="text-center mx-auto"
                         :text="' Yes, Start'"

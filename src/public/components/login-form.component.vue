@@ -11,6 +11,10 @@ export default {
     }
   },
   methods: {
+    handleSubmit(){
+      this.$router.push("/dashboard");
+    }
+    /*
     async handleSubmit(){
       await axios.post('/login', {
         email: this.email,
@@ -20,6 +24,7 @@ export default {
       //this.$store.dispatch('user', response.data.user);
       this.$router.push("/dashboard");
     }
+     */
   }
 }
 </script>

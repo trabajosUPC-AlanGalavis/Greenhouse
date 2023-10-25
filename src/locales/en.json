@@ -82,5 +82,15 @@
     "crop_start_date": "Crop start date",
     "crop_end_date": "Crop end date",
     "crop_view_logs": "View logs"
+  },
+  "crop": {
+    "formula": "Formula",
+    "preparation_area": "Preparation area",
+    "bunker": "Bunker",
+    "tunnel": "Tunnel",
+    "incubation": "Incubation",
+    "casing": "Casing",
+    "induction": "Induction",
+    "harvest": "Harvest"
   }
 }

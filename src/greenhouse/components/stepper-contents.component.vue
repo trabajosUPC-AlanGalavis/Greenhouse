@@ -73,6 +73,12 @@ export default {
     },
 
     closeNotification() {
+      this.cropApiService.updateCropState(this.$route.params.crop_id)
+          .then((response) => {
+            console.log(response);
+          }).catch(error => {
+        console.error('Error updating crop state:', error);
+      });
       this.isLastPhase = false;
     },
 

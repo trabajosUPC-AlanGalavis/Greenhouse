@@ -19,4 +19,10 @@ export class HarvestingApiService {
             phase: newPhase
         })
     }
+
+    updateCropState(cropId){
+        return http.patch(`/crops/${cropId}`, {
+            state: 'finished'
+        })
+    }
 }

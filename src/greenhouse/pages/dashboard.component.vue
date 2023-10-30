@@ -43,7 +43,7 @@ export default {
           <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/process-state.png'"
                           :buttonText="$t('dashboard.crops_in_progress')" :link="'/process-log'"></dashboard-card>
           <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/enterprise.png'"
-                          :buttonText="$t('dashboard.my_company')" :link="'/organization'"></dashboard-card>
+                          :buttonText="$t('dashboard.my_company')" :link="'/company'"></dashboard-card>
           <dashboard-card class="col-span-3 mx-auto" :image="'dashboard/statistical-reports.png'"
                           :buttonText="$t('dashboard.statistical_reports')"
                           :link="'/statistical-reports'"></dashboard-card>

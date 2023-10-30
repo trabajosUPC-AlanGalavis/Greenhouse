@@ -69,7 +69,6 @@ export default {
         this.addColumn();
       });
     },
-    // Prueba de botón
     fetchData(endpoint) {
       this.greenhouseApi.getAllData(endpoint).then((response) => {
         this.processData = response.data;
@@ -199,8 +198,10 @@ export default {
       this.displayDialog = false;
     },
     clearInputFields() {
-      this.fetchData(this.endpoint)
-      this.fetchDataAndColumns(this.endpoint);
+      if(this.processData.length === 0){
+        this.fetchData(this.endpoint)
+        this.fetchDataAndColumns(this.endpoint);
+      }
       for (const key in this.formData) {
         this.formData[key] = null;
       }

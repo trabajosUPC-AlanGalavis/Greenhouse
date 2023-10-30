@@ -1,5 +1,5 @@
-
 import http from '../../shared/services/http-common';
+import http2 from "@/shared/services/http-common2";
 
 export class GreenhouseApiService {
     getAllData(type) {
@@ -19,7 +19,7 @@ export class GreenhouseApiService {
     async getMostRecentRecords() {
         try {
             // Fetch a list of all crops
-            const cropsResponse = await http.get('/crops'); // Modify this URL as needed
+            const cropsResponse = await http2.get('/crops'); // Modify this URL as needed
             const crops = cropsResponse.data;
 
             // Initialize an object to store the most recent records for each crop

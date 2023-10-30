@@ -1,27 +1,26 @@
-import http from '../../shared/services/http-common';
+import http2 from "@/shared/services/http-common2";
 
 export class HarvestingApiService {
-
     getCropData(){
-        return http.get('/crops')
+        return http2.get('/crops')
     }
 
     getCropDataById(id){
-        return http.get(`/crops/${id}`)
+        return http2.get(`/crops/${id}`)
     }
 
     createCropData(data) {
-        return http.post('/crops', data)
+        return http2.post('/crops', data)
     }
 
     updateCurrentPhase(cropId, newPhase) {
-        return http.patch(`/crops/${cropId}`, {
+        return http2.patch(`/crops/${cropId}`, {
             phase: newPhase
         })
     }
 
     updateCropState(cropId){
-        return http.patch(`/crops/${cropId}`, {
+        return http2.patch(`/crops/${cropId}`, {
             state: 'finished'
         })
     }

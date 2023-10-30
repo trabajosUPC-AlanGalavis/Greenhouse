@@ -1,10 +1,3 @@
-<template>
-  <pv-button class="button-primary" :style="{ backgroundColor: buttonColor, borderColor: buttonBorderColor}">
-    <p :style="{ color: buttonTextColor }">{{ text }}</p>
-  </pv-button>
-</template>
-
-
 <script>
 export default {
   name: 'button-primary',
@@ -16,6 +9,12 @@ export default {
   },
 };
 </script>
+
+<template>
+  <pv-button class="button-primary" :style="{ backgroundColor: buttonColor, borderColor: buttonBorderColor}">
+    <p :style="{ color: buttonTextColor }">{{ text }}</p>
+  </pv-button>
+</template>
 
 <style scoped>
 .button-primary {

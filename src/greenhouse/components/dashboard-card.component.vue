@@ -4,7 +4,7 @@
       <template #content>
         <img :src="image" width="220" height="220" alt="dashboard-icon">
       </template>
-      <template #footer class="footer w-full">
+      <template #footer>
         <div class="footer w-full p-3">
           <router-link :to="link">
             <button>
@@ -12,7 +12,6 @@
             </button>
           </router-link>
         </div>
-
       </template>
     </pv-card>
   </div>
@@ -35,6 +34,10 @@ img{
   height: auto;
 }
 
+.p-card .p-card-body  {
+  padding: 0 !important;
+}
+
 .footer {
   color: var(--primary-white) !important;
   background: var(--primary-green);
@@ -44,4 +47,9 @@ img{
   border-radius: 5px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
+
+:deep(.p-card .p-card-body) {
+  padding: 0 !important;
+}
+
 </style>

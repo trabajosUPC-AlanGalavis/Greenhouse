@@ -1,33 +1,73 @@
 import { createRouter, createWebHistory } from "vue-router";
-import StepperContent from "@/harvestings/components/stepper-content.component.vue";
-import PopupNewCropComponent from "@/shared/components/popup-new-crop.component.vue";
-import dashboardContent from "@/dashboard/components/dashboard-content.component.vue";
-import ProcessLog from "@/process_log/components/process-log.component.vue";
-
+import StepperContent from "@/greenhouse/components/stepper-contents.component.vue";
+import Login from "@/public/pages/login.component.vue";
+import PageNotFound from "@/public/pages/page-not-found.component.vue";
+import Dashboard from "@/greenhouse/pages/dashboard.component.vue";
+import HarvestingInProgress from "@/greenhouse/pages/harvesting-in-progress.component.vue";
+import Signup from "@/public/pages/signup.component.vue";
+import PasswordReset from "@/public/pages/password-reset.component.vue";
+import SitePolicy from "@/public/pages/site-policy.component.vue";
+import userProfile from "@/profiles/components/user-profile.vue";
+import statisticalReports from "@/greenhouse/pages/statistical-reports.vue";
+import CropHistoryComponent from "@/greenhouse/pages/crop-history.component.vue";
+import companyProfile from "@/profiles/components/company-profile.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
+            path: "/:notFound",
+            component: PageNotFound,
+        },
+        {
             path: "/",
-            redirect: "/dashboard",
+            redirect: "/login",
+        },
+        {
+            path: "/login",
+            component: Login,
+        },
+        {
+            path: "/signup",
+            component: Signup,
+        },
+        {
+            path: "/password-reset",
+            component: PasswordReset,
+        },
+        {
+            path: "/site-policy",
+            component: SitePolicy,
         },
         {
             path: "/dashboard",
-            component: dashboardContent,
+            component: Dashboard,
         },
         {
             path: "/process-log",
-            component: ProcessLog,
+            component: HarvestingInProgress,
         },
         {
-            path: "/stepper",
+            path: "/crop-history",
+            component: CropHistoryComponent,
+        },
+        {
+            path: "/stepper/:crop_id/:phase",
+            name: "stepper",
             component: StepperContent,
         },
         {
-            path:"/popup-new-crop",
-            component:PopupNewCropComponent,
+            path: "/profile",
+            component: userProfile
         },
+        {
+            path: "/company",
+            component: companyProfile,
+        },
+        {
+            path: "/statistical-reports",
+            component: statisticalReports
+        }
     ],
 });
 

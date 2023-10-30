@@ -21,11 +21,24 @@ import Steps from 'primevue/steps';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
-
+import Dropdown from "primevue/dropdown";
 import InputText from 'primevue/inputtext';
+import Calendar from "primevue/calendar";
 //Router
 import router from "@/router";
+//Localization
+import en from "@/locales/en.json";
+import es from "@/locales/es.json";
+import {createI18n} from 'vue-i18n'
 
+const i18n = createI18n({
+    legacy : false,
+    locale: document.cookie.split('=')[1],
+    messages: {
+        en: en,
+        es: es,
+    }
+})
 
 createApp(App)
     .use(PrimeVue, { ripple: true })
@@ -39,9 +52,12 @@ createApp(App)
     .component('pv-menubar', Menubar)
     .component('pv-toolbar', Toolbar)
     .component('pv-steps', Steps)
+    .component('pv-dropdown', Dropdown)
     .component('pv-column', Column)
     .component('pv-data-table', DataTable)
     .component('pv-dialog', Dialog)
     .component('pv-input-text', InputText)
+    .component('pv-calendar', Calendar)
     .use(router)
+    .use(i18n)
     .mount('#app')

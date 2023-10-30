@@ -1,28 +1,27 @@
-<template>
-  <div>
-    <header-content></header-content>
-    <router-view></router-view>
-  </div>
-</template>
-
 <script>
-import HeaderContent from "@/shared/components/header-content.component.vue";
-
+import Toolbar from "@/public/components/toolbar.component.vue";
+import { onMounted } from "vue";
 export default {
   name: "App",
-  components: {HeaderContent},
-  data() {
-    return {
-      currentSection: "process-log",
-    };
-  },
+  components: {Toolbar},
+  setup() {
+    onMounted(() => {
+      document.cookie = 'locale=en';
+    });
+  }
 };
 </script>
 
+<template>
+  <div class="select-none">
+    <toolbar></toolbar>
+    <router-view></router-view>
+  </div>
+
+</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,7 +39,7 @@ export default {
   --secondary-green-2:#5B7051;
   --secondary-beige:#CBB99D;
   --red: #FF3439;
-  --font-primary: nunito;
+  --font-primary: Nunito;
   --heading-1-size: 52px;
   --heading-2-size: 36px;
   --heading-3-size: 24px;
@@ -55,8 +54,22 @@ export default {
   --small-text-regular-size: 14px;
 }
 
+* {
+  user-select: none;
+}
+
+* :not(i) {
+  font-family: var(--font-primary) !important;
+}
+
 body {
-  font-family: var(--font-primary);
   background-color: var(--primary-white);
+}
+
+.card {
+  background-color: var(--white);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 1px 0 rgba(0, 0, 0, 0.20);
+  border-radius: 20px !important;
+  margin: 2.7rem 2rem;
 }
 </style>

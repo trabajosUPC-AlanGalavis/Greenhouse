@@ -32,7 +32,7 @@ export class GreenhouseApiService {
                 const cropId = crop.id;
                 let cropPhase = crop.phase;
                 if (cropPhase === 'Casing' || cropPhase === 'Incubation' || cropPhase === 'Induction' || cropPhase === 'Harvest'){
-                    cropPhase = `grow_room_record?processType=${cropPhase}`;
+                    cropPhase = `grow_room_records?processType=${cropPhase}`;
                 }
                 try {
                     const mostRecentRecord = await this.getMostRecentRecord(cropPhase, cropId); // Replace 'your_type_here' with the appropriate type
@@ -59,7 +59,7 @@ export class GreenhouseApiService {
     async getMostRecentRecord(type, cropId) {
         try {
             // Make a request to get the most recent record of the specified type
-            if (type === 'grow_room_record?processType=Casing' || type === 'grow_room_record?processType=Incubation' || type === 'grow_room_record?processType=Induction' || type === 'grow_room_record?processType=Harvest'){
+            if (type === 'grow_room_records?processType=Casing' || type === 'grow_room_records?processType=Incubation' || type === 'grow_room_records?processType=Induction' || type === 'grow_room_records?processType=Harvest'){
                 const response = await http.get(`/${type}&&crop_id=${cropId}`);
                 const records = response.data;
                 records.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -86,66 +86,66 @@ export class GreenhouseApiService {
 
 
     updateStock(id, data){
-        return http.put(`/stock/${id}`, data);
+        return http.put(`/stocks/${id}`, data);
     }
 
     deleteStock(id){
-        return http.delete(`/stock/${id}`);
+        return http.delete(`/stocks/${id}`);
     }
 
     updatePreparationArea(id, data){
-        return http.put(`/preparation-area/${id}`, data);
+        return http.put(`/preparation-areas/${id}`, data);
     }
 
     deletePreparationArea(id){
-        return http.delete(`/preparation-area/${id}`);
+        return http.delete(`/preparation-areas/${id}`);
     }
 
     updateBunker(id, data){
-        return http.put(`/bunker/${id}`, data);
+        return http.put(`/bunkers/${id}`, data);
     }
 
     deleteBunker(id){
-        return http.delete(`/bunker/${id}`);
+        return http.delete(`/bunkers/${id}`);
     }
 
     updateTunnel(id, data){
-        return http.put(`/tunnel/${id}`, data);
+        return http.put(`/tunnels/${id}`, data);
     }
 
     deleteTunnel(id){
-        return http.delete(`/tunnel/${id}`);
+        return http.delete(`/tunnels/${id}`);
     }
 
     getAllIncubation(){
-        return http.get('/grow_room_record?processType=Incubation');
+        return http.get('/grow_room_records?processType=Incubation');
     }
 
     getAllCasing() {
-        return http.get('/grow_room_record?processType=Casing');
+        return http.get('/grow_room_records?processType=Casing');
     }
 
     getAllInduction() {
-        return http.get('/grow_room_record?processType=Induction');
+        return http.get('/grow_room_records?processType=Induction');
     }
 
     getAllHarvest() {
-        return http.get('/grow_room_record?processType=Harvest');
+        return http.get('/grow_room_records?processType=Harvest');
     }
 
     createGrowRoomProcess(data) {
-        return http.post('/grow_room_record', data);
+        return http.post('/grow_room_records', data);
     }
 
     updateGrowRoomProcess(id, data){
-        return http.put(`/grow_room_record/${id}`, data);
+        return http.put(`/grow_room_records/${id}`, data);
     }
 
     deleteGrowRoomProcess(id){
-        return http.delete(`/grow_room_record/${id}`);
+        return http.delete(`/grow_room_records/${id}`);
     }
 
     getCropIdIncubation(id){
-        return http.get(`grow_room_record?processType=Incubation&&harvesting_id=${id}`);
+        return http.get(`grow_room_records?processType=Incubation&&harvesting_id=${id}`);
     }
 }

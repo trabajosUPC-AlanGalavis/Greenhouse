@@ -1,5 +1,5 @@
 {
-  "user": [
+  "users": [
     {
       "id": 1,
       "company_id": 1,
@@ -91,7 +91,7 @@
       "password": "oliviapass"
     }
   ],
-  "company": [
+  "companies": [
     {
       "id": 1,
       "company_name": "Peru Agro J&V S.A.C",
@@ -122,7 +122,7 @@
       "organization_id": 1,
       "start_date": "14/08/2023",
       "end_date": "",
-      "phase": "Induction",
+      "phase": "Harvest",
       "state": "active"
     },
     {
@@ -148,9 +148,17 @@
       "end_date": "",
       "phase": "Harvest",
       "state": "finished"
+    },
+    {
+      "id": 5,
+      "company_id": 1,
+      "start_date": "30/10/2023",
+      "end_date": "",
+      "phase": "Casing",
+      "state": "active"
     }
   ],
-  "stock": [
+  "stocks": [
     {
       "id": 1,
       "crop_id": 1,
@@ -169,7 +177,7 @@
     },
     {
       "id": 2,
-      "crop_id": 1,
+      "crop_id": 3,
       "author": "Bob Anderson",
       "day": "4",
       "date": "15/08/2023",
@@ -198,9 +206,25 @@
       "urea": "1",
       "ammoniumSulphate": "1",
       "id": 3
+    },
+    {
+      "author": "Winston Smith",
+      "day": "1",
+      "date": "2023-10-31",
+      "time": "21:43:14",
+      "crop_id": "5",
+      "hay": "20",
+      "corn": "30",
+      "guano": "40",
+      "cottonSeedCake": "50",
+      "soybeanMeal": "44",
+      "gypsum": "70",
+      "urea": "14",
+      "ammoniumSulphate": "60",
+      "id": 4
     }
   ],
-  "preparation_area": [
+  "preparation_areas": [
     {
       "id": 1,
       "crop_id": 1,
@@ -268,7 +292,7 @@
       "id": 6
     }
   ],
-  "bunker": [
+  "bunkers": [
     {
       "id": 1,
       "crop_id": 1,
@@ -326,7 +350,7 @@
       "id": 4
     }
   ],
-  "tunnel": [
+  "tunnels": [
     {
       "id": 1,
       "crop_id": 1,
@@ -373,7 +397,7 @@
       "id": 3
     }
   ],
-  "grow_room_record": [
+  "grow_room_records": [
     {
       "id": 1,
       "crop_id": 1,
@@ -505,6 +529,37 @@
       "comment": "1",
       "processType": "Incubation",
       "id": 8
+    },
+    {
+      "author": "Winston Smith",
+      "day": "1",
+      "date": "2023-10-31",
+      "time": "22:28:06",
+      "crop_id": "2",
+      "growRoom": "10",
+      "airTemperature": "20",
+      "compostTemperature": "30",
+      "carbonDioxide": "33",
+      "airHydrogen": "13",
+      "setting": "53",
+      "processType": "Casing",
+      "id": 9
+    },
+    {
+      "author": "Winston Smith",
+      "day": "1",
+      "date": "2023-11-14",
+      "time": "15:59:27",
+      "crop_id": "1",
+      "growRoom": "1",
+      "airTemperature": "1",
+      "compostTemperature": "1",
+      "carbonDioxide": "1",
+      "airHydrogen": "1",
+      "setting": "1",
+      "comment": "1",
+      "processType": "Harvest",
+      "id": 10
     }
   ]
 }

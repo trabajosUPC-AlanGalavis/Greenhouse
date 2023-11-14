@@ -109,7 +109,7 @@ export default {
       const dataToSend = { ...commonData, ...this.formData };
 
       // Add specific fields based on the endpoint
-      if (this.endpoint === 'stock?') {
+      if (this.endpoint === 'stocks?') {
         dataToSend.hay = this.formData.hay;
         dataToSend.corn = this.formData.corn;
         dataToSend.guano = this.formData.guano;
@@ -119,12 +119,12 @@ export default {
         dataToSend.urea = this.formData.urea;
         dataToSend.ammoniumSulphate = this.formData.ammoniumSulphate;
         // Add other fields as needed
-      } else if (this.endpoint === 'preparation_area?') {
+      } else if (this.endpoint === 'preparation_areas?') {
         dataToSend.activities = this.formData.activities;
         dataToSend.temperature = this.formData.temperature;
         dataToSend.comment = this.formData.comment;
         // Add other fields as needed
-      } else if (this.endpoint === 'bunker?') {
+      } else if (this.endpoint === 'bunkers?') {
         dataToSend.thermocoupleOne = this.formData.thermocoupleOne;
         dataToSend.thermocoupleTwo = this.formData.thermocoupleTwo;
         dataToSend.thermocoupleThree = this.formData.thermocoupleThree;
@@ -132,7 +132,7 @@ export default {
         dataToSend.frequency = this.formData.frequency;
         dataToSend.comment = this.formData.comment;
         // Add other fields as needed
-      } else if (this.endpoint === 'tunnel?') {
+      } else if (this.endpoint === 'tunnels?') {
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.thermocoupleOne = this.formData.thermocoupleOne;
         dataToSend.thermocoupleTwo = this.formData.thermocoupleTwo;
@@ -143,7 +143,7 @@ export default {
         dataToSend.recirculation = this.formData.recirculation;
         dataToSend.comment = this.formData.comment;
         // Add other fields as needed
-      } else if (this.endpoint === 'grow_room_record?processType=Incubation&&') {
+      } else if (this.endpoint === 'grow_room_records?processType=Incubation&&') {
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
@@ -152,7 +152,7 @@ export default {
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Incubation';
-      } else if (this.endpoint === 'grow_room_record?processType=Casing&&') {
+      } else if (this.endpoint === 'grow_room_records?processType=Casing&&') {
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
@@ -161,7 +161,7 @@ export default {
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Casing';
-      } else if (this.endpoint === 'grow_room_record?processType=Induction&&') {
+      } else if (this.endpoint === 'grow_room_records?processType=Induction&&') {
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
@@ -170,7 +170,7 @@ export default {
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Induction';
-      } else if (this.endpoint === 'grow_room_record?processType=Harvest&&') {
+      } else if (this.endpoint === 'grow_room_records?processType=Harvest&&') {
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;

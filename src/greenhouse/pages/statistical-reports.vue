@@ -1,9 +1,10 @@
 <script>
 import BarChart from "@/greenhouse/components/bar-chart.component.vue";
+import LineChart from "@/greenhouse/components/line-chart.component.vue";
 
 export default {
   name: "statistical-reports",
-  components: {BarChart},
+  components: {LineChart, BarChart},
   data() {
     return {
       chartLabels: ['Nave 1', 'Nave 2', 'Nave 3', 'Nave 4', 'Nave 5'],
@@ -46,7 +47,15 @@ export default {
       </div>
     </template>
     <template #content>
-      <bar-chart :chart-labels="chartLabels" :chart-datasets="chartDatasets" />
+      <div>
+        <p class="text-center font-bold text-[--black] mb-3">Grow room's state</p>
+        <div class="md:mx-4">
+          <bar-chart :chart-labels="chartLabels" :chart-datasets="chartDatasets"/>
+        </div>
+        <div class="md:mx-4 mt-6">
+          <line-chart :chart-labels="chartLabels" :chart-datasets="chartDatasets"/>
+        </div>
+      </div>
     </template>
   </pv-card>
 </template>

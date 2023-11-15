@@ -1,42 +1,40 @@
 <script>
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-} from 'chart.js'
-import {Bar} from 'vue-chartjs'
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+import BarChart from "@/greenhouse/components/bar-chart.component.vue";
 
 export default {
   name: "statistical-reports",
-  components: {Bar},
+  components: {BarChart},
   data() {
     return {
-      chartData: {
-        labels: ['Nave 1', 'Nave 2', 'Nave 3', 'Nave 4', 'Nave 5'],
-        borderWidth: 1,
-        datasets: [{
-          label: 'CO2',
-          data: [40, 20, 12, 25, 12],
-          backgroundColor: [
-            '#4D6443',
-            '#4D6443',
-            '#4D6443'
-          ],
-          borderColor: '#4D6443'
-        }]
-      },
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-      }
-    }
-  }
+      chartLabels: ['Nave 1', 'Nave 2', 'Nave 3', 'Nave 4', 'Nave 5'],
+      chartDatasets: [
+        {
+          label: 'Air Temperature',
+          data: [22, 23, 21, 20, 22],
+          backgroundColor: '#4D6443',
+          borderColor: '#4D6443',
+        },
+        {
+          label: 'Compost Temperature',
+          data: [18, 17, 19, 18, 20],
+          backgroundColor: '#5B7051',
+          borderColor: '#5B7051',
+        },
+        {
+          label: 'Carbon Dioxide',
+          data: [400, 420, 410, 390, 400],
+          backgroundColor: '#8B6341',
+          borderColor: '#8B6341',
+        },
+        {
+          label: 'Air Hydrogen',
+          data: [2, 2.5, 2.2, 2, 1.8],
+          backgroundColor: '#CBB99D',
+          borderColor: '#CBB99D',
+        },
+      ],
+    };
+  },
 };
 </script>
 
@@ -48,7 +46,7 @@ export default {
       </div>
     </template>
     <template #content>
-      <Bar :data="chartData" :options="chartOptions"/>
+      <bar-chart :chart-labels="chartLabels" :chart-datasets="chartDatasets" />
     </template>
   </pv-card>
 </template>

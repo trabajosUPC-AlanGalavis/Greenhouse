@@ -1,6 +1,7 @@
 <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import {CompanyApiService} from "@/profiles/services/company-api.service";
+import {UserApiService} from "@/profiles/services/user-api.service";
 import emailjs from 'emailjs-com';
 
 export default {
@@ -9,6 +10,8 @@ export default {
   data() {
     return {
       companyApi: null,
+      userApi: null,
+      companyId: 1,
       companyImage: "",
       companyName: "",
       ruc: "",
@@ -22,12 +25,15 @@ export default {
   },
   created() {
     this.companyApi = new CompanyApiService();
-    this.companyApi.getCompanies()
-        .then((response) => {
-          this.companyImage = response.data[0].image;
-          this.companyName = response.data[0].company_name;
-          this.ruc = response.data[0].ruc;
-        });
+    this.companyApi.getCompanyById(this.companyId).then((response) => {
+      this.companyImage = response.data[0].image;
+      this.companyName = response.data[0].company_name;
+      this.ruc = response.data[0].ruc;
+    });
+    this.userApi = new UserApiService();
+    this.userApi.getUsersByCompanyId(this.companyId).then((response) => {
+      this.employees = response.data;
+    });
   },
   methods: {
     openPopup() {
@@ -37,6 +43,8 @@ export default {
     closePopup() {
       this.showPopup = false;
     },
+
+
     sendInvitation() {
       try {
         const form = this.$refs.invitationForm;
@@ -45,7 +53,22 @@ export default {
           newEmployeeLastName: this.newEmployeeLastName,
           newEmployeeEmail: this.newEmployeeEmail,
           newEmployeePassword: this.newEmployeePassword
-        })
+        });
+        const newEmployee = {
+          company_id: this.companyId,
+          first_name: this.newEmployeeFirstName,
+          last_name: this.newEmployeeLastName,
+          email: this.newEmployeeEmail,
+          image: 'https://cdn-icons-png.flaticon.com/512/3106/3106921.png',
+        }
+        this.userApi.create(newEmployee)
+            .then(response => {
+              console.log('New employee created successfully:', response.data);
+              this.employees.push(response.data);
+            })
+            .catch(error => {
+              console.error('Error, could not create employee:', error);
+            });
 
       } catch (err) {
         if (err instanceof ReferenceError) {
@@ -113,6 +136,9 @@ export default {
     </pv-card>
 
     <pv-card class="card md:px-5">
+      <template #header>
+        <p class="font-bold text-4xl mt-3 mb-4 text-center">Employees</p>
+      </template>
       <template #content>
         <div class="flex flex-col md:flex-row justify-center text-center mb-5 md:mx-10 items-center">
           <div class="mb-3 p-float-label flex justify-center text-center items-center">

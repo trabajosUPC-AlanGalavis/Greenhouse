@@ -4,4 +4,8 @@ export class CompanyApiService {
     getCompanies() {
         return http2.get('/companies');
     }
+
+    getCompanyById(id) {
+        return http2.get(`/companies?id=${id}`);
+    }
 }

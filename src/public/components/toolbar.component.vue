@@ -1,5 +1,5 @@
 <script>
-import {EmployeeApiService} from "@/profiles/services/employee-api.service";
+import {UserApiService} from "@/profiles/services/user-api.service";
 import {CompanyApiService} from "@/profiles/services/company-api.service";
 
 export default {
@@ -21,7 +21,7 @@ export default {
     };
   },
   created() {
-    this.employeeApi = new EmployeeApiService();
+    this.employeeApi = new UserApiService();
     this.employeeApi.getUsers()
         .then((response) => {
           const first_name = response.data[0].first_name;

@@ -1,5 +1,5 @@
 <script>
-import {EmployeeApiService} from "@/profiles/services/employee-api.service";
+import {UserApiService} from "@/profiles/services/user-api.service";
 
 export default {
   name: "user-profile",
@@ -13,7 +13,7 @@ export default {
     };
   },
   created() {
-    this.profileApi = new EmployeeApiService();
+    this.profileApi = new UserApiService();
     this.profileApi.getUsers()
         .then((response) => {
           this.image = response.data[0].image;

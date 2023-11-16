@@ -2,7 +2,6 @@
   <pv-card class="card">
     <template #header>
       <div class="py-4">
-        <h4 class="text-center uppercase">{{ $t('crop-history.control_panel') }}</h4>
         <h2 class="text-center font-bold text-4xl">{{ $t('crop-history.crop_history') }}</h2>
       </div>
     </template>
@@ -54,7 +53,7 @@
 </template>
 
 <script>
-  import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+  import {CropApiService} from "@/greenhouse/services/crop-api.service";
   import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 
   export default {
@@ -62,7 +61,7 @@
     components: {ButtonPrimary},
     data() {
       return {
-        cropApiService: new HarvestingApiService(),
+        cropApiService: new CropApiService(),
         cropsData: [],
       }
     },
@@ -95,6 +94,11 @@
 h4 {
   color: var(--secondary-green-1);
   font-size: var(--heading-4-size);
+}
+
+:deep(th) {
+  background-color: var(--secondary-green-2) !important;
+  color: var(--white) !important;
 }
 
 </style>

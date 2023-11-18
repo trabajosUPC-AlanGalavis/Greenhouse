@@ -1,6 +1,6 @@
 <script>
 import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
-import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+import {CropApiService} from "@/greenhouse/services/crop-api.service";
 import {FilterMatchMode} from "primevue/api";
 
 export default {
@@ -25,7 +25,7 @@ export default {
     }
   },
   created() {
-    this.cropApi = new HarvestingApiService();
+    this.cropApi = new CropApiService();
     this.initFilters();
     this.cropApi.getCropData().then((response => {
       this.start_date = response.data[0].start_date;
@@ -148,7 +148,7 @@ export default {
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
-        dataToSend.airHydrogen = this.formData.airHydrogen;
+        dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Incubation';
@@ -157,7 +157,7 @@ export default {
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
-        dataToSend.airHydrogen = this.formData.airHydrogen;
+        dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Casing';
@@ -166,7 +166,7 @@ export default {
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
-        dataToSend.airHydrogen = this.formData.airHydrogen;
+        dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Induction';
@@ -175,7 +175,7 @@ export default {
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
-        dataToSend.airHydrogen = this.formData.airHydrogen;
+        dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
         dataToSend.comment = this.formData.comment;
         dataToSend.processType = 'Harvest';

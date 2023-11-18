@@ -217,7 +217,9 @@ export default {
 
     <pv-card class="card md:px-5">
       <template #header>
-        <p class="font-bold text-4xl mt-3 mb-4 text-center">Employees</p>
+        <div class="py-4">
+          <h2 class="text-center font-bold text-4xl">{{ $t('company_profile.employees') }}</h2>
+        </div>
       </template>
       <template #content>
         <div class="flex flex-col md:flex-row justify-center text-center mb-5 md:mx-10 items-center">

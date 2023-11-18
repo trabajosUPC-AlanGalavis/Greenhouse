@@ -1,4 +1,4 @@
-<script>
+  <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import {CompanyApiService} from "@/profiles/services/company-api.service";
 import {UserApiService} from "@/profiles/services/user-api.service";
@@ -166,7 +166,7 @@ export default {
                 <p class="text-white"> Invite employee</p>
               </div>
               <div>
-                <form ref="invitationForm" class="flex flex-column mx-3">
+                <form ref="invitationForm" class="flex flex-column mx-3 w-23rem">
                   <pv-input-text
                       id="employee_name"
                       type="text"

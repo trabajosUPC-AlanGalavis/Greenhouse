@@ -40,7 +40,12 @@
     "comment": "Comment"
   },
   "pop-up": {
-    "warning": "Warning"
+    "warning": "Warning",
+    "start_new_crop": "Would you like to start a new crop? The starting date will be registered as",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "confirm_end_phase": "Once this phase is over, you will not be able to add new records. Are you sure you want to continue?",
+    "irreversible": "This operation is irreversible"
   },
   "crops-in-progress": {
     "process_log": "Process log",
@@ -85,6 +90,8 @@
     "crop_view_logs": "View logs"
   },
   "crop": {
+    "end_phase": "End phase",
+    "create_new_record": "Create new record",
     "formula": "Formula",
     "preparation_area": "Preparation area",
     "bunker": "Bunker",

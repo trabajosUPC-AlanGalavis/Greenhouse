@@ -136,7 +136,7 @@ export default {
     <div class="button-group flex-shrink">
       <button-primary class="mb-3 mr-3"
                       @click="openPopup"
-                      :text="'End phase'"
+                      :text="$t('crop.end_phase')"
                       :buttonColor="'var(--red)'"
                       :buttonTextColor="'var(--white)'"
                       :buttonBorderColor="'var(--red)'">
@@ -144,27 +144,24 @@ export default {
       <div class="popup-container" v-if="showPopup">
         <div class="popup-content">
           <div class="popup-header">
-            <h2 class="uppercase">{{ $t('warning') }}</h2>
+            <h2 class="uppercase">{{ $t('pop-up.warning') }}</h2>
           </div>
           <div class="popup-body">
             <br>
-            <p class="text-center;">{{
-                "This phase is completed, you will not be able to make any more records at this stage. " +
-                "Are you sure you want to continue?"
-              }}</p>
-            <h5>This operation is irreversible</h5>
+            <p class="text-center;">{{ $t('pop-up.confirm_end_phase')}}</p>
+            <h5 class="text-gray-600">{{ $t('pop-up.irreversible') }}</h5>
           </div>
           <div class="popup-footer">
             <button-primary class="mb-2 mr-3 mt-4"
                             @click="nextStep"
-                            :text="'Yes, finish it'"
+                            :text="$t('pop-up.confirm')"
                             :buttonColor="'var(--red)'"
                             :buttonTextColor="'var(--white)'"
                             :buttonBorderColor="'var(--red)'">
             </button-primary>
             <button-primary class="mb-2 mr-3 mt-4"
                             @click="closePopup"
-                            :text="'Cancel'"
+                            :text="$t('pop-up.cancel')"
                             :buttonColor="'var(--gray-2)'"
                             :buttonTextColor="'var(--white)'"
                             :buttonBorderColor="'var(--gray-2)'">
@@ -175,7 +172,7 @@ export default {
       <button-primary
           :disabled="isButtonDisabled"
           class="mb-3"
-          :text="' + Create new record'"
+          :text="$t('crop.create_new_record')"
           :buttonColor="'var(--white)'"
           :buttonTextColor="'var(--primary-green)'"
           :buttonBorderColor="'var(--primary-green)'"
@@ -198,7 +195,7 @@ export default {
           <router-link to="/dashboard">
             <button-primary
                 class="text-center mt-3 mx-auto"
-                :text="' Accept and return to the main Menu'"
+                :text="$t('pop-up.confirm')"
                 :buttonColor="'var(--primary-green)'"
                 :buttonTextColor="'var(--primary-white)'"
                 :buttonBorderColor="'var(--primary-green)'"

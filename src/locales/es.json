@@ -40,7 +40,12 @@
     "comment": "Observación"
   },
   "pop-up": {
-    "warning": "Atención"
+    "warning": "Atención",
+    "start_new_crop": "¿Desea comenzar un nuevo cultivo? La fecha de inicio será registrada como",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "confirm_end_phase": "Una vez que de por finalizada la fase, no podrá realizar más registros en ella. ¿Está seguro de que desea continuar?",
+    "irreversible": "Esta operación es irreversible"
   },
   "crops-in-progress": {
     "process_log": "Registro de procesos",
@@ -85,6 +90,8 @@
     "crop_view_logs": "Ver registros"
   },
   "crop": {
+    "end_phase": "Finalizar fase",
+    "create_new_record": "Crear nuevo registro",
     "formula": "Fórmula",
     "preparation_area": "Patio",
     "bunker": "Búnker",

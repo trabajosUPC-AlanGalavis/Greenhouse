@@ -159,7 +159,7 @@ export default {
                 </div>
                 <div class="popup-body">
                   <br>
-                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date
+                  <p class="text-center mb-3">{{$t('pop-up.start_new_crop')}}
                     {{ formatDate(new Date()) }}</p>
                 </div>
                 <div class="popup-footer">

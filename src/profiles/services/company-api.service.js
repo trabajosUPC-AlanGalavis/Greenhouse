@@ -8,4 +8,12 @@ export class CompanyApiService {
     getCompanyById(id) {
         return http2.get(`/companies?id=${id}`);
     }
+
+    deleteCompany(id) {
+        return http2.delete(`/companies/${id}`);
+    }
+
+    updateCompany(id, data){
+        return http2.put(`/companies/${id}`, data);
+    }
 }

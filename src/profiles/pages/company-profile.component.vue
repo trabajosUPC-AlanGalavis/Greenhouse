@@ -11,6 +11,7 @@ export default {
     return {
       companyApi: null,
       userApi: null,
+      company: null,
       companyId: 1,
       companyImage: "",
       companyName: "",
@@ -20,7 +21,14 @@ export default {
       newEmployeeLastName: '',
       newEmployeeEmail: '',
       newEmployeePassword: '',
+      newRuc: "",
+      newCompanyName: "",
+      newImage: "",
       showPopup: false,
+      isDeletePopupShown: false,
+      isTinPopupShown: false,
+      isNamePopupShown: false,
+      isImagePopupShown: false
     };
   },
   created() {
@@ -29,6 +37,7 @@ export default {
       this.companyImage = response.data[0].image;
       this.companyName = response.data[0].company_name;
       this.ruc = response.data[0].ruc;
+      this.company = response.data[0];
     });
     this.userApi = new UserApiService();
     this.userApi.getUsersByCompanyId(this.companyId).then((response) => {
@@ -42,6 +51,38 @@ export default {
 
     closePopup() {
       this.showPopup = false;
+    },
+
+    showTinChangePopup() {
+      this.isTinPopupShown = true;
+    },
+
+    closeTinChangePopup() {
+      this.isTinPopupShown = false;
+    },
+
+    showCompanyNamePopup() {
+      this.isNamePopupShown = true;
+    },
+
+    closeCompanyNamePopup() {
+      this.isNamePopupShown = false;
+    },
+
+    showImageChangePopup() {
+      this.isImagePopupShown = true;
+    },
+
+    closeImageChangePopup() {
+      this.isImagePopupShown = false;
+    },
+
+    showDeleteCompanyPopup() {
+      this.isDeletePopupShown = true;
+    },
+
+    closeDeleteCompanyPopup() {
+      this.isDeletePopupShown = false;
     },
 
 
@@ -84,6 +125,37 @@ export default {
       this.newEmployeePassword = ''
       this.closePopup()
     },
+
+    updateTIN(){
+      this.company.ruc = this.newRuc;
+      this.companyApi.updateCompany(this.companyId, this.company).then((response) => {
+        console.log(`Company updated successfully:`, response.data);
+      })
+      this.isTinPopupShown = false;
+    },
+
+    updateCompanyName(){
+      this.company.companyName = this.newCompanyName;
+      this.companyApi.updateCompany(this.companyId, this.company).then((response) => {
+        console.log(`Company updated successfully:`, response.data);
+      })
+      this.isNamePopupShown = false;
+    },
+
+    updateImage(){
+      this.company.image = this.newImage;
+      this.companyApi.updateCompany(this.companyId, this.company).then((response) => {
+        console.log(`Company updated successfully:`, response.data);
+      })
+      this.isImagePopupShown = false;
+    },
+
+    deleteCompany(){
+      this.companyApi.deleteCompany(this.companyId).then((response) => {
+        console.log(`Company erased successfully:`, response.data);
+      })
+      this.isDeletePopupShown = false;
+    },
   },
   computed: {
     isInviteButtonDisabled() {
@@ -103,7 +175,9 @@ export default {
             <div class="flex items-center justify-center mb-2">
               <img class="rounded-full w-56 h-56" alt="avatar" :src="companyImage">
             </div>
-            <a class="text-blue-500 text-sm underline">{{ $t('company_profile.change_profile_picture') }}</a>
+            <button class="text-blue-500 text-sm underline" @click="showImageChangePopup">
+              {{ $t('company_profile.change_profile_picture') }}
+            </button>
           </div>
           <div class="lg:w-full p-1 md:pt-6">
             <div>
@@ -112,7 +186,9 @@ export default {
                   <p class="text-xl font-bold pr-4">{{ $t('company_profile.company_name') }}:</p>
                   <p class="text-sm overflow-ellipsis">{{ companyName }}</p>
                 </div>
-                <a class="text-blue-500 text-sm underline">{{ $t('company_profile.change_company_name') }}</a>
+                <button class="text-blue-500 text-sm underline" @click="showCompanyNamePopup">
+                  {{ $t('company_profile.change_company_name') }}
+                </button>
                 <hr class="division">
               </div>
               <div class="mb-5">
@@ -120,14 +196,18 @@ export default {
                   <p class="text-xl font-bold pr-4">{{ $t('company_profile.ruc') }}:</p>
                   <p class="text-sm overflow-ellipsis">{{ ruc }}</p>
                 </div>
-                <a class="text-blue-500 text-sm underline">{{ $t('company_profile.change_ruc') }}</a>
+                <button class="text-blue-500 text-sm underline" @click="showTinChangePopup">
+                  {{ $t('company_profile.change_ruc') }}
+                </button>
                 <hr class="division">
               </div>
               <div class="mb-5">
                 <div class="flex items-baseline">
                   <p class="text-xl font-bold">{{ $t('company_profile.company') }}:</p>
                 </div>
-                <a class="text-red-500 text-sm underline">{{ $t('company_profile.delete_company') }}</a>
+                <button class="text-red-500 text-sm underline" @click="showDeleteCompanyPopup">
+                  {{ $t('company_profile.delete_company') }}
+                </button>
               </div>
             </div>
           </div>
@@ -159,6 +239,170 @@ export default {
               buttonBorderColor="var(--secondary-green-1)"
               @click="openPopup">
           </button-primary>
+
+          <!--
+            Dialog de borrar compañia
+          -->
+
+          <div class="popup-container" v-if="isDeletePopupShown">
+            <div class="popup-content">
+              <div class="popup-header" style="background-color: var(--red);">
+                <h2 class="uppercase">{{ $t('warning') }}</h2>
+              </div>
+              <div class="popup-body">
+                <br>
+                <p style="text-align: center;">The company will be deleted, all records will be erased and the data
+                  will be lost. Are you sure you want to continue?
+                </p>
+                <h5>This operation is irreversible</h5>
+              </div>
+              <div class="popup-footer">
+                <button-primary class="mb-2 mr-3 mt-4"
+                                @click="deleteCompany"
+                                :text="'Yes, delete it'"
+                                :buttonColor="'var(--red)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--red)'">
+                </button-primary>
+                <button-primary class="mb-2 mr-3 mt-4"
+                                @click="closeDeleteCompanyPopup"
+                                :text="'Cancel'"
+                                :buttonColor="'var(--gray-2)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--gray-2)'">
+                </button-primary>
+              </div>
+            </div>
+          </div>
+
+          <!--
+            Dialog de cambiar RUC
+          -->
+
+          <div class="popup-container" v-if="isTinPopupShown">
+            <div class="popup-content m-6">
+              <div class="popup-header mb-3">
+                <p class="text-white"> Cambiar TIN</p>
+              </div>
+              <div>
+                <form ref="invitationForm" class="flex flex-column mx-3 w-23rem">
+                  <pv-input-text
+                      id="tin-change"
+                      type="number"
+                      name="new-tin"
+                      placeholder="New TIN value"
+                      v-model="newRuc"
+                      required
+                      min="11"
+                      max="11"
+                      class="rounded-input bg-transparent px-3 py-2 mb-3 mx-2">
+                  </pv-input-text>
+                </form>
+              </div>
+              <div class="popup-footer">
+                <button-primary class="mb-2 mx-3 mt-4"
+                                @click="updateTIN"
+                                :text="'Aceptar'"
+                                :buttonColor="'var(--secondary-green-1)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--secondary-green-1)'">
+                </button-primary>
+                <button-primary class="mb-2 mx-3 mt-4"
+                                @click="closeTinChangePopup"
+                                :text="'Cancel'"
+                                :buttonColor="'var(--gray-2)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--gray-2)'">
+                </button-primary>
+              </div>
+            </div>
+          </div>
+
+          <!--
+            Dialog de cambiar nombre de compañia
+          -->
+
+          <div class="popup-container" v-if="isNamePopupShown">
+            <div class="popup-content m-6">
+              <div class="popup-header mb-3">
+                <p class="text-white"> Cambiar nombre de compañia</p>
+              </div>
+              <div>
+                <form ref="invitationForm" class="flex flex-column mx-3 w-23rem">
+                  <pv-input-text
+                      id="company-name-change"
+                      type="text"
+                      name="new-company-name"
+                      placeholder="New Company Name"
+                      v-model="newCompanyName"
+                      required
+                      class="rounded-input bg-transparent px-3 py-2 mb-3 mx-2">
+                  </pv-input-text>
+                </form>
+              </div>
+              <div class="popup-footer">
+                <button-primary class="mb-2 mx-3 mt-4"
+                                @click="updateCompanyName"
+                                :text="'Aceptar'"
+                                :buttonColor="'var(--secondary-green-1)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--secondary-green-1)'">
+                </button-primary>
+                <button-primary class="mb-2 mx-3 mt-4"
+                                @click="closeCompanyNamePopup"
+                                :text="'Cancel'"
+                                :buttonColor="'var(--gray-2)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--gray-2)'">
+                </button-primary>
+              </div>
+            </div>
+          </div>
+
+          <!--
+            Dialog de cambiar imagen
+          -->
+
+          <div class="popup-container" v-if="isImagePopupShown">
+            <div class="popup-content m-6">
+              <div class="popup-header mb-3">
+                <p class="text-white"> Cambiar imagen</p>
+              </div>
+              <div>
+                <form ref="invitationForm" class="flex flex-column mx-3 w-23rem">
+                  <pv-input-text
+                      id="image-change"
+                      type="text"
+                      name="new-company-image"
+                      placeholder="New Company Image"
+                      v-model="newImage"
+                      required
+                      class="rounded-input bg-transparent px-3 py-2 mb-3 mx-2">
+                  </pv-input-text>
+                </form>
+              </div>
+              <div class="popup-footer">
+                <button-primary class="mb-2 mx-3 mt-4"
+                                @click="updateImage"
+                                :text="'Aceptar'"
+                                :buttonColor="'var(--secondary-green-1)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--secondary-green-1)'">
+                </button-primary>
+                <button-primary class="mb-2 mx-3 mt-4"
+                                @click="closeImageChangePopup"
+                                :text="'Cancel'"
+                                :buttonColor="'var(--gray-2)'"
+                                :buttonTextColor="'var(--white)'"
+                                :buttonBorderColor="'var(--gray-2)'">
+                </button-primary>
+              </div>
+            </div>
+          </div>
+
+          <!--
+            Dialog de invitar empleado
+          -->
 
           <div class="popup-container" v-if="showPopup">
             <div class="popup-content m-6">
@@ -227,9 +471,8 @@ export default {
               </div>
             </div>
           </div>
-
-
         </div>
+
         <div class="text-center flex justify-center flex-wrap">
           <div v-for="employee in employees" class="flex flex-column text-center mx-2">
             <div class="items-center flex-grow mx-4 my-5">

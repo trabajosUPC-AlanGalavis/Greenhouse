@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia';
+import store from './store';
 import App from './App.vue'
 import ToastService from "primevue/toastservice";
 import PrimeVue from "primevue/config";
@@ -23,6 +25,7 @@ import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
 import Dropdown from "primevue/dropdown";
 import InputText from 'primevue/inputtext';
+import Calendar from "primevue/calendar";
 //Router
 import router from "@/router";
 //Localization
@@ -38,6 +41,8 @@ const i18n = createI18n({
         es: es,
     }
 })
+
+const pinia = createPinia();
 
 createApp(App)
     .use(PrimeVue, { ripple: true })
@@ -56,6 +61,9 @@ createApp(App)
     .component('pv-data-table', DataTable)
     .component('pv-dialog', Dialog)
     .component('pv-input-text', InputText)
+    .component('pv-calendar', Calendar)
     .use(router)
     .use(i18n)
+    .use(pinia)
+    .use(store)
     .mount('#app')

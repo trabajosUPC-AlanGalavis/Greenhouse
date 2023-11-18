@@ -29,7 +29,15 @@
     "crops_in_progress": "Crops in progress",
     "my_company": "My company",
     "statistical_reports": "Statistical reports",
-    "crops_archive": "Harvesting archive"
+    "crops_archive": "Crops archive",
+    "recent_records": "Recent records",
+    "crop_id": "Crop ID",
+    "author": "Author",
+    "start_date": "Crop start date",
+    "phase": "Current phase",
+    "record_date": "Record date",
+    "record_time": "Record time",
+    "comment": "Comment"
   },
   "pop-up": {
     "warning": "Warning"
@@ -39,5 +47,50 @@
     "crops_in_progress": "Crops in progress",
     "start_new_crop": "Start new crop",
     "search_crop": "Search crop"
+  },
+  "user-profile": {
+    "my_profile": "My profile",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "account": "Account",
+    "change_name": "Change name",
+    "change_email": "Change email",
+    "change_password": "Change password",
+    "delete_account": "Delete account",
+    "change_profile_picture": "Change profile picture"
+  },
+  "company_profile": {
+    "my_company": "My company",
+    "company_name": "Company name",
+    "ruc": "TIN",
+    "company": "Company",
+    "change_company_name": "Change company name",
+    "change_ruc": "Change TIN",
+    "delete_company": "Delete company",
+    "change_profile_picture": "Change company picture",
+    "employees": "Employees",
+    "invite_employee": "Invite employee",
+    "view_more": "View more",
+    "search": "Search employee"
+  },
+  "crop-history": {
+    "control_panel": "Control panel",
+    "crop_history": "Crop archive",
+    "search_crop": "Search crop",
+    "crop_id": "Crop ID",
+    "crop_start_date": "Crop start date",
+    "crop_end_date": "Crop end date",
+    "crop_view_logs": "View logs"
+  },
+  "crop": {
+    "formula": "Formula",
+    "preparation_area": "Preparation area",
+    "bunker": "Bunker",
+    "tunnel": "Tunnel",
+    "incubation": "Incubation",
+    "casing": "Casing",
+    "induction": "Induction",
+    "harvest": "Harvest"
   }
 }

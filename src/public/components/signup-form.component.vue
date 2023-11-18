@@ -1,11 +1,12 @@
 <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import axios from "axios";
-
+import * as yup from "yup";
 export default {
   name: "signup-form",
   components: {ButtonPrimary},
   data() {
+
     return {
       company_name: "",
       ruc: "",
@@ -14,28 +15,52 @@ export default {
       last_name: "",
       password: "",
       password_confirmation: "",
+      successful: false,
+      loading: false,
+    }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.$router.push("/login");
     }
   },
   methods: {
-    async handleSubmit() {
-      const response = await axios.post('/signup', {
-        company_name: this.company_name,
-        ruc: this.ruc,
-        email: this.email,
+    handleRegister() {
+      this.message = "";
+      this.successful = false;
+      this.loading = true;
+
+      this.$store.dispatch("auth/register", {
+        username: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
         password: this.password,
-        password_confirmation: this.password_confirmation,
-      });
-      console.log(response);
-      this.$router.push("/login");
-    }
-  }
+      }).then(
+          () => {
+            this.$router.push("/login");
+          },
+          (error) => {
+            this.loading = false;
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+          }
+      );
+    },
+  },
 }
 </script>
 
 <template>
-  <form id="signup" @submit.prevent="handleSubmit">
+  <form id="signup" @submit.prevent="handleRegister">
     <div class="mb-3 p-float-label">
       <pv-input-text
           id="company_name"
@@ -45,7 +70,7 @@ export default {
           class="w-full border rounded-md px-3 py-2"
           v-model="company_name"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.company_name') }}</label>
+      <label for="company_name">{{ $t('login-signup.company_name') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -56,7 +81,7 @@ export default {
           class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full border rounded-md px-3 py-2 "
           v-model="ruc"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.ruc') }}</label>
+      <label for="ruc">{{ $t('login-signup.ruc') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -80,7 +105,7 @@ export default {
           class="w-full border rounded-md px-3 md:py-2"
           v-model="first_name"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.first_name') }}</label>
+      <label for="first-name">{{ $t('login-signup.first_name') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -92,7 +117,7 @@ export default {
           class="w-full border rounded-md px-3 md:py-2"
           v-model="last_name"
       ></pv-input-text>
-      <label for="email">{{ $t('login-signup.last_name') }}</label>
+      <label for="last-name">{{ $t('login-signup.last_name') }}</label>
     </div>
     <div class="mb-3 p-float-label">
       <pv-input-text
@@ -116,7 +141,7 @@ export default {
           class="w-full border rounded-md px-3 py-2"
           v-model="password_confirmation"
       ></pv-input-text>
-      <label for="password">{{ $t('login-signup.password_confirm') }}</label>
+      <label for="confirm-password">{{ $t('login-signup.password_confirm') }}</label>
     </div>
     <div class="flex items-center md:items-start mb-3">
       <div class="h-5">
@@ -147,7 +172,5 @@ export default {
 </template>
 
 <style scoped>
-* {
-  font-family: var(--font-primary);
-}
+
 </style>

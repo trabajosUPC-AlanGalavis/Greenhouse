@@ -1,43 +1,57 @@
 <script>
-import ButtonPrimary from '../components/button-primary.component.vue';
-import ProcessTable from "../components/process-table.component.vue";
-import ProcessInputDialog from "../../harvestings/components/process-input-dialog.component.vue";
-import ProcessInputDialogStock from "../../harvestings/components/process-input-dialog-stock.component.vue";
-import ProcessInputDialogPreparationArea
-  from "../../harvestings/components/process-input-dialog-preparation-area.component.vue";
-import ProcessInputDialogBunker from "../../harvestings/components/process-input-dialog-bunker.component.vue";
-import ProcessInputDialogTunel from "../../harvestings/components/process-input-dialog-tunel.component.vue";
+import ButtonPrimary from './button-primary.component.vue';
+import ProcessTable from "../pages/process-table.component.vue";
+import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
 
 export default {
   name: 'stepper-contents',
   components: {
     ProcessTable,
     ButtonPrimary,
-    ProcessInputDialog,
-    ProcessInputDialogStock,
-    ProcessInputDialogPreparationArea,
-    ProcessInputDialogBunker,
-    ProcessInputDialogTunel
   },
   data() {
     return {
+      cropApiService: new HarvestingApiService(),
       currentStep: 0,
-      date_start: "18/09/23 ",
+      start_date: '',
       isButtonDisabled: false,
       showPopup: false,
       isLastPhase: false,
       phases: [
-        {label: '0', message: 'Stock', endpoint: 'stock'},
-        {label: '1', message: 'Preparation area', endpoint: 'preparation_area'},
-        {label: '2', message: 'Bunker', endpoint: 'bunker'},
-        {label: '3', message: 'Tunnel', endpoint: 'tunnel'},
-        {label: '4.1', message: 'Incubation', endpoint: 'grow_room_record?processType=Incubation'},
-        {label: '4.2', message: 'Casing', endpoint: 'grow_room_record?processType=Casing'},
-        {label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction'},
-        {label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest'},
+        {label: '0', message: 'Stock', endpoint: 'stocks?'},
+        {label: '1', message: 'Preparation area', endpoint: 'preparation_areas?'},
+        {label: '2', message: 'Bunker', endpoint: 'bunkers?'},
+        {label: '3', message: 'Tunnel', endpoint: 'tunnels?'},
+        {label: '4.1', message: 'Incubation', endpoint: 'grow_room_records?processType=Incubation&&'},
+        {label: '4.2', message: 'Casing', endpoint: 'grow_room_records?processType=Casing&&'},
+        {label: '4.3', message: 'Induction', endpoint: 'grow_room_records?processType=Induction&&'},
+        {label: '4.4', message: 'Harvest', endpoint: 'grow_room_records?processType=Harvest&&'},
       ],
       record: "",
+      phaseMapping: {
+        'Stock': 0,
+        'Preparation area': 1,
+        'Bunker': 2,
+        'Tunnel': 3,
+        'Incubation': 4,
+        'Casing': 5,
+        'Induction': 6,
+        'Harvest': 7,
+      },
+      phaseMappingForEndpoint: {
+        0: 'Stocks',
+        1: 'Preparation areas',
+        2: 'Bunkers',
+        3: 'Tunnels',
+        4: 'Incubations',
+        5: 'Casings',
+        6: 'Inductions',
+        7: 'Harvests',
+      }
     };
+  },
+  created() {
+    this.currentStep = this.phaseMapping[this.$route.params.phase];
   },
   computed: {
     shouldDisplayMessage() {
@@ -59,6 +73,12 @@ export default {
     },
 
     closeNotification() {
+      this.cropApiService.updateCropState(this.$route.params.crop_id)
+          .then((response) => {
+            console.log(response);
+          }).catch(error => {
+        console.error('Error updating crop state:', error);
+      });
       this.isLastPhase = false;
     },
 
@@ -76,19 +96,22 @@ export default {
         console.log(this.currentStep);
         console.log(this.phases[this.currentStep].endpoint)
       }
+      this.cropApiService.updateCurrentPhase(this.$route.params.crop_id, this.phaseMappingForEndpoint[this.currentStep])
+          .then((response) => {
+            console.log(response);
+          }).catch(error => {
+        console.error('Error updating current phase:', error);
+      });
+      this.$router.push({
+        name: 'stepper',
+        params: {
+          crop_id: this.$route.params.crop_id,
+          phase: this.phaseMappingForEndpoint[this.currentStep],
+        },
+      })
     },
     openInputDialog() {
-      if (this.currentStep === 0) {
-        this.$refs.processInputDialogStock.showDialog();
-      } else if (this.currentStep === 1) {
-        this.$refs.processInputDialogPreparationArea.showDialog();
-      } else if (this.currentStep === 2) {
-        this.$refs.processInputDialogBunker.showDialog();
-      } else if (this.currentStep === 3) {
-        this.$refs.processInputDialogTunel.showDialog();
-      } else {
-        this.$refs.processInputDialog.showDialog();
-      }
+      this.$refs.ProcessTable.showDialog();
     }
   },
 };
@@ -107,7 +130,9 @@ export default {
         </div>
       </template>
     </pv-steps>
-    <process-table :endpoint="phases[currentStep].endpoint"></process-table>
+    <process-table :endpoint="phases[currentStep].endpoint" :crop_id="$route.params.crop_id"
+                   ref="ProcessTable"
+    ></process-table>
     <div class="button-group flex-shrink">
       <button-primary class="mb-3 mr-3"
                       @click="openPopup"
@@ -165,7 +190,7 @@ export default {
         </div>
         <div class="popup-body-2">
           <br>
-          <p style="text-align: center;">The cultivation started on {{ date_start }} has successfully completed all
+          <p style="text-align: center;">The cultivation started on {{ start_date }} has successfully completed all
             stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
         </div>
 
@@ -182,30 +207,13 @@ export default {
             </button-primary>
           </router-link>
 
+
+
         </div>
       </div>
     </div>
 
-    <div class="mb-3">
-      <p class="text-black" v-if="record">Recorded info: {{ record }}</p>
-    </div>
 
-    <process-input-dialog-stock
-        ref="processInputDialogStock"
-    ></process-input-dialog-stock>
-    <process-input-dialog-preparation-area
-        ref="processInputDialogPreparationArea"
-    ></process-input-dialog-preparation-area>
-    <process-input-dialog-bunker
-        ref="processInputDialogBunker"
-    ></process-input-dialog-bunker>
-    <process-input-dialog-tunel
-        ref="processInputDialogTunel"
-    ></process-input-dialog-tunel>
-    <process-input-dialog :process-type="phases[currentStep].message"
-                          :endpoint="phases[currentStep].endpoint"
-                          ref="processInputDialog"
-    ></process-input-dialog>
   </div>
 </template>
 
@@ -306,7 +314,6 @@ export default {
   bottom: 0;
   right: 0;
   display: flex;
-  padding: 100px;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -388,9 +395,7 @@ export default {
   background-color: #4A845B;
   text-align: center;
   padding: 15px;
-  border-radius: 20px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 20px 20px 0 0;
 }
 
 </style>

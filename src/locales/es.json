@@ -104,10 +104,10 @@
     "corn": "Coronta",
     "guano": "Guano",
     "cotton_seed_cake": "Pasta de algodón",
-    "soybeanMeal": "Torta de soya",
+    "soybean_meal": "Torta de soya",
     "gypsum": "Sulfato de calcio",
     "urea": "Urea",
-    "ammonium-sulfate": "Sulfato de amonio",
+    "ammonium_sulphate": "Sulfato de amonio",
     "activities": "Actividades",
     "frequency": "Frecuencia",
     "grow_room": "Nave",
@@ -116,7 +116,14 @@
     "carbon_dioxide": "Dióxido de carbono",
     "air_humidity": "Humedad",
     "setting": "Setting",
-    "comment": "Observación"
+    "comment": "Observación",
+    "t1": "T1",
+    "t2": "T2",
+    "t3": "T3",
+    "tp": "TP",
+    "ta": "TA",
+    "fresh_air": "Aire fresco",
+    "recirculation": "Recirculación"
   },
   "statistical_reports": {
     "statistical_reports": "Reportes estadísticos"

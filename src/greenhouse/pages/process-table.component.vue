@@ -44,6 +44,9 @@ export default {
   },
 
   methods: {
+    camelToSnakeCase(str) {
+      return str.replace(/([A-Z])/g, (match) => `_${match.toLowerCase()}`).replace(/^\_/, '').replace(/\s/g, '');
+    },
     initFilters() {
       this.filters = {
         global: {value: null, matchMode: FilterMatchMode.CONTAINS},
@@ -106,7 +109,7 @@ export default {
       // Merge common data with the formData
       //const dataToSend = this.formData;
       console.log('Data to send:', this.formData);
-      const dataToSend = { ...commonData, ...this.formData };
+      const dataToSend = {...commonData, ...this.formData};
 
       // Add specific fields based on the endpoint
       if (this.endpoint === 'stocks?') {
@@ -198,7 +201,7 @@ export default {
       this.displayDialog = false;
     },
     clearInputFields() {
-      if(this.processData.length === 0){
+      if (this.processData.length === 0) {
         this.fetchData(this.endpoint)
         this.fetchDataAndColumns(this.endpoint);
       }
@@ -255,17 +258,18 @@ export default {
       responsiveLayout="scroll">
     <template #header>
       <div class="table-header flex flex-column md:justify-content-between">
-        <h2 class="mb-2 md:m-0 p-as-md-center text-xl font-bold">Records of crop {{ crop_id }}, started on {{ start_date }}</h2>
+        <h2 class="mb-2 md:m-0 p-as-md-center text-xl font-bold">{{ $t('crop.records_of_crop') }} {{ crop_id }},
+          {{ $t('crop.started_on') }} {{ start_date }}</h2>
         <pv-input-text class="bg-transparent border-transparent text-black"
                        v-model="filters['global'].value"
-                       placeholder="Filter records..."/>
+                       :placeholder="$t('crop.filter')"/>
       </div>
     </template>
     <pv-column
         v-for="col of columns"
         :key="col.field"
         :field="col.field"
-        :header="col.header">
+        :header="$t('crop.' + camelToSnakeCase(col.header))">
     </pv-column>
   </pv-data-table>
   <!-- Prueba de botón -->
@@ -304,7 +308,7 @@ h2 {
   font-family: var(--font-primary);
 }
 
-:deep(th)  {
+:deep(th) {
   background-color: var(--secondary-green-2) !important;
   color: var(--white) !important;
 }

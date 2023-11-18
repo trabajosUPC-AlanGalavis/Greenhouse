@@ -148,7 +148,7 @@ export default {
           </div>
           <div class="popup-body">
             <br>
-            <p style="text-align: center;">{{
+            <p class="text-center;">{{
                 "This phase is completed, you will not be able to make any more records at this stage. " +
                 "Are you sure you want to continue?"
               }}</p>
@@ -190,7 +190,7 @@ export default {
         </div>
         <div class="popup-body-2">
           <br>
-          <p style="text-align: center;">The cultivation started on {{ start_date }} has successfully completed all
+          <p class="text-center">The cultivation started on {{ start_date }} has successfully completed all
             stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
         </div>
 
@@ -202,13 +202,9 @@ export default {
                 :buttonColor="'var(--primary-green)'"
                 :buttonTextColor="'var(--primary-white)'"
                 :buttonBorderColor="'var(--primary-green)'"
-                @click="closeNotification()"
-            >
+                @click="closeNotification()">
             </button-primary>
           </router-link>
-
-
-
         </div>
       </div>
     </div>

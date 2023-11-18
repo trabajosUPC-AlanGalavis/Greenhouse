@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia';
+import store from './store';
 import App from './App.vue'
 import ToastService from "primevue/toastservice";
 import PrimeVue from "primevue/config";
@@ -40,6 +42,8 @@ const i18n = createI18n({
     }
 })
 
+const pinia = createPinia();
+
 createApp(App)
     .use(PrimeVue, { ripple: true })
     .use(ToastService)
@@ -60,4 +64,6 @@ createApp(App)
     .component('pv-calendar', Calendar)
     .use(router)
     .use(i18n)
+    .use(pinia)
+    .use(store)
     .mount('#app')

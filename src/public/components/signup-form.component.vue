@@ -1,11 +1,12 @@
 <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import axios from "axios";
-
+import * as yup from "yup";
 export default {
   name: "signup-form",
   components: {ButtonPrimary},
   data() {
+
     return {
       company_name: "",
       ruc: "",
@@ -14,33 +15,52 @@ export default {
       last_name: "",
       password: "",
       password_confirmation: "",
+      successful: false,
+      loading: false,
+    }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.$router.push("/login");
     }
   },
   methods: {
-    handleSubmit() {
-      this.$router.push("/login");
-    }
-    /*
-    async handleSubmit() {
-      const response = await axios.post('/signup', {
-        company_name: this.company_name,
-        ruc: this.ruc,
-        email: this.email,
+    handleRegister() {
+      this.message = "";
+      this.successful = false;
+      this.loading = true;
+
+      this.$store.dispatch("auth/register", {
+        username: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
         password: this.password,
-        password_confirmation: this.password_confirmation,
-      });
-      console.log(response);
-      this.$router.push("/login");
-    }
-     */
-  }
+      }).then(
+          () => {
+            this.$router.push("/login");
+          },
+          (error) => {
+            this.loading = false;
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+          }
+      );
+    },
+  },
 }
 </script>
 
 <template>
-  <form id="signup" @submit.prevent="handleSubmit">
+  <form id="signup" @submit.prevent="handleRegister">
     <div class="mb-3 p-float-label">
       <pv-input-text
           id="company_name"

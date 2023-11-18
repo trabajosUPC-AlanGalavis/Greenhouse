@@ -1,30 +1,49 @@
 <script>
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import axios from "axios";
+import * as yup from "yup";
 export default {
   name: "login-form",
   components: {ButtonPrimary},
   data() {
+
+
     return {
+      loading: false,
+      message: "",
       email: "",
       password: "",
     }
   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push("/dashboard");
+    }
+  },
   methods: {
     handleSubmit(){
-      this.$router.push("/dashboard");
+      this.loading = true;
+
+      this.$store.dispatch("auth/login", {username: this.email, password: this.password}).then(
+          () => {
+            this.$router.push("/dashboard");
+          },
+          (error) => {
+            this.loading = false;
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+          }
+      );
     }
-    /*
-    async handleSubmit(){
-      await axios.post('/login', {
-        email: this.email,
-        password: this.password
-      });
-      //localStorage.setItem('token', response.data.token);
-      //this.$store.dispatch('user', response.data.user);
-      this.$router.push("/dashboard");
-    }
-     */
   }
 }
 </script>

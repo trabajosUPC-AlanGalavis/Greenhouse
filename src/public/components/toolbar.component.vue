@@ -59,7 +59,7 @@ export default {
             <img src="/logo-white.png" alt="logo" width="20" height="20" class="mr-2">
             <p>Greenhouse</p>
           </div>
-        </router-link>
+        </router-link >
         <button class="cursor-pointer leading-none rounded block lg:hidden outline-none focus:outline-none"
                 type="button" @click="toggleNavbar">
           <i class="fa fa-bars"></i>
@@ -81,7 +81,7 @@ export default {
             </div>
           </li>
           <li class="nav-item">
-            <router-link to="/company">
+            <router-link v-if="!($route.path.includes('/login') || $route.path.includes('/signup'))" to="/company">
               <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar :image="company_image" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>{{ company_name }}</p>
@@ -89,7 +89,7 @@ export default {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile">
+            <router-link v-if="!($route.path.includes('/login') || $route.path.includes('/signup'))" to="/profile">
               <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar :image="user_image" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>{{ full_name }}</p>

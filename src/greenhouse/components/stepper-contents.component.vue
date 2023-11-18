@@ -183,12 +183,11 @@ export default {
     <div class="popup-container" v-if="isLastPhase">
       <div class="popup-content">
         <div class="popup-header-2">
-          <h2>CROP COMPLETED</h2>
+          <h2>{{ $t('pop-up.crop_finished') }}</h2>
         </div>
         <div class="popup-body-2">
           <br>
-          <p class="text-center">The cultivation started on {{ start_date }} has successfully completed all
-            stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
+          <p class="text-center">{{$t('pop-up.the_crop_started_on')}} {{ start_date }} {{$t('pop-up.has_completed_all_phases')}}</p>
         </div>
 
         <div class="popup-footer">

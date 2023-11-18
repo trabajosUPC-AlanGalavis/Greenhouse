@@ -45,7 +45,10 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "confirm_end_phase": "Once this phase is over, you will not be able to add new records. Are you sure you want to continue?",
-    "irreversible": "This operation is irreversible"
+    "irreversible": "This operation is irreversible",
+    "crop_finished": "Crop finished",
+    "the_crop_started_on": "The crop started on",
+    "has_completed_all_phases": "has completed all phases successfully, the records have been archived in the Crops Archive section"
   },
   "crops-in-progress": {
     "process_log": "Process log",

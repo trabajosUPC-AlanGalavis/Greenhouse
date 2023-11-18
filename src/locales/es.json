@@ -45,7 +45,10 @@
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "confirm_end_phase": "Una vez que de por finalizada la fase, no podrá realizar más registros en ella. ¿Está seguro de que desea continuar?",
-    "irreversible": "Esta operación es irreversible"
+    "irreversible": "Esta operación es irreversible",
+    "crop_finished": "Cultivo terminado",
+    "the_crop_started_on": "El cultivo comenzado el",
+    "has_completed_all_phases": "ha terminado satisfactoriamente todas las etapas, los registros fueron archivados en la sección de Archivo de Cultivos"
   },
   "crops-in-progress": {
     "process_log": "Registro de procesos",

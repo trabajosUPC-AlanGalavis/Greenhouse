@@ -1,7 +1,7 @@
 <script>
 import ButtonPrimary from './button-primary.component.vue';
 import ProcessTable from "../pages/process-table.component.vue";
-import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+import {CropApiService} from "@/greenhouse/services/crop-api.service";
 
 export default {
   name: 'stepper-contents',
@@ -11,21 +11,21 @@ export default {
   },
   data() {
     return {
-      cropApiService: new HarvestingApiService(),
+      cropApiService: new CropApiService(),
       currentStep: 0,
       start_date: '',
       isButtonDisabled: false,
       showPopup: false,
       isLastPhase: false,
       phases: [
-        {label: '0', message: 'Stock', endpoint: 'stocks?'},
-        {label: '1', message: 'Preparation area', endpoint: 'preparation_areas?'},
-        {label: '2', message: 'Bunker', endpoint: 'bunkers?'},
-        {label: '3', message: 'Tunnel', endpoint: 'tunnels?'},
-        {label: '4.1', message: 'Incubation', endpoint: 'grow_room_records?processType=Incubation&&'},
-        {label: '4.2', message: 'Casing', endpoint: 'grow_room_records?processType=Casing&&'},
-        {label: '4.3', message: 'Induction', endpoint: 'grow_room_records?processType=Induction&&'},
-        {label: '4.4', message: 'Harvest', endpoint: 'grow_room_records?processType=Harvest&&'},
+        {label: '0', message: 'formula', endpoint: 'stocks?'},
+        {label: '1', message: 'preparation_area', endpoint: 'preparation_areas?'},
+        {label: '2', message: 'bunker', endpoint: 'bunkers?'},
+        {label: '3', message: 'tunnel', endpoint: 'tunnels?'},
+        {label: '4.1', message: 'incubation', endpoint: 'grow_room_records?processType=Incubation&&'},
+        {label: '4.2', message: 'casing', endpoint: 'grow_room_records?processType=Casing&&'},
+        {label: '4.3', message: 'induction', endpoint: 'grow_room_records?processType=Induction&&'},
+        {label: '4.4', message: 'harvest', endpoint: 'grow_room_records?processType=Harvest&&'},
       ],
       record: "",
       phaseMapping: {
@@ -126,7 +126,7 @@ export default {
              @click="handleStepClick(index)">
           <span class="step-number">{{ label }}</span>
           <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">
-            {{ item.message }}</p>
+            {{ $t('crop.'+ item.message) }}</p>
         </div>
       </template>
     </pv-steps>

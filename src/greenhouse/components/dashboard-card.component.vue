@@ -1,19 +1,20 @@
 <template>
   <div>
+    <router-link :to="link">
     <pv-card>
       <template #content>
         <img :src="image" width="220" height="220" alt="dashboard-icon">
       </template>
       <template #footer>
         <div class="footer w-full p-3">
-          <router-link :to="link">
+
             <button>
               {{ buttonText }} <i class="fa fa-angle-right"></i>
             </button>
-          </router-link>
         </div>
       </template>
     </pv-card>
+    </router-link>
   </div>
 </template>
 

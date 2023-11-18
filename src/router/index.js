@@ -9,7 +9,7 @@ import PasswordReset from "@/public/pages/password-reset.component.vue";
 import SitePolicy from "@/public/pages/site-policy.component.vue";
 import userProfile from "@/profiles/pages/user-profile.component.vue";
 import statisticalReports from "@/greenhouse/pages/statistical-reports.vue";
-import CropHistoryComponent from "@/greenhouse/pages/crop-history.component.vue";
+import CropHistoryComponent from "@/greenhouse/pages/crop-archive.component.vue";
 import CompanyProfile from "@/profiles/pages/company-profile.component.vue";
 
 const router = createRouter({

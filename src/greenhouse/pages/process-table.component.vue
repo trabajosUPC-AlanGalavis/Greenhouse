@@ -115,6 +115,9 @@ export default {
         dataToSend.author = this.formData.author;
         dataToSend.activities = this.formData.activities;
         dataToSend.temperature = this.formData.temperature;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         dataToSend.employeeId = 1;
       } else if (this.endpoint === 'bunkers') {
@@ -123,6 +126,9 @@ export default {
         dataToSend.thermocoupleTwo = this.formData.thermocoupleTwo;
         dataToSend.thermocoupleThree = this.formData.thermocoupleThree;
         dataToSend.motorFrequency = this.formData.motorFrequency;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         dataToSend.employeeId = 1;
       } else if (this.endpoint === 'tunnels') {
@@ -130,9 +136,13 @@ export default {
         dataToSend.thermocoupleOne = this.formData.thermocoupleOne;
         dataToSend.thermocoupleTwo = this.formData.thermocoupleTwo;
         dataToSend.thermocoupleThree = this.formData.thermocoupleThree;
-        dataToSend.motorFrequency = this.formData.frequency;
+        dataToSend.roomTemperature = this.formData.roomTemperature;
+        dataToSend.motorFrequency = this.formData.motorFrequency;
         dataToSend.freshAir = this.formData.freshAir;
         dataToSend.recirculation = this.formData.recirculation;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         dataToSend.employeeId = 1;
       } else if (this.endpoint === 'growroomrecords/Incubation') {
@@ -143,6 +153,9 @@ export default {
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         //dataToSend.processType = 'Incubation';
         dataToSend.employeeId = 1;
@@ -154,6 +167,9 @@ export default {
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         //dataToSend.processType = 'Casing';
         dataToSend.employeeId = 1;
@@ -165,6 +181,9 @@ export default {
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         //dataToSend.processType = 'Induction';
         dataToSend.employeeId = 1;
@@ -176,6 +195,9 @@ export default {
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
         //dataToSend.processType = 'Harvest';
         dataToSend.employeeId = 1;
@@ -226,7 +248,7 @@ export default {
           endpointSend = 'growroomrecords';
         }
         this.fetchData(endpointSend);
-        this.fetchDataAndColumns(endpointSend);
+        this.fetchDataAndColumns(this.endpoint);
       }
       for (const key in this.formData) {
         this.formData[key] = null;
@@ -292,7 +314,7 @@ export default {
             carbonDioxide: 0,
             airHumidity: 0,
             setting: 0,
-            comment: 0
+            comment: ""
           }
         } else if (this.endpoint === 'growroomrecords/Casing') {
           this.form[0] = {
@@ -303,7 +325,7 @@ export default {
             carbonDioxide: 0,
             airHumidity: 0,
             setting: 0,
-            comment: 0
+            comment: ""
           }
         } else if (this.endpoint === 'growroomrecords/Induction') {
           this.form[0] = {
@@ -314,7 +336,7 @@ export default {
             carbonDioxide: 0,
             airHumidity: 0,
             setting: 0,
-            comment: 0
+            comment: ""
           }
         } else if (this.endpoint === 'growroomrecords/Harvest') {
           this.form[0] = {
@@ -325,7 +347,7 @@ export default {
             carbonDioxide: 0,
             airHumidity: 0,
             setting: 0,
-            comment: 0
+            comment: ""
           }
         }
       }

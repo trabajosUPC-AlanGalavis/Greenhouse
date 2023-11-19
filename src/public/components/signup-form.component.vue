@@ -2,6 +2,8 @@
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import axios from "axios";
 import * as yup from "yup";
+import {CompanyApiService} from "@/profiles/services/company-api.service";
+import {UserApiService} from "@/profiles/services/user-api.service";
 export default {
   name: "signup-form",
   components: {ButtonPrimary},
@@ -17,6 +19,8 @@ export default {
       password_confirmation: "",
       successful: false,
       loading: false,
+      companyService: new CompanyApiService(),
+      userService: new UserApiService(),
     }
   },
   computed: {
@@ -31,9 +35,22 @@ export default {
   },
   methods: {
     handleRegister() {
+      this.loading = true;
       this.message = "";
       this.successful = false;
       this.loading = true;
+
+      this.companyService.createCompany({companyName: this.company_name, tin: this.ruc}).then(
+          (response) => {
+            this.userService.createEmployee({
+              firstName: this.first_name,
+              lastName: this.last_name,
+              email: this.email,
+              password: this.password,
+              companyId: response.data.id,
+            })
+          }
+      );
 
       this.$store.dispatch("auth/register", {
         username: this.email,

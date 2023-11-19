@@ -171,18 +171,18 @@ export default {
             <div class="popup-container" v-if="showPopup">
               <div class="popup-content">
                 <div class="popup-header">
-                  <h3>WARNING</h3>
+                  <h3>{{ $t('pop-up.warning') }}</h3>
                 </div>
                 <div class="popup-body">
                   <br>
-                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date
+                  <p class="text-center mb-3">{{$t('pop-up.start_new_crop')}}
                     {{ formatDate(new Date()) }}</p>
                 </div>
                 <div class="popup-footer">
                   <router-link :to="'/stepper/'+crop_id+'/Formula'">
                     <button-primary
                         class="text-center mx-auto"
-                        :text="' Yes, Start'"
+                        :text="$t('pop-up.confirm')"
                         :buttonColor="'var(--primary-green)'"
                         :buttonTextColor="'var(--primary-white)'"
                         :buttonBorderColor="'var(--primary-green)'"
@@ -191,7 +191,7 @@ export default {
                   </router-link>
                   <button-primary
                       class="text-center mx-9"
-                      :text="' Cancel'"
+                      :text="$t('pop-up.cancel')"
                       :buttonColor="'var(--gray-2)'"
                       :buttonTextColor="'var(--primary-white)'"
                       :buttonBorderColor="'var(--gray-2)'"

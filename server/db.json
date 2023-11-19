@@ -162,7 +162,15 @@
       "company_id": 1,
       "start_date": "15/11/2023",
       "end_date": "",
-      "phase": "Stock",
+      "phase": "Preparation areas",
+      "state": "active"
+    },
+    {
+      "id": 7,
+      "company_id": 1,
+      "start_date": "18/11/2023",
+      "end_date": "",
+      "phase": "Preparation areas",
       "state": "active"
     }
   ],

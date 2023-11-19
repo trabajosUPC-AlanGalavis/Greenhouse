@@ -21,8 +21,9 @@ export class GreenhouseApiService {
         try {
             // Fetch a list of all crops
             const cropsResponse = await http.get(`/${1}`); // Modify this URL as needed
-            const crops = cropsResponse.data;
-            console.log(crops);
+            let crops = cropsResponse.data;
+            // only crops with state true
+            crops = crops.filter(crop => crop.state === true);
 
             // Initialize an object to store the most recent records for each crop
             const mostRecentRecords = {};
@@ -33,23 +34,25 @@ export class GreenhouseApiService {
             for (const crop of crops) {
                 const cropId = crop.id;
                 let cropPhase = crop.phase;
-                if (cropPhase === 'Casing' || cropPhase === 'Incubation' || cropPhase === 'Induction' || cropPhase === 'Harvest'){
+                if (cropPhase === 'Casing' || cropPhase === 'Incubation' || cropPhase === 'Induction' || cropPhase === 'Harvest') {
                     cropPhase = `growroomrecords/${cropPhase}`;
-                } else {
+                } else if (cropPhase === 'Preparation Area') {
+                    cropPhase = 'preparationareas';
+                }
+                else {
                     cropPhase = cropPhase.toLowerCase() + 's';
                 }
                 try {
                     const mostRecentRecord = await this.getMostRecentRecord(cropPhase, cropId); // Replace 'your_type_here' with the appropriate type
                     mostRecentRecords[cropId] = mostRecentRecord;
-                }
-                catch (error) {
+                } catch (error) {
                     continue;
                 }
 
                 if (mostRecentRecords[cropId] === null) {
                     continue;
                 }
-                dataToReturn = { ...mostRecentRecords[cropId], ...crop };
+                dataToReturn = {...mostRecentRecords[cropId], ...crop};
                 dataToSend[cropId] = dataToReturn;
             }
 
@@ -58,19 +61,6 @@ export class GreenhouseApiService {
         } catch (error) {
             throw new Error('Error fetching most recent records: ' + error.message);
         }
-    }
-
-    formatDate(originalDate) {
-        // Parse the original date string
-        const dateObject = new Date(originalDate);
-
-        // Extract the relevant parts
-        const year = dateObject.getFullYear();
-        const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-        const day = String(dateObject.getDate()).padStart(2, "0");
-
-        // Form the formatted date string
-        return`${year}-${month}-${day}`;
     }
 
     async getMostRecentRecord(type, cropId) {

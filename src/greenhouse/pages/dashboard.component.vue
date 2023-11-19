@@ -23,12 +23,13 @@ export default {
         //const cropId = 1; // Replace with the desired crop ID
         const mostRecentRecords = await this.greenhouseApi.getMostRecentRecords();
         this.recordData = mostRecentRecords;
+        console.log(this.recordData)
         console.log(mostRecentRecords);
       } catch (error) {
         console.error('Error fetching most recent records:', error);
       }
     },
-  },
+  }
 };
 </script>
 
@@ -59,7 +60,7 @@ export default {
               selectionMode="single">
             <pv-column field="id" :header="$t('dashboard.crop_id')"></pv-column>
             <pv-column field="author" :header="$t('dashboard.author')"></pv-column>
-            <pv-column field="start_date" :header="$t('dashboard.start_date')" sortable="true"></pv-column>
+            <pv-column field="startDate" :header="$t('dashboard.start_date')" sortable="true"></pv-column>
             <pv-column field="phase" :header="$t('dashboard.phase')" sortable="true"></pv-column>
             <pv-column field="date" :header="$t('dashboard.record_date')" sortable="true"></pv-column>
             <pv-column field="time" :header="$t('dashboard.record_time')" sortable="true"></pv-column>

@@ -2,6 +2,7 @@
 import {GreenhouseApiService} from "@/greenhouse/services/greenhouse-api.service";
 import {CropApiService} from "@/greenhouse/services/crop-api.service";
 import {FilterMatchMode} from "primevue/api";
+import {string} from "yup";
 
 export default {
   name: "process-table",
@@ -27,12 +28,13 @@ export default {
   created() {
     this.cropApi = new CropApiService();
     this.initFilters();
-    this.cropApi.getCropData().then((response => {
-      this.start_date = response.data[0].start_date;
+    this.cropApi.getCropData(1).then((response => {
+      this.start_date = this.formatDate(response.data[0].startDate);
     }));
   },
   mounted() {
     // Fetch initial data and columns
+    console.log('Endpoint:', this.endpoint);
     this.fetchDataAndColumns(this.endpoint);
   },
   watch: {
@@ -53,8 +55,10 @@ export default {
       };
     },
     addColumn() {
+      // delete columns before adding them
+      this.columns = null;
       this.columns = Object.keys(this.processData[0])
-          .filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId")
+          .filter((key) => key !== "processType" && key !== 'cropId' && key !== "id" && key !== "apiId")
           .map((key) => {
             const formattedHeader = key
                 .split(/(?=[A-Z])/)
@@ -67,19 +71,20 @@ export default {
           });
     },
     fetchDataAndColumns(endpoint) {
+
       this.greenhouseApi.getAllDataByCropId(endpoint, this.crop_id).then((response) => {
         this.processData = response.data;
         this.addColumn();
       });
     },
     fetchData(endpoint) {
-      this.greenhouseApi.getAllData(endpoint).then((response) => {
+      this.greenhouseApi.getAllDataByCropId(endpoint, this.crop_id).then((response) => {
         this.processData = response.data;
         this.addData();
       });
     },
     fetchFormData(endpoint) {
-      this.greenhouseApi.getAllData(endpoint).then((response) => {
+      this.greenhouseApi.getAllDataByCropId(endpoint, 1).then((response) => {
         this.form = response.data;
         this.addFormData();
       });
@@ -93,26 +98,15 @@ export default {
       this.displayDialog = false;
     },
     getDataToSend() {
-      const currentDateTime = new Date();
-      const currentDate = currentDateTime.toISOString().split('T')[0];
-      const currentTime = currentDateTime.toTimeString().split(' ')[0];
 
-      // Common data fields
-      const commonData = {
-        author: 'Winston Smith',
-        day: this.formData.day, // TODO calculate it
-        date: currentDate,
-        time: currentTime,
-        crop_id: this.crop_id,
-      };
 
-      // Merge common data with the formData
-      //const dataToSend = this.formData;
-      console.log('Data to send:', this.formData);
-      const dataToSend = {...commonData, ...this.formData};
+
+      const dataToSend = this.formData;
+
 
       // Add specific fields based on the endpoint
-      if (this.endpoint === 'stocks?') {
+      if (this.endpoint === 'formulas') {
+        dataToSend.author = this.formData.author;
         dataToSend.hay = this.formData.hay;
         dataToSend.corn = this.formData.corn;
         dataToSend.guano = this.formData.guano;
@@ -121,77 +115,128 @@ export default {
         dataToSend.gypsum = this.formData.gypsum;
         dataToSend.urea = this.formData.urea;
         dataToSend.ammoniumSulphate = this.formData.ammoniumSulphate;
-        // Add other fields as needed
-      } else if (this.endpoint === 'preparation_areas?') {
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'preparationareas') {
+        dataToSend.author = this.formData.author;
         dataToSend.activities = this.formData.activities;
         dataToSend.temperature = this.formData.temperature;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        // Add other fields as needed
-      } else if (this.endpoint === 'bunkers?') {
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'bunkers') {
+        dataToSend.author = this.formData.author;
         dataToSend.thermocoupleOne = this.formData.thermocoupleOne;
         dataToSend.thermocoupleTwo = this.formData.thermocoupleTwo;
         dataToSend.thermocoupleThree = this.formData.thermocoupleThree;
-        dataToSend.average = this.formData.average;
-        dataToSend.frequency = this.formData.frequency;
+        dataToSend.motorFrequency = this.formData.motorFrequency;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        // Add other fields as needed
-      } else if (this.endpoint === 'tunnels?') {
-        dataToSend.growRoom = this.formData.growRoom;
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'tunnels') {
+        dataToSend.author = this.formData.author;
         dataToSend.thermocoupleOne = this.formData.thermocoupleOne;
         dataToSend.thermocoupleTwo = this.formData.thermocoupleTwo;
         dataToSend.thermocoupleThree = this.formData.thermocoupleThree;
-        dataToSend.average = this.formData.average;
-        dataToSend.frequency = this.formData.frequency;
+        dataToSend.roomTemperature = this.formData.roomTemperature;
+        dataToSend.motorFrequency = this.formData.motorFrequency;
         dataToSend.freshAir = this.formData.freshAir;
         dataToSend.recirculation = this.formData.recirculation;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        // Add other fields as needed
-      } else if (this.endpoint === 'grow_room_records?processType=Incubation&&') {
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'growroomrecords/Incubation') {
+        dataToSend.author = this.formData.author;
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        dataToSend.processType = 'Incubation';
-      } else if (this.endpoint === 'grow_room_records?processType=Casing&&') {
+        //dataToSend.processType = 'Incubation';
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'growroomrecords/Casing') {
+        dataToSend.author = this.formData.author;
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        dataToSend.processType = 'Casing';
-      } else if (this.endpoint === 'grow_room_records?processType=Induction&&') {
+        //dataToSend.processType = 'Casing';
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'growroomrecords/Induction') {
+        dataToSend.author = this.formData.author;
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        dataToSend.processType = 'Induction';
-      } else if (this.endpoint === 'grow_room_records?processType=Harvest&&') {
+        //dataToSend.processType = 'Induction';
+        dataToSend.employeeId = 1;
+      } else if (this.endpoint === 'growroomrecords/Harvest') {
+        dataToSend.author = this.formData.author;
         dataToSend.growRoom = this.formData.growRoom;
         dataToSend.airTemperature = this.formData.airTemperature;
         dataToSend.compostTemperature = this.formData.compostTemperature;
         dataToSend.carbonDioxide = this.formData.carbonDioxide;
         dataToSend.airHumidity = this.formData.airHumidity;
         dataToSend.setting = this.formData.setting;
+        if(this.formData.comment === undefined){
+          this.formData.comment = "";
+        }
         dataToSend.comment = this.formData.comment;
-        dataToSend.processType = 'Harvest';
+        //dataToSend.processType = 'Harvest';
+        dataToSend.employeeId = 1;
       }
+
+      console.log('Data to send:', this.formData);
+
       return dataToSend;
     },
-    saveDialog() {
+    formatDate(originalDate) {
+      // Parse the original date string
+      const dateObject = new Date(originalDate);
 
+      // Extract the relevant parts
+      const year = dateObject.getFullYear();
+      const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+      const day = String(dateObject.getDate()).padStart(2, "0");
+
+      // Form the formatted date string
+      return`${year}-${month}-${day}`;
+    },
+    saveDialog() {
       const dataToSend = this.getDataToSend();
-      //console.log('Data to send:', dataToSend)
-      this.greenhouseApi.create(this.endpoint, dataToSend)
+      console.log('Data to send:', dataToSend)
+      let endpointSend = this.endpoint;
+      if(this.endpoint === 'growroomrecords/Incubation' || this.endpoint === 'growroomrecords/Casing' || this.endpoint === 'growroomrecords/Induction' || this.endpoint === 'growroomrecords/Harvest'){
+         endpointSend = 'growroomrecords';
+      }
+      this.greenhouseApi.create(this.crop_id,endpointSend, dataToSend)
           .then(response => {
             console.log('Data saved successfully:', response.data);
+            console.log("Time: ", response.data.time)
+            response.data.time = this.formatTime(response.data.time);
+            console.log("Time 2: ", response.data.time)
             this.processData.push(response.data);
             this.clearInputFields();
           })
@@ -201,17 +246,118 @@ export default {
       this.displayDialog = false;
     },
     clearInputFields() {
-      if (this.processData.length === 0) {
-        this.fetchData(this.endpoint)
+      console.log("Process data length: ", this.processData.length)
+      if(this.processData.length === 1){
+        let endpointSend = this.endpoint;
+        if(this.endpoint === 'growroomrecords/Incubation' || this.endpoint === 'growroomrecords/Casing' || this.endpoint === 'growroomrecords/Induction' || this.endpoint === 'growroomrecords/Harvest'){
+          endpointSend = 'growroomrecords';
+        }
+        this.fetchData(endpointSend);
         this.fetchDataAndColumns(this.endpoint);
       }
       for (const key in this.formData) {
         this.formData[key] = null;
       }
     },
+    formatTime(originalTime) {
+      // Parse the original time string
+      const timeArray = originalTime.split(":");
+      const hours = timeArray[0];
+      const minutes = timeArray[1];
+      const seconds = timeArray[2].split(".")[0]; // Extract seconds without milliseconds
+
+      // Form the formatted time string
+      return `${hours}:${minutes}:${seconds}`;
+    },
     addFormData() {
+      if(this.form[0] === undefined) {
+        if (this.endpoint === 'formulas') {
+          this.form[0] = {
+            author: "",
+            hay: 0,
+            corn: 0,
+            guano: 0,
+            cottonSeedCake: 0,
+            soyBeanMeal: 0,
+            gypsum: 0,
+            urea: 0,
+            ammoniumSulphate: 0
+          }
+        } else if (this.endpoint === 'preparationareas') {
+          this.form[0] = {
+            author: "",
+            activities: "",
+            temperature: 0,
+            comment: ""
+          }
+        } else if (this.endpoint === 'bunkers') {
+          this.form[0] = {
+            author: "",
+            thermocoupleOne: 0,
+            thermocoupleTwo: 0,
+            thermocoupleThree: 0,
+            motorFrequency: 0,
+            comment: ""
+          }
+        } else if (this.endpoint === 'tunnels') {
+          this.form[0] = {
+            author: "",
+            thermocoupleOne: 0,
+            thermocoupleTwo: 0,
+            thermocoupleThree: 0,
+            motorFrequency: 0,
+            freshAir: 0,
+            recirculation: 0,
+            comment: ""
+          }
+        } else if (this.endpoint === 'growroomrecords/Incubation') {
+          this.form[0] = {
+            author: 0,
+            growRoom: 0,
+            airTemperature: 0,
+            compostTemperature: 0,
+            carbonDioxide: 0,
+            airHumidity: 0,
+            setting: 0,
+            comment: ""
+          }
+        } else if (this.endpoint === 'growroomrecords/Casing') {
+          this.form[0] = {
+            author: 0,
+            growRoom: 0,
+            airTemperature: 0,
+            compostTemperature: 0,
+            carbonDioxide: 0,
+            airHumidity: 0,
+            setting: 0,
+            comment: ""
+          }
+        } else if (this.endpoint === 'growroomrecords/Induction') {
+          this.form[0] = {
+            author: 0,
+            growRoom: 0,
+            airTemperature: 0,
+            compostTemperature: 0,
+            carbonDioxide: 0,
+            airHumidity: 0,
+            setting: 0,
+            comment: ""
+          }
+        } else if (this.endpoint === 'growroomrecords/Harvest') {
+          this.form[0] = {
+            author: 0,
+            growRoom: 0,
+            airTemperature: 0,
+            compostTemperature: 0,
+            carbonDioxide: 0,
+            airHumidity: 0,
+            setting: 0,
+            comment: ""
+          }
+        }
+      }
       this.titles = Object.keys(this.form[0])
-          .filter((key) => key !== "processType" && key !== 'crop_id' && key !== "id" && key !== "apiId" && key !== "author" && key !== "date" && key !== "time")
+          .filter((key) => key !== "processType" && key !== 'cropId' && key !== "id" && key !== "apiId"  && key !== "date" && key !== "time" && key !== "day" && key !== "averageThermocouple")
           .map((key) => {
             const formattedHeader = key
                 .split(/(?=[A-Z])/)

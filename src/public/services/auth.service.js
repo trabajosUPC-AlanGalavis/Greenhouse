@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:7170/api/v1/users/';
+//const API_URL = 'https://localhost:7170/api/v1/users/';
+const API_URL = 'http://greenhouseupc-001-site1.ctempurl.com/api/v1/users/';
 
 class AuthService {
     login(user) {
         return axios
-            .post(API_URL + 'sing-in', {
+            .post(API_URL + 'sign-in', {
                 username: user.username,
                 password: user.password
             })
@@ -20,7 +21,7 @@ class AuthService {
         localStorage.removeItem('user');
     }
     register(user) {
-        return axios.post(API_URL + 'sing-up', {
+        return axios.post(API_URL + 'sign-up', {
             firstName: user.first_name,
             lastName: user.last_name,
             username: user.username,

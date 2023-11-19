@@ -32,8 +32,8 @@
               currentPageReportTemplate="{first} to {last} of {totalRecords}"
               sortMode="multiple">
             <pv-column field="id" :header="$t('crop-history.crop_id')"></pv-column>
-            <pv-column field="start_date" :header="$t('crop-history.crop_start_date')" sortable='true'></pv-column>
-            <pv-column field="end_date" :header="$t('crop-history.crop_end_date')" sortable="true"></pv-column>
+            <pv-column field="startDate" :header="$t('crop-history.crop_start_date')" sortable='true'></pv-column>
+            <pv-column field="endDate" :header="$t('crop-history.crop_end_date')" sortable="true"></pv-column>
             <pv-column>
               <template #body="slotProps">
                 <button-primary
@@ -70,11 +70,27 @@
     },
     methods: {
       getCropData() {
-        this.cropApiService.getCropData().then((response) => {
+        this.cropApiService.getCropData(1).then((response) => {
           this.cropsData = response.data;
-          this.cropsData = this.cropsData.filter(data => (data.state === 'finished'));
+          this.cropsData.forEach((data) => {
+            data.startDate = this.formatDate(data.startDate);
+            data.endDate = this.formatDate(data.endDate);
+          });
+          this.cropsData = this.cropsData.filter(data => (data.state === false));
         })
       },
+      formatDate(originalDate) {
+        // Parse the original date string
+        const dateObject = new Date(originalDate);
+
+        // Extract the relevant parts
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+        const day = String(dateObject.getDate()).padStart(2, "0");
+
+        // Form the formatted date string
+        return`${year}-${month}-${day}`;
+      }
     }
   }
 </script>

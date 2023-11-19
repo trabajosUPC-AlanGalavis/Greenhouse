@@ -2,7 +2,6 @@
   <pv-card class="card">
     <template #header>
       <div class="py-4">
-        <h4 class="text-center uppercase">{{ $t('crop-history.control_panel') }}</h4>
         <h2 class="text-center font-bold text-4xl">{{ $t('crop-history.crop_history') }}</h2>
       </div>
     </template>
@@ -33,8 +32,8 @@
               currentPageReportTemplate="{first} to {last} of {totalRecords}"
               sortMode="multiple">
             <pv-column field="id" :header="$t('crop-history.crop_id')"></pv-column>
-            <pv-column field="start_date" :header="$t('crop-history.crop_start_date')" sortable='true'></pv-column>
-            <pv-column field="end_date" :header="$t('crop-history.crop_end_date')" sortable="true"></pv-column>
+            <pv-column field="startDate" :header="$t('crop-history.crop_start_date')" sortable='true'></pv-column>
+            <pv-column field="endDate" :header="$t('crop-history.crop_end_date')" sortable="true"></pv-column>
             <pv-column>
               <template #body="slotProps">
                 <button-primary
@@ -54,7 +53,7 @@
 </template>
 
 <script>
-  import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+  import {CropApiService} from "@/greenhouse/services/crop-api.service";
   import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 
   export default {
@@ -62,7 +61,7 @@
     components: {ButtonPrimary},
     data() {
       return {
-        cropApiService: new HarvestingApiService(),
+        cropApiService: new CropApiService(),
         cropsData: [],
       }
     },
@@ -71,11 +70,27 @@
     },
     methods: {
       getCropData() {
-        this.cropApiService.getCropData().then((response) => {
+        this.cropApiService.getCropData(1).then((response) => {
           this.cropsData = response.data;
-          this.cropsData = this.cropsData.filter(data => (data.state === 'finished'));
+          this.cropsData.forEach((data) => {
+            data.startDate = this.formatDate(data.startDate);
+            data.endDate = this.formatDate(data.endDate);
+          });
+          this.cropsData = this.cropsData.filter(data => (data.state === false));
         })
       },
+      formatDate(originalDate) {
+        // Parse the original date string
+        const dateObject = new Date(originalDate);
+
+        // Extract the relevant parts
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+        const day = String(dateObject.getDate()).padStart(2, "0");
+
+        // Form the formatted date string
+        return`${year}-${month}-${day}`;
+      }
     }
   }
 </script>
@@ -95,6 +110,11 @@
 h4 {
   color: var(--secondary-green-1);
   font-size: var(--heading-4-size);
+}
+
+:deep(th) {
+  background-color: var(--secondary-green-2) !important;
+  color: var(--white) !important;
 }
 
 </style>

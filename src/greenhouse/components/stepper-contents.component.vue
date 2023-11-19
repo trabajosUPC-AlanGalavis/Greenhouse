@@ -1,7 +1,7 @@
 <script>
 import ButtonPrimary from './button-primary.component.vue';
 import ProcessTable from "../pages/process-table.component.vue";
-import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+import {CropApiService} from "@/greenhouse/services/crop-api.service";
 
 export default {
   name: 'stepper-contents',
@@ -11,26 +11,26 @@ export default {
   },
   data() {
     return {
-      cropApiService: new HarvestingApiService(),
+      cropApiService: new CropApiService(),
       currentStep: 0,
       start_date: '',
       isButtonDisabled: false,
       showPopup: false,
       isLastPhase: false,
       phases: [
-        {label: '0', message: 'Stock', endpoint: 'stock?'},
-        {label: '1', message: 'Preparation area', endpoint: 'preparation_area?'},
-        {label: '2', message: 'Bunker', endpoint: 'bunker?'},
-        {label: '3', message: 'Tunnel', endpoint: 'tunnel?'},
-        {label: '4.1', message: 'Incubation', endpoint: 'grow_room_record?processType=Incubation&&'},
-        {label: '4.2', message: 'Casing', endpoint: 'grow_room_record?processType=Casing&&'},
-        {label: '4.3', message: 'Induction', endpoint: 'grow_room_record?processType=Induction&&'},
-        {label: '4.4', message: 'Harvest', endpoint: 'grow_room_record?processType=Harvest&&'},
+        {label: '0', message: 'formula', endpoint: 'formulas'},
+        {label: '1', message: 'preparation_area', endpoint: 'preparationareas'},
+        {label: '2', message: 'bunker', endpoint: 'bunkers'},
+        {label: '3', message: 'tunnel', endpoint: 'tunnels'},
+        {label: '4.1', message: 'incubation', endpoint: 'growroomrecords/Incubation'},
+        {label: '4.2', message: 'casing', endpoint: 'growroomrecords/Casing'},
+        {label: '4.3', message: 'induction', endpoint: 'growroomrecords/Induction'},
+        {label: '4.4', message: 'harvest', endpoint: 'growroomrecords/Harvest'},
       ],
       record: "",
       phaseMapping: {
-        'Stock': 0,
-        'Preparation area': 1,
+        'Formula': 0,
+        'PreparationArea': 1,
         'Bunker': 2,
         'Tunnel': 3,
         'Incubation': 4,
@@ -39,14 +39,14 @@ export default {
         'Harvest': 7,
       },
       phaseMappingForEndpoint: {
-        0: 'Stock',
-        1: 'Preparation area',
-        2: 'Bunker',
-        3: 'Tunnel',
-        4: 'Incubation',
-        5: 'Casing',
-        6: 'Induction',
-        7: 'Harvest',
+        0: 'Formulas',
+        1: 'PreparationAreas',
+        2: 'Bunkers',
+        3: 'Tunnels',
+        4: 'Incubations',
+        5: 'Casings',
+        6: 'Inductions',
+        7: 'Harvests',
       }
     };
   },
@@ -126,7 +126,7 @@ export default {
              @click="handleStepClick(index)">
           <span class="step-number">{{ label }}</span>
           <p v-if="shouldDisplayMessage" class="step-message" :class="{ 'completed-message': index < currentStep }">
-            {{ item.message }}</p>
+            {{ $t('crop.'+ item.message) }}</p>
         </div>
       </template>
     </pv-steps>
@@ -136,7 +136,7 @@ export default {
     <div class="button-group flex-shrink">
       <button-primary class="mb-3 mr-3"
                       @click="openPopup"
-                      :text="'End phase'"
+                      :text="$t('crop.end_phase')"
                       :buttonColor="'var(--red)'"
                       :buttonTextColor="'var(--white)'"
                       :buttonBorderColor="'var(--red)'">
@@ -144,27 +144,24 @@ export default {
       <div class="popup-container" v-if="showPopup">
         <div class="popup-content">
           <div class="popup-header">
-            <h2 class="uppercase">{{ $t('warning') }}</h2>
+            <h2 class="uppercase">{{ $t('pop-up.warning') }}</h2>
           </div>
           <div class="popup-body">
             <br>
-            <p style="text-align: center;">{{
-                "This phase is completed, you will not be able to make any more records at this stage. " +
-                "Are you sure you want to continue?"
-              }}</p>
-            <h5>This operation is irreversible</h5>
+            <p class="text-center;">{{ $t('pop-up.confirm_end_phase')}}</p>
+            <h5 class="text-gray-600">{{ $t('pop-up.irreversible') }}</h5>
           </div>
           <div class="popup-footer">
             <button-primary class="mb-2 mr-3 mt-4"
                             @click="nextStep"
-                            :text="'Yes, finish it'"
+                            :text="$t('pop-up.confirm')"
                             :buttonColor="'var(--red)'"
                             :buttonTextColor="'var(--white)'"
                             :buttonBorderColor="'var(--red)'">
             </button-primary>
             <button-primary class="mb-2 mr-3 mt-4"
                             @click="closePopup"
-                            :text="'Cancel'"
+                            :text="$t('pop-up.cancel')"
                             :buttonColor="'var(--gray-2)'"
                             :buttonTextColor="'var(--white)'"
                             :buttonBorderColor="'var(--gray-2)'">
@@ -175,7 +172,7 @@ export default {
       <button-primary
           :disabled="isButtonDisabled"
           class="mb-3"
-          :text="' + Create new record'"
+          :text="$t('crop.create_new_record')"
           :buttonColor="'var(--white)'"
           :buttonTextColor="'var(--primary-green)'"
           :buttonBorderColor="'var(--primary-green)'"
@@ -186,29 +183,24 @@ export default {
     <div class="popup-container" v-if="isLastPhase">
       <div class="popup-content">
         <div class="popup-header-2">
-          <h2>CROP COMPLETED</h2>
+          <h2>{{ $t('pop-up.crop_finished') }}</h2>
         </div>
         <div class="popup-body-2">
           <br>
-          <p style="text-align: center;">The cultivation started on {{ start_date }} has successfully completed all
-            stages, the records were filled in the section <strong>"Control Panel", Crop History"</strong></p>
+          <p class="text-center">{{$t('pop-up.the_crop_started_on')}} {{ start_date }} {{$t('pop-up.has_completed_all_phases')}}</p>
         </div>
 
         <div class="popup-footer">
           <router-link to="/dashboard">
             <button-primary
                 class="text-center mt-3 mx-auto"
-                :text="' Accept and return to the main Menu'"
+                :text="$t('pop-up.confirm')"
                 :buttonColor="'var(--primary-green)'"
                 :buttonTextColor="'var(--primary-white)'"
                 :buttonBorderColor="'var(--primary-green)'"
-                @click="closeNotification()"
-            >
+                @click="closeNotification()">
             </button-primary>
           </router-link>
-
-
-
         </div>
       </div>
     </div>

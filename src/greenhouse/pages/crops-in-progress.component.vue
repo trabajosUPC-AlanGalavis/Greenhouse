@@ -1,15 +1,16 @@
 <script>
-import {HarvestingApiService} from "@/greenhouse/services/harvesting-api.service";
+import {CropApiService} from "@/greenhouse/services/crop-api.service";
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import {FilterMatchMode, FilterOperator} from "primevue/api";
+import {date} from "yup";
 
 export default {
-  name: "harvesting-in-progress",
+  name: "crops-in-progress",
   components: {ButtonPrimary},
 
   data() {
     return {
-      cropApiService: new HarvestingApiService(),
+      cropApiService: new CropApiService(),
       cropsData: [],
       selectedCrop: null,
       newCrop: {},
@@ -17,8 +18,8 @@ export default {
       showPopup: false,
       crop_id: 0,
       filters: {
-        global: { value: null, matchMode: FilterMatchMode.CONTAINS},
-        date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+        global: {value: null, matchMode: FilterMatchMode.CONTAINS},
+        date: {operator: FilterOperator.AND, constraints: [{value: null, matchMode: FilterMatchMode.DATE_IS}]},
       },
     }
   },
@@ -27,16 +28,39 @@ export default {
   },
   methods: {
     getCropData() {
-      this.cropApiService.getCropData().then((response) => {
+      this.cropApiService.getCropData(1).then((response) => {
         this.cropsData = response.data;
+        console.log(this.cropsData);
         this.cropQuantity = this.cropsData.length;
-        this.cropsData = this.cropsData.filter(data => (data.state === 'active'));
+        this.cropsData = this.cropsData.filter(data => (data.state === true));
+        this.cropsData.forEach(data => {
+          data.startDate = this.formatDate(data.startDate);
+        });
         this.crop_id = this.cropQuantity + 1;
       })
     },
+    formatDate(originalDate) {
+      // Parse the original date string
+      const dateObject = new Date(originalDate);
+
+      // Extract the relevant parts
+      const year = dateObject.getFullYear();
+      const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+      const day = String(dateObject.getDate()).padStart(2, "0");
+
+      // Form the formatted date string
+      return`${year}-${month}-${day}`;
+    },
+
+    formatPhase(){
+      if(this.selectedCrop.phase === "Preparation Area"){
+        this.selectedCrop.phase = "PreparationArea";
+      }
+    },
 
     onRowSelect() {
-      if (this.selectedCrop){
+      if (this.selectedCrop) {
+        this.formatPhase()
         this.$router.push({
           name: 'stepper',
           params: {
@@ -47,35 +71,27 @@ export default {
       }
     },
 
-    saveNewCrop(){
-      this.buildNewCrop();
+    saveNewCrop() {
+      //this.buildNewCrop();
       this.cropApiService
-          .createCropData(this.newCrop)
+          .createCropData(1)//default company id
           .then((response) => {
-            this.cropsData.push(this.newCrop);
+            this.cropsData.push(response.data);
             console.log(response);
           }).catch(error => {
-          console.error('Error saving new crop:', error);
+        console.error('Error saving new crop:', error);
       });
       this.newCrop = {};
     },
 
-    buildNewCrop(){
-      this.newCrop.id = this.cropQuantity+1;
+    /*buildNewCrop() {
+      this.newCrop.id = this.cropQuantity + 1;
       this.newCrop.company_id = 1;
       this.newCrop.start_date = this.formatDate(new Date());
       this.newCrop.end_date = "";
       this.newCrop.phase = "Stock";
       this.newCrop.state = "active";
-    },
-
-    formatDate(date) {
-      return date.toLocaleDateString('es', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    },
+    },*/
 
     openPopup() {
       this.showPopup = true;
@@ -91,7 +107,6 @@ export default {
 </script>
 
 <template>
-
   <pv-card class="card">
     <template #header>
       <div class="py-4">
@@ -104,10 +119,10 @@ export default {
         <template #header>
           <div class="searchbar text-center">
             <pv-input-text
-                class="bg-transparent border-transparent text-white"
+                class="bg-transparent border-transparent"
                 type="text"
                 v-model="filters['global'].value"
-                placeholder="Search harvest"/>
+                :placeholder="$t('crops-in-progress.search_crop')"/>
           </div>
         </template>
         <template #content>
@@ -129,9 +144,9 @@ export default {
               currentPageReportTemplate="{first} to {last} of {totalRecords}"
               sortMode="multiple">
             <pv-column field="id" header="Id"></pv-column>
-            <pv-column filter-field="date" dataType="date" header="Start Date" sortable='true'>
+            <pv-column filter-field="date" dataType="date" :header="$t('crops-in-progress.start_date')" sortable='true'>
               <template #body="{ data }">
-                {{data.start_date}}
+                {{ data.startDate }}
               </template>
               <template #filter="{ filterModel }">
                 <pv-calendar
@@ -141,7 +156,7 @@ export default {
                     mask="99/99/9999"/>
               </template>
             </pv-column>
-            <pv-column field="phase" header="Phase" sortable='true'></pv-column>
+            <pv-column field="phase" :header="$t('crops-in-progress.phase')" sortable='true'></pv-column>
           </pv-data-table>
           <div class="text-center">
             <button-primary
@@ -156,33 +171,31 @@ export default {
             <div class="popup-container" v-if="showPopup">
               <div class="popup-content">
                 <div class="popup-header">
-                  <h3>WARNING</h3>
+                  <h3>{{ $t('pop-up.warning') }}</h3>
                 </div>
                 <div class="popup-body">
                   <br>
-                  <p class="text-center mb-3">Do you want to start a new crop? It will be recorded as start date
+                  <p class="text-center mb-3">{{$t('pop-up.start_new_crop')}}
                     {{ formatDate(new Date()) }}</p>
                 </div>
                 <div class="popup-footer">
-                  <router-link :to="'/stepper/'+crop_id+'/Stock'">
+                  <router-link :to="'/stepper/'+crop_id+'/Formula'">
                     <button-primary
                         class="text-center mx-auto"
-                        :text="' Yes, Start'"
+                        :text="$t('pop-up.confirm')"
                         :buttonColor="'var(--primary-green)'"
                         :buttonTextColor="'var(--primary-white)'"
                         :buttonBorderColor="'var(--primary-green)'"
-                        @click="saveNewCrop()"
-                    >
+                        @click="saveNewCrop()">
                     </button-primary>
                   </router-link>
                   <button-primary
                       class="text-center mx-9"
-                      :text="' Cancel'"
+                      :text="$t('pop-up.cancel')"
                       :buttonColor="'var(--gray-2)'"
                       :buttonTextColor="'var(--primary-white)'"
                       :buttonBorderColor="'var(--gray-2)'"
-                      @click="closePopup()"
-                  >
+                      @click="closePopup()">
                   </button-primary>
                 </div>
               </div>
@@ -200,7 +213,7 @@ h2 {
   font-size: var(--heading-2-size);
 }
 
-.p-icon{
+.p-icon {
   color: black;
 }
 
@@ -216,7 +229,6 @@ h4 {
 }
 
 .searchbar {
-  background-color: var(--secondary-green-2);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -243,7 +255,7 @@ h4 {
   color: #626262;
   font-size: 16px;
   white-space: pre-wrap;
-  padding:10px;
+  padding: 10px;
 }
 
 .popup-content {
@@ -252,7 +264,7 @@ h4 {
 
   border-radius: 25px;
   text-align: center;
-  padding-bottom:40px;
+  padding-bottom: 40px;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -271,7 +283,7 @@ h4 {
 .popup-header {
   background-color: #4A845B;
   text-align: center;
-  padding:15px;
+  padding: 15px;
   border-radius: 20px 20px 0 0;
 
 }
@@ -292,7 +304,12 @@ h4 {
 }
 
 .popup-footer .btn.close {
-  background-color: #D9D9D9 ;
+  background-color: #D9D9D9;
   color: black;
+}
+
+:deep(th) {
+  background-color: var(--secondary-green-2) !important;
+  color: var(--white) !important;
 }
 </style>

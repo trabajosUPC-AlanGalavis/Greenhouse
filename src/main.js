@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia';
+import store from './store';
 import App from './App.vue'
 import ToastService from "primevue/toastservice";
 import PrimeVue from "primevue/config";
+
 // App Theme
 import 'primevue/resources/themes/md-light-indigo/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -24,12 +27,14 @@ import Dialog from 'primevue/dialog';
 import Dropdown from "primevue/dropdown";
 import InputText from 'primevue/inputtext';
 import Calendar from "primevue/calendar";
+
 //Router
 import router from "@/router";
 //Localization
 import en from "@/locales/en.json";
 import es from "@/locales/es.json";
 import {createI18n} from 'vue-i18n'
+
 
 const i18n = createI18n({
     legacy : false,
@@ -39,6 +44,8 @@ const i18n = createI18n({
         es: es,
     }
 })
+
+const pinia = createPinia();
 
 createApp(App)
     .use(PrimeVue, { ripple: true })
@@ -60,4 +67,6 @@ createApp(App)
     .component('pv-calendar', Calendar)
     .use(router)
     .use(i18n)
+    .use(pinia)
+    .use(store)
     .mount('#app')

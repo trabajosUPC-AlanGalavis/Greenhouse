@@ -1,5 +1,5 @@
 <script>
-import {EmployeeApiService} from "@/profiles/services/employee-api.service";
+import {UserApiService} from "@/profiles/services/user-api.service";
 import {CompanyApiService} from "@/profiles/services/company-api.service";
 
 export default {
@@ -21,7 +21,7 @@ export default {
     };
   },
   created() {
-    this.employeeApi = new EmployeeApiService();
+    this.employeeApi = new UserApiService();
     this.employeeApi.getUsers()
         .then((response) => {
           const first_name = response.data[0].first_name;
@@ -54,12 +54,12 @@ export default {
   <nav class="header relative flex flex-wrap items-center justify-between pt-3 pb-2 mb-3">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
-        <router-link to="/">
+        <router-link to="/dashboard">
           <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap items-center">
             <img src="/logo-white.png" alt="logo" width="20" height="20" class="mr-2">
             <p>Greenhouse</p>
           </div>
-        </router-link>
+        </router-link >
         <button class="cursor-pointer leading-none rounded block lg:hidden outline-none focus:outline-none"
                 type="button" @click="toggleNavbar">
           <i class="fa fa-bars"></i>
@@ -81,7 +81,7 @@ export default {
             </div>
           </li>
           <li class="nav-item">
-            <router-link to="/company">
+            <router-link v-if="!($route.path.includes('/login') || $route.path.includes('/signup'))" to="/company">
               <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar :image="company_image" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>{{ company_name }}</p>
@@ -89,7 +89,7 @@ export default {
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile">
+            <router-link v-if="!($route.path.includes('/login') || $route.path.includes('/signup'))" to="/profile">
               <div class="px-3 py-2 items-center font-bold ml-2 flex">
                   <pv-avatar :image="user_image" shape="circle" class="border-2 border-b-white mr-2"/>
                   <p>{{ full_name }}</p>

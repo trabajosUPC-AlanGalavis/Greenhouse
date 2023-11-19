@@ -2,6 +2,7 @@
 import {CropApiService} from "@/greenhouse/services/crop-api.service";
 import ButtonPrimary from "@/greenhouse/components/button-primary.component.vue";
 import {FilterMatchMode, FilterOperator} from "primevue/api";
+import {date} from "yup";
 
 export default {
   name: "crops-in-progress",
@@ -27,16 +28,39 @@ export default {
   },
   methods: {
     getCropData() {
-      this.cropApiService.getCropData().then((response) => {
+      this.cropApiService.getCropData(1).then((response) => {
         this.cropsData = response.data;
+        console.log(this.cropsData);
         this.cropQuantity = this.cropsData.length;
-        this.cropsData = this.cropsData.filter(data => (data.state === 'active'));
+        this.cropsData = this.cropsData.filter(data => (data.state === true));
+        this.cropsData.forEach(data => {
+          data.startDate = this.formatDate(data.startDate);
+        });
         this.crop_id = this.cropQuantity + 1;
       })
+    },
+    formatDate(originalDate) {
+      // Parse the original date string
+      const dateObject = new Date(originalDate);
+
+      // Extract the relevant parts
+      const year = dateObject.getFullYear();
+      const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+      const day = String(dateObject.getDate()).padStart(2, "0");
+
+      // Form the formatted date string
+      return`${year}-${month}-${day}`;
+    },
+
+    formatPhase(){
+      if(this.selectedCrop.phase === "Preparation Area"){
+        this.selectedCrop.phase = "PreparationArea";
+      }
     },
 
     onRowSelect() {
       if (this.selectedCrop) {
+        this.formatPhase()
         this.$router.push({
           name: 'stepper',
           params: {
@@ -48,11 +72,11 @@ export default {
     },
 
     saveNewCrop() {
-      this.buildNewCrop();
+      //this.buildNewCrop();
       this.cropApiService
-          .createCropData(this.newCrop)
+          .createCropData(1)//default company id
           .then((response) => {
-            this.cropsData.push(this.newCrop);
+            this.cropsData.push(response.data);
             console.log(response);
           }).catch(error => {
         console.error('Error saving new crop:', error);
@@ -60,22 +84,14 @@ export default {
       this.newCrop = {};
     },
 
-    buildNewCrop() {
+    /*buildNewCrop() {
       this.newCrop.id = this.cropQuantity + 1;
       this.newCrop.company_id = 1;
       this.newCrop.start_date = this.formatDate(new Date());
       this.newCrop.end_date = "";
       this.newCrop.phase = "Stock";
       this.newCrop.state = "active";
-    },
-
-    formatDate(date) {
-      return date.toLocaleDateString('es', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    },
+    },*/
 
     openPopup() {
       this.showPopup = true;
@@ -130,7 +146,7 @@ export default {
             <pv-column field="id" header="Id"></pv-column>
             <pv-column filter-field="date" dataType="date" :header="$t('crops-in-progress.start_date')" sortable='true'>
               <template #body="{ data }">
-                {{ data.start_date }}
+                {{ data.startDate }}
               </template>
               <template #filter="{ filterModel }">
                 <pv-calendar
@@ -163,7 +179,7 @@ export default {
                     {{ formatDate(new Date()) }}</p>
                 </div>
                 <div class="popup-footer">
-                  <router-link :to="'/stepper/'+crop_id+'/Stock'">
+                  <router-link :to="'/stepper/'+crop_id+'/Formula'">
                     <button-primary
                         class="text-center mx-auto"
                         :text="' Yes, Start'"

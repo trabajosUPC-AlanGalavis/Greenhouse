@@ -1,27 +1,19 @@
-import http2 from "@/shared/services/http-common2";
+import http2 from "@/shared/services/http-common";
 
 export class CropApiService {
-    getCropData(){
-        return http2.get('/crops')
+    getCropData(companyId) {
+        return http2.get(`${companyId}`)
     }
 
     getCropDataById(id){
-        return http2.get(`/crops/${id}`)
+        return http2.get(`${id}`)
     }
 
-    createCropData(data) {
-        return http2.post('/crops', data)
+    createCropData(companyId) {
+        return http2.post(`${companyId}`)
     }
 
     updateCurrentPhase(cropId, newPhase) {
-        return http2.patch(`/crops/${cropId}`, {
-            phase: newPhase
-        })
-    }
-
-    updateCropState(cropId){
-        return http2.patch(`/crops/${cropId}`, {
-            state: 'finished'
-        })
+        return http2.patch(`${cropId}`)
     }
 }

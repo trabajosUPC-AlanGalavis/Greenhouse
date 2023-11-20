@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default axios.create({
     //baseURL: 'https://my-json-server.typicode.com/CarloLSG/GreenhouseFakeAPI2',
-    baseURL: 'http://greenhouseupc-001-site1.ctempurl.com/api/v1/',
+    baseURL: 'https://greenhouse-web-api.azurewebsites.net/api/v1/',
     //baseURL: 'https://localhost:7170/api/v1/',
 
     headers: { 'Content-type': 'application/json'},

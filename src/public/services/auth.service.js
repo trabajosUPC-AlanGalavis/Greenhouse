@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //const API_URL = 'https://localhost:7170/api/v1/users/';
-const API_URL = 'http://greenhouseupc-001-site1.ctempurl.com/api/v1/users/';
+const API_URL = 'https://greenhouse-web-api.azurewebsites.net/api/v1/users/';
 
 class AuthService {
     login(user) {

@@ -65,7 +65,7 @@ export default {
   <nav class="header relative flex flex-wrap items-center justify-between pt-3 pb-2 mb-3">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
-        <router-link to="logoLink">
+        <router-link :to="logoLink">
           <div class="font-bold leading-relaxed flex mr-4 py-2 whitespace-nowrap items-center">
             <img src="/logo-white.png" alt="logo" width="20" height="20" class="mr-2">
             <p>Greenhouse</p>

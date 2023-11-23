@@ -26,7 +26,7 @@ export default {
 
       const loginSignupRoute = '/login';
 
-      const otherRoute = '/home';
+      const otherRoute = '/dashboard';
 
       return (currentRoute === '/login' || currentRoute === '/signup') ? loginSignupRoute : otherRoute;
     },
